@@ -6,7 +6,7 @@ import { ReactNode } from "react";
 
 type CardProps = {
   id: string;
-  title: string;
+  header: ReactNode;
   active: boolean;
   onClick: () => void;
   onClose: () => void;
@@ -14,57 +14,71 @@ type CardProps = {
 };
 
 export default function Card({
-  title,
+  id,
+  header,
   active,
   onClick,
   onClose,
   children,
 }: CardProps) {
+  const expandedPosition = {
+    about: "absolute top-0 left-0",
+    work: "absolute top-0 right-0",
+    contact: "absolute bottom-0 right-0",
+  }[id];
+
   return (
     <motion.div
       layout
       transition={{
         layout: {
           type: "spring",
-          stiffness: 150,
-          damping: 20,
+          stiffness: 170,
+          damping: 22,
         },
       }}
-      onClick={() => {
-        if (!active) onClick();
-      }}
+      onClick={() => !active && onClick()}
       className={`
-        rounded-3xl
+        rounded-[32px]
         border
         border-zinc-800
-        bg-zinc-950
+        bg-[#09090B]
+        shadow-2xl
         overflow-hidden
-        shadow-xl
 
         ${
           active
-            ? "absolute inset-0 z-50 w-[850px] h-[620px]"
-            : "relative w-full h-full"
+            ? `
+              ${expandedPosition}
+              z-50
+              w-[clamp(340px,92vw,900px)]
+              h-[clamp(480px,88vh,700px)]
+            `
+            : `
+              relative
+             w-[40vw] md:w-[30vw]
+             h-full
+            `
         }
       `}
     >
-      <div className="relative h-full p-6">
-        <div className="flex items-center justify-between">
-          <h2 className="font-mono text-2xl font-semibold text-white">
-            {active ? `<${title}>` : `<${title} />`}
-          </h2>
+      <div className="relative flex h-full flex-col p-7">
+        {/* Header */}
+        <div className="relative">
+          {header}
 
           <AnimatePresence>
             {active && (
               <motion.button
-                initial={{ opacity: 0, rotate: -90 }}
-                animate={{ opacity: 1, rotate: 0 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, scale: 0.7, rotate: -90 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.7 }}
+                transition={{ duration: 0.25 }}
                 onClick={(e) => {
                   e.stopPropagation();
                   onClose();
                 }}
-                className="rounded-full border border-zinc-700 p-2 hover:bg-zinc-800"
+                className="absolute right-0 top-0 flex h-10 w-10 items-center justify-center rounded-full border border-zinc-700 bg-zinc-900/90 backdrop-blur transition hover:bg-zinc-800"
               >
                 <X size={18} />
               </motion.button>
@@ -72,20 +86,17 @@ export default function Card({
           </AnimatePresence>
         </div>
 
+        {/* Expanded Content */}
         <AnimatePresence>
           {active && (
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ delay: 0.15 }}
-              className="mt-8"
+              className="mt-8 flex-1 overflow-hidden"
             >
               {children}
-
-              <div className="mt-12 font-mono text-zinc-500">
-                {`</${title}>`}
-              </div>
             </motion.div>
           )}
         </AnimatePresence>
