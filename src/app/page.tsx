@@ -12,7 +12,7 @@ export default function Home() {
       <div className="flex items-center justify-center h-100  w-full max-w-7xl grid-cols-3 grid-rows-2 gap-6">
         {/* ABOUT */}
         <div
-          className={`${active && "-mt-65 -ml-80"} relative col-span-2 row-span-2 h-full `}
+          className={`${active && "-mt-60 -ml-40 md:-ml-80"} relative col-span-2 row-span-2 h-full `}
         >
           <Card
             id="about"
@@ -59,7 +59,7 @@ export default function Home() {
 
         <div className="col-span-1 row-span-1 h-full flex flex-col justify-between gap-6">
           {/* WORK */}
-          <div className={`${active && "-mt-33   "} relative h-100`}>
+          <div className={`${active && "-mt-30  -mr-10  "} relative h-100`}>
             <Card
               id="work"
               active={active === "work"}
@@ -92,7 +92,7 @@ export default function Home() {
 
                 <div className="rounded-xl bg-zinc-900 p-4">
                   Portfolio Website
-                </div>
+                </div> 
 
                 <div className="rounded-xl bg-zinc-900 p-4">
                   E-Commerce Platform
@@ -102,7 +102,7 @@ export default function Home() {
           </div>
 
           {/* CONTACT */}
-          <div className={`${active && "-mb-40 "} relative h-20`}>
+          <div className={`${active && "-mb-34 -mr-12  "} relative h-20`}>
             {" "}
             <Card
               id="contact"

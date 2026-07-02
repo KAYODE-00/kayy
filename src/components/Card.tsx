@@ -51,7 +51,8 @@ export default function Card({
             ? `
               ${expandedPosition}
               z-50
-              w-[clamp(340px,92vw,900px)]
+              w-[clamp(60vw,72vw,1000px)]
+              md:w-[clamp(340px,92vw,900px)]
               h-[clamp(480px,88vh,700px)]
             `
             : `
