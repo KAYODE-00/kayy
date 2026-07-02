@@ -3,16 +3,18 @@
 import { useState } from "react";
 import Image from "next/image";
 import Card from "@/components/Card";
+import About from "@/components/About";
+import Work from "@/components/Work";
 
 export default function Home() {
   const [active, setActive] = useState("");
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-black p-6 md:p-10">
-      <div className="flex items-center justify-center h-100  w-full max-w-7xl grid-cols-3 grid-rows-2 gap-6">
+      <div className="flex items-center justify-center h-100  w-full max-w-7xl grid-cols-3 grid-rows-2 gap-4">
         {/* ABOUT */}
         <div
-          className={`${active && "-mt-60 -ml-40 md:-ml-80"} relative col-span-2 row-span-2 h-full `}
+          className={`${active === "about" && " bottom-34 -ml-33 md:-ml-130 "} relative col-span-2 row-span-2 h-full `}
         >
           <Card
             id="about"
@@ -20,46 +22,32 @@ export default function Home() {
             onClick={() => setActive("about")}
             onClose={() => setActive("")}
             header={
-              <div className="space-y-4">
-                <span className="font-mono text-sm text-zinc-500">
-                  app/about.tsx
-                </span>
-
-                <div className="rounded-2xl bg-zinc-900 p-5 font-mono text-sm leading-7">
-                  <span className="text-violet-400">const</span>{" "}
-                  <span className="text-blue-400">developer</span>{" "}
-                  <span className="text-white">=</span> {"{"}
-                  <br />
-                  &nbsp;&nbsp;name:
-                  <span className="text-green-400"> "Kayode"</span>,
-                  <br />
-                  &nbsp;&nbsp;role:
-                  <span className="text-green-400">
-                    {" "}
-                    "Full Stack Developer"
-                  </span>
-                  ,
-                  <br />
-                  &nbsp;&nbsp;location:
-                  <span className="text-green-400"> "Nigeria"</span>,
-                  <br />
-                  {"}"}
+              <div className={` ${active === "about" && " hidden "} `}>
+                <div>
+                  <img src="/developer.png" alt="" className="h-50" />
+                </div>
+                <div className="rounded-2xl  p-5 font-mono text-sm leading-7">
+                  <h1 className="text-2xl font-bold text-white">
+                    Hi, I'm Kayode
+                  </h1>
+                  <p className="mt-3 text-zinc-400">
+                    He who codes, learns, and creates.
+                  </p>
                 </div>
               </div>
             }
           >
-            <h1 className="text-5xl font-bold text-white">Hi, I'm Kayode 👋</h1>
-
-            <p className="mt-6 max-w-2xl text-lg leading-8 text-zinc-400">
-              I build modern web applications with Next.js, React, TypeScript,
-              Tailwind CSS and AI technologies.
-            </p>
+            <div>
+              <About />
+            </div>
           </Card>
         </div>
 
-        <div className="col-span-1 row-span-1 h-full flex flex-col justify-between gap-6">
+        <div className="col-span-1 row-span-1 h-full flex flex-col justify-between gap-4">
           {/* WORK */}
-          <div className={`${active && "-mt-30  -mr-10  "} relative h-100`}>
+          <div
+            className={`${active === "work" && " bottom-34 "} relative h-100`}
+          >
             <Card
               id="work"
               active={active === "work"}
@@ -81,28 +69,12 @@ export default function Home() {
                 </div>
               }
             >
-              <h2 className="mb-6 text-3xl font-bold text-white">
-                My Projects
-              </h2>
-
-              <div className="space-y-4">
-                <div className="rounded-xl bg-zinc-900 p-4">
-                  AI SaaS Dashboard
-                </div>
-
-                <div className="rounded-xl bg-zinc-900 p-4">
-                  Portfolio Website
-                </div> 
-
-                <div className="rounded-xl bg-zinc-900 p-4">
-                  E-Commerce Platform
-                </div>
-              </div>
+  <Work/>
             </Card>
           </div>
 
           {/* CONTACT */}
-          <div className={`${active && "-mb-34 -mr-12  "} relative h-20`}>
+          <div className={`${active && "top-30 "} relative h-20`}>
             {" "}
             <Card
               id="contact"

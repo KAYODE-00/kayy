@@ -52,7 +52,7 @@ export default function Card({
               ${expandedPosition}
               z-50
               w-[clamp(60vw,72vw,1000px)]
-              md:w-[clamp(340px,92vw,900px)]
+              md:w-[clamp(370px,95vw,1000px)]
               h-[clamp(480px,88vh,700px)]
             `
             : `
@@ -95,7 +95,7 @@ export default function Card({
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0 }}
               transition={{ delay: 0.15 }}
-              className="mt-8 flex-1 overflow-hidden"
+              className="mt-8 flex-1 overflow-scroll scrollbar-hide scroll-fade"
             >
               {children}
             </motion.div>
