@@ -14,7 +14,7 @@ export default function Home() {
       <div className="flex items-center justify-center h-100  w-full max-w-7xl grid-cols-3 grid-rows-2 gap-4">
         {/* ABOUT */}
         <div
-          className={`${active === "about" && " bottom-34 -ml-33 md:-ml-130 "} relative col-span-2 row-span-2 h-full `}
+          className={`relative col-span-2 row-span-2 h-full `}
         >
           <Card
             id="about"
@@ -22,7 +22,7 @@ export default function Home() {
             onClick={() => setActive("about")}
             onClose={() => setActive("")}
             header={
-              <div className={` ${active === "about" && " hidden "} `}>
+              <div className={`${active === "about" && " hidden "} relative col-span-2 row-span-2 h-full`}>
                 <div>
                   <img src="/developer.png" alt="" className="h-50" />
                 </div>
@@ -45,16 +45,15 @@ export default function Home() {
 
         <div className="col-span-1 row-span-1 h-full flex flex-col justify-between gap-4">
           {/* WORK */}
-          <div
-            className={`${active === "work" && " bottom-34 "} relative h-100`}
-          >
+          <div className="relative h-100">
             <Card
               id="work"
               active={active === "work"}
               onClick={() => setActive("work")}
               onClose={() => setActive("")}
               header={
-                <div>
+              <div className={`${active === "work" && " hidden "} relative h-20`}>
+                  {" "}
                   <Image
                     src="/projects/project1.png"
                     alt="Project Preview"
@@ -62,19 +61,18 @@ export default function Home() {
                     height={300}
                     className="h-44 w-full rounded-2xl object-cover"
                   />
-
                   <p className="mt-3 font-mono text-zinc-400">
                     Featured Project
                   </p>
                 </div>
               }
             >
-  <Work/>
+              <Work />
             </Card>
           </div>
 
           {/* CONTACT */}
-          <div className={`${active && "top-30 "} relative h-20`}>
+          <div className="relative h-20">
             {" "}
             <Card
               id="contact"
@@ -82,7 +80,7 @@ export default function Home() {
               onClick={() => setActive("contact")}
               onClose={() => setActive("")}
               header={
-                <div className="rounded-2xl bg-zinc-900 p-5 font-mono text-sm leading-7">
+              <div className={`${active === "contact" && " hidden "}`}>
                   <span className="text-violet-400">const</span>{" "}
                   <span className="text-blue-400">contact</span> = {"{"}
                   <br />
@@ -98,16 +96,7 @@ export default function Home() {
                 </div>
               }
             >
-              <h2 className="mb-6 text-3xl font-bold text-white">
-                Let's Connect
-              </h2>
-
-              <div className="space-y-3 text-zinc-300">
-                <p>📧 kayode@email.com</p>
-                <p>💼 LinkedIn</p>
-                <p>🐙 GitHub</p>
-                <p>𝕏 Twitter</p>
-              </div>
+        <Contact/>
             </Card>
           </div>
         </div>

@@ -17,7 +17,7 @@ const fadeUp = {
 
 const About = () => {
   return (
-<section className="mx-auto max-w-7xl px-6 py-20">
+<section className="mx-auto md:max-w-7xl   ">
   <motion.div
     variants={fadeUp}
     initial="hidden"
