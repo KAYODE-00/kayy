@@ -23,6 +23,7 @@ import {
   SiVercel,
   SiFramer,
 } from "react-icons/si";
+
 import { MdEmail } from "react-icons/md";
 
 export const socials = [
