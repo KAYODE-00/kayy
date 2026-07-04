@@ -2,13 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-  ArrowDown,
-  ArrowUp,
-  ArrowUpRight,
-  Pause,
-  Play,
-} from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpRight, Pause, Play } from "lucide-react";
 
 import {
   SiNextdotjs,
@@ -21,9 +15,14 @@ import {
   SiFramer,
 } from "react-icons/si";
 
+import { FolderKanban, Users, Blocks } from "lucide-react";
+import { div } from "framer-motion/m";
+import { FaGithub } from "react-icons/fa6";
+
 const projects = [
   {
     title: "AI SaaS Dashboard",
+    type: "personal",
     image: "/projects/project1.png",
     description:
       "Analytics dashboard powered by AI with authentication and payments.",
@@ -38,6 +37,7 @@ const projects = [
   },
   {
     title: "E-Commerce Platform",
+    type: "collab",
     image: "/projects/project2.png",
     description:
       "Modern ecommerce platform with Stripe checkout and admin dashboard.",
@@ -51,6 +51,7 @@ const projects = [
   },
   {
     title: "Portfolio Website",
+    type: "nocode",
     image: "/projects/project3.png",
     description:
       "Minimal portfolio built with Framer Motion and Bento layouts.",
@@ -78,12 +79,15 @@ const fadeUp = {
 export default function Work() {
   const [current, setCurrent] = useState(0);
   const [playing, setPlaying] = useState(true);
+  const [category, setCategory] = useState<"personal" | "nocode" | "collab">(
+    "personal",
+  );
 
   useEffect(() => {
     if (!playing) return;
 
     const interval = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % projects.length);
+      setCurrent((prev) => (prev + 1) % filteredProjects.length);
     }, 3000);
 
     return () => clearInterval(interval);
@@ -93,24 +97,80 @@ export default function Work() {
     setPlaying((prev) => !prev);
   };
 
-  const next = () =>
-    setCurrent((prev) => (prev + 1) % projects.length);
+  const next = () => setCurrent((prev) => (prev + 1) % filteredProjects.length);
 
   const prev = () =>
-    setCurrent((prev) => (prev - 1 + projects.length) % projects.length);
+    setCurrent(
+      (prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length,
+    );
+  const filteredProjects = projects.filter(
+    (project) => project.type === category,
+  );
 
-  const project = projects[current];
+  useEffect(() => {
+    setCurrent(0);
+  }, [category]);
+
+  const project = filteredProjects[current];
   return (
     <section className="relative mx-auto max-w-7xl py-10">
-      <motion.h1
-        variants={fadeUp}
-        initial="hidden"
-        animate="show"
-        className="mb-10 text-5xl font-bold"
-      >
-        Work
-      </motion.h1>
+      <div className="mb-10 flex items-center justify-between">
+        <motion.h1
+          variants={fadeUp}
+          initial="hidden"
+          animate="show"
+          className="text-5xl font-bold"
+        >
+          Work
+        </motion.h1>
 
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setCategory("personal")}
+            className={`group relative rounded-xl border p-3 transition ${
+              category === "personal"
+                ? "border-white bg-white text-black"
+                : "border-zinc-800 bg-zinc-900 hover:bg-zinc-800"
+            }`}
+          >
+            <FolderKanban size={18} />
+
+            <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
+              Personal
+            </span>
+          </button>
+
+          <button
+            onClick={() => setCategory("nocode")}
+            className={`group relative rounded-xl border p-3 transition ${
+              category === "nocode"
+                ? "border-white bg-white text-black"
+                : "border-zinc-800 bg-zinc-900 hover:bg-zinc-800"
+            }`}
+          >
+            <Blocks size={18} />
+
+            <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
+              No-Code
+            </span>
+          </button>
+
+          <button
+            onClick={() => setCategory("collab")}
+            className={`group relative rounded-xl border p-3 transition ${
+              category === "collab"
+                ? "border-white bg-white text-black"
+                : "border-zinc-800 bg-zinc-900 hover:bg-zinc-800"
+            }`}
+          >
+            <Users size={18} />
+
+            <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
+              Collaboration
+            </span>
+          </button>
+        </div>
+      </div>
       <div className="relative overflow-hidden rounded-3xl">
         <AnimatePresence mode="wait">
           <motion.div
@@ -182,26 +242,30 @@ export default function Work() {
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
-                <div className="absolute bottom-6 left-6 flex gap-4">
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-medium text-black transition hover:scale-105"
-                  >
-                    Live Demo
-                    <ArrowUpRight size={18} />
-                  </a>
+              <div className="absolute bottom-6 left-6 flex gap-4">
+  {project.live && (
+    <a
+      href={project.live}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-medium text-black transition hover:scale-105"
+    >
+     
+      <ArrowUpRight size={18} />
+    </a>
+  )}
 
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-medium text-white backdrop-blur-md transition hover:bg-white hover:text-black"
-                  >
-                    GitHub
-                  </a>
-                </div>
+  {project.github && (
+    <a
+      href={project.github}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-medium text-white backdrop-blur-md transition hover:bg-white hover:text-black"
+    >
+      <FaGithub size={18} />
+    </a>
+  )}
+</div>
               </div>
             </div>
           </motion.div>
@@ -244,7 +308,7 @@ export default function Work() {
           <span className="mx-2 text-zinc-600">/</span>
 
           <span className="text-zinc-500">
-            {String(projects.length).padStart(2, "0")}
+            {String(filteredProjects.length).padStart(2, "0")}{" "}
           </span>
         </div>
       </div>

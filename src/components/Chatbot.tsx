@@ -52,13 +52,9 @@ export default function ChatBot() {
         </div>
 
         <div>
-          <h2 className="font-semibold text-white">
-            Kayode AI
-          </h2>
+          <h2 className="font-semibold text-white">Kayode AI</h2>
 
-          <p className="text-sm text-zinc-500">
-            Powered by AI
-          </p>
+          <p className="text-sm text-zinc-500">Powered by AI</p>
         </div>
       </div>
 
@@ -70,9 +66,7 @@ export default function ChatBot() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className={`flex ${
-              msg.role === "user"
-                ? "justify-end"
-                : "justify-start"
+              msg.role === "user" ? "justify-end" : "justify-start"
             }`}
           >
             <div
@@ -83,10 +77,7 @@ export default function ChatBot() {
               }`}
             >
               {msg.role === "ai" && (
-                <Bot
-                  size={15}
-                  className="mb-2 text-zinc-400"
-                />
+                <Bot size={15} className="mb-2 text-zinc-400" />
               )}
 
               {msg.text}

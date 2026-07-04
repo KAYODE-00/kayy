@@ -16,6 +16,8 @@ type CardProps = {
 export default function Card({
   header,
   active,
+  id,
+  contact,
   onClick,
   onClose,
   children,
@@ -70,14 +72,15 @@ export default function Card({
               `
               : `
                 relative
-                h-full
-                w-[40vw]
+             
+                ${id=== "contact" ? "h-20" : "   h-full"}
+                w-[45vw]
                 md:w-[30vw]
               `
           }
         `}
       >
-        <div className="relative flex h-full flex-col p-7">
+        <div className={`relative flex h-full flex-col ${!active ? "p-3" : "p-7"}`}>
           {/* Header */}
           <div className="relative">
             {header}

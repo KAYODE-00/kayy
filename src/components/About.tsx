@@ -1,5 +1,6 @@
 import { socials, tools } from "@/data/data";
 import { motion } from "framer-motion";
+import { Download } from "lucide-react";
 
 const fadeUp = {
   hidden: {
@@ -96,7 +97,21 @@ const About = () => {
               </span>
             </a>
           );
-        })}
+        })}    <a
+    href="/resume.pdf"
+    download
+    className="group relative flex items-center gap-3 rounded-xl border border-zinc-700 bg-zinc-900 px-5 py-3 transition-all hover:border-white hover:bg-white hover:text-black"
+  >
+    <Download size={18} />
+
+    <span className="text-sm font-medium">
+      Resume
+    </span>
+
+    <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-700 px-3 py-1 text-xs text-white opacity-0 transition-all duration-200 group-hover:-translate-y-1 group-hover:opacity-100">
+      Download Resume
+    </span>
+  </a>
       </div>
     </motion.div>
 
