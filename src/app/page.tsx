@@ -62,8 +62,6 @@ export default function Home() {
       active === "about" ? "hidden" : ""
     } relative overflow-hidden rounded-[28px]`}
   >
-    {/* Background */}
-    <div className="absolute inset-0 rounded-[28px] bg-gradient-to-br from-zinc-900 via-zinc-950 to-black" />
 
     {/* Glow */}
     <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-white/5 blur-3xl" />
@@ -81,7 +79,7 @@ export default function Home() {
       </div>
 
       {/* Image */}
-      <div className="mt-6 flex justify-center">
+      <div className=" flex justify-center -mt-8">
         <img
           src="/developer.png"
           alt="Kayode"
@@ -90,12 +88,12 @@ export default function Home() {
       </div>
 
       {/* Text */}
-      <div className="mt-6">
-        <p className="mb-2 text-xs uppercase tracking-[0.35em] text-zinc-500">
+      <div className="-mt-7">
+        {/* <p className="mb-2 text-xs uppercase tracking-[0.35em] text-zinc-500">
           Full Stack Developer
-        </p>
+        </p> */}
 
-        <h1 className="text-4xl font-bold leading-tight text-white">
+        <h1 className="text-2xl font-bold leading-tight text-white">
           Hi, I'm{" "}
           <span className="text-zinc-300">
             Kayode
@@ -119,17 +117,8 @@ export default function Home() {
           </AnimatePresence>
         </div>
 
-        <div className="mt-6 flex items-center gap-3">
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-2">
-            <p className="text-xs text-zinc-500">Experience</p>
-            <p className="font-semibold text-white">3+ Years</p>
-          </div>
-
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900 px-4 py-2">
-            <p className="text-xs text-zinc-500">Projects</p>
-            <p className="font-semibold text-white">25+</p>
-          </div>
-        </div>
+  
+     
       </div>
     </div>
   </div>

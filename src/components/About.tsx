@@ -37,28 +37,62 @@ const About = () => {
       whileInView="show"
       className="md:col-span-2 flex flex-col gap-8 rounded-3xl bg-zinc-900 p-8"
     >
-      <div className="flex flex-col gap-8 md:flex-row">
-        <img
-          src="/developer.png"
-          alt="Developer"
-          className="h-44 w-44 rounded-2xl object-cover"
-        />
+<div className="flex-1">
+  <p className="text-sm uppercase tracking-[0.3em] text-zinc-500">
+    About Me
+  </p>
 
-        <div>
-          <h1 className="text-3xl font-bold md:text-4xl">
-            Hi, I'm Kayode 👋
-          </h1>
+  <h1 className="mt-2 text-4xl font-bold">
+    Hi, I'm Kayode 👋
+  </h1>
 
-          <p className="mt-5 leading-8 text-zinc-400">
-            I'm a passionate software engineer focused on building responsive,
-            scalable, and engaging web applications with modern technologies.
-            I enjoy transforming ideas into clean digital experiences that users
-            love.
-          </p>
+  <p className="mt-6 leading-8 text-zinc-400">
+    I'm a full-stack developer who enjoys building modern web applications,
+    AI-powered products, and clean user experiences with performance in mind.
+  </p>
 
-          {/* Add more paragraphs here */}
-        </div>
-      </div>
+  {/* Stats */}
+  <div className="mt-8 grid grid-cols-2 gap-4">
+    <div className="rounded-2xl border border-zinc-800 bg-black/20 p-5">
+      <h2 className="text-3xl font-bold text-white">3+</h2>
+      <p className="mt-1 text-sm text-zinc-500">
+        Years Experience
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-zinc-800 bg-black/20 p-5">
+      <h2 className="text-3xl font-bold text-white">30+</h2>
+      <p className="mt-1 text-sm text-zinc-500">
+        Projects Delivered
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-zinc-800 bg-black/20 p-5">
+      <h2 className="text-3xl font-bold text-white">15+</h2>
+      <p className="mt-1 text-sm text-zinc-500">
+        Happy Clients
+      </p>
+    </div>
+
+    <div className="rounded-2xl border border-zinc-800 bg-black/20 p-5">
+      <h2 className="text-3xl font-bold text-white">99%</h2>
+      <p className="mt-1 text-sm text-zinc-500">
+        On-Time Delivery
+      </p>
+    </div>
+  </div>
+
+  <div className="mt-8 rounded-2xl border border-zinc-800 bg-black/20 p-5">
+    <h3 className="font-semibold text-white">
+      I Build
+    </h3>
+
+    <p className="mt-3 text-zinc-400 leading-7">
+      SaaS Platforms • AI Apps • Dashboards • Business Tools • Portfolio
+      Websites
+    </p>
+  </div>
+</div>
     </motion.div>
 
     {/* RIGHT COLUMN */}
