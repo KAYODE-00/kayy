@@ -1,6 +1,8 @@
 import { socials, tools } from "@/data/data";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Download } from "lucide-react";
+import { useEffect, useState } from "react";
+
 
 const fadeUp = {
   hidden: {
@@ -17,6 +19,31 @@ const fadeUp = {
 };
 
 const About = () => {
+
+
+
+  const builds = [
+  "SaaS Platforms",
+  "AI Applications",
+  "Admin Dashboards",
+  "Business Tools",
+  "Portfolio Websites",
+  "Landing Pages",
+  "E-commerce Stores",
+  "CMS Platforms",
+  "Developer Tools",
+  "Automation Systems",
+];
+
+const [buildIndex, setBuildIndex] = useState(0);
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    setBuildIndex((prev) => (prev + 1) % builds.length);
+  }, 2500);
+
+  return () => clearInterval(interval);
+}, []);
   return (
 <section className="mx-auto md:max-w-7xl   ">
   <motion.div
@@ -82,21 +109,38 @@ const About = () => {
     </div>
   </div>
 
-  <div className="mt-8 rounded-2xl border border-zinc-800 bg-black/20 p-5">
-    <h3 className="font-semibold text-white">
-      I Build
-    </h3>
 
-    <p className="mt-3 text-zinc-400 leading-7">
-      SaaS Platforms • AI Apps • Dashboards • Business Tools • Portfolio
-      Websites
-    </p>
+
+
+<div className="mt-8 rounded-2xl border border-zinc-800 bg-black/20 p-5">
+  <h3 className="font-semibold text-white">
+    I Build
+  </h3>
+
+  <div className="mt-4 h-8 overflow-hidden">
+    <AnimatePresence mode="wait">
+      <motion.p
+        key={builds[buildIndex]}
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        exit={{ opacity: 0, y: -20 }}
+        transition={{ duration: 0.35 }}
+        className="text-lg font-medium text-zinc-300"
+      >
+        {builds[buildIndex]}
+      </motion.p>
+    </AnimatePresence>
   </div>
 </div>
-    </motion.div>
 
-    {/* RIGHT COLUMN */}
-    <motion.div
+
+
+</div> 
+
+</motion.div>
+
+{/* RIGHT COLUMN */}
+<motion.div
       variants={fadeUp}
       initial="hidden"
       whileInView="show"

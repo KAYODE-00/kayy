@@ -79,7 +79,7 @@ export default function Home() {
       </div>
 
       {/* Image */}
-      <div className=" flex justify-center -mt-8">
+      <div className=" flex justify-center -mt-8 md:mt-5">
         <img
           src="/developer.png"
           alt="Kayode"
@@ -88,7 +88,7 @@ export default function Home() {
       </div>
 
       {/* Text */}
-      <div className="-mt-7">
+      <div className="-mt-7 md:mt-5">
         {/* <p className="mb-2 text-xs uppercase tracking-[0.35em] text-zinc-500">
           Full Stack Developer
         </p> */}
