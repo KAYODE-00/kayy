@@ -43,7 +43,7 @@ export default function Work() {
 
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % filteredProjects.length);
-    }, 3000);
+    }, 7000);
 
     return () => clearInterval(interval);
   }, [playing, filteredProjects.length]);
