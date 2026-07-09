@@ -124,52 +124,69 @@ export default function Work() {
           Work
         </motion.h1>
 
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setCategory("personal")}
-            className={`group relative rounded-xl border p-3 transition ${
-              category === "personal"
-                ? "border-white bg-white text-black"
-                : "border-zinc-800 bg-zinc-900 hover:bg-zinc-800"
-            }`}
-          >
-            <FolderKanban size={18} />
+<div className="flex items-center gap-3">
+  {/* Personal */}
+  <button
+    onClick={() => setCategory("personal")}
+    className={`group relative flex items-center gap-2 rounded-xl border p-3 transition-all duration-300 ease-in-out ${
+      category === "personal"
+        ? "border-white bg-white text-black"
+        : "border-zinc-800 bg-zinc-900 hover:bg-zinc-800 hover:border-zinc-700"
+    }`}
+  >
+       {category === "personal" && (
+      <span className="font-medium text-sm transition-all duration-300 ease-in-out">Personal</span>
+    )} <FolderKanban size={18} />
+    
+    {/* Show label only when active */}
 
-            <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
-              Personal
-            </span>
-          </button>
 
-          <button
-            onClick={() => setCategory("nocode")}
-            className={`group relative rounded-xl border p-3 transition ${
-              category === "nocode"
-                ? "border-white bg-white text-black"
-                : "border-zinc-800 bg-zinc-900 hover:bg-zinc-800"
-            }`}
-          >
-            <Blocks size={18} />
+    {/* Tooltip */}
+    <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
+      Personal
+    </span>
+  </button>
 
-            <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
-              No-Code
-            </span>
-          </button>
+  {/* No-Code */}
+  <button
+    onClick={() => setCategory("nocode")}
+    className={`group relative flex items-center gap-2 rounded-xl border p-3 transition-all duration-200 ${
+      category === "nocode"
+        ? "border-white bg-white text-black"
+        : "border-zinc-800 bg-zinc-900 hover:bg-zinc-800 hover:border-zinc-700"
+    }`}
+  >
+      {category === "nocode" && (
+      <span className="font-medium text-sm transition-all duration-300 ease-in-out">No-Code</span>
+    )}  <Blocks size={18} />
+    
 
-          <button
-            onClick={() => setCategory("collab")}
-            className={`group relative rounded-xl border p-3 transition ${
-              category === "collab"
-                ? "border-white bg-white text-black"
-                : "border-zinc-800 bg-zinc-900 hover:bg-zinc-800"
-            }`}
-          >
-            <Users size={18} />
 
-            <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
-              Collaboration
-            </span>
-          </button>
-        </div>
+    <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
+      No-Code
+    </span>
+  </button>
+
+  {/* Collaboration */}
+  <button
+    onClick={() => setCategory("collab")}
+    className={`group relative flex items-center gap-2 rounded-xl border p-3 transition-all duration-200 ${
+      category === "collab"
+        ? "border-white bg-white text-black"
+        : "border-zinc-800 bg-zinc-900 hover:bg-zinc-800 hover:border-zinc-700"
+    }`}
+  >
+ {category === "collab" && (
+      <span className="font-medium text-sm transition-all duration-300 ease-in-out">Collaboration</span>
+    )}    <Users size={18} />
+    
+   
+
+    <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
+      Collaboration
+    </span>
+  </button>
+</div>
       </div>
       <div className="relative overflow-hidden rounded-3xl">
         <AnimatePresence mode="wait">

@@ -214,6 +214,7 @@ const About = () => {
         </motion.div>
       </div>
       {/* GITHUB CONTRIBUTION GRAPH - Bottom */}
+      {/* GITHUB CONTRIBUTION GRAPH */}
       <motion.div
         variants={fadeUp}
         initial="hidden"
@@ -225,9 +226,10 @@ const About = () => {
         
         <div className="overflow-x-auto rounded-2xl bg-zinc-950 p-4 md:p-6 border border-zinc-800">
           <img
-            src={`https://ghchart.rshah.org/${githubUsername}`}
+            src={`https://ghchart.rshah.org/18181b/${githubUsername}`}
             alt="GitHub Contribution Graph"
-className="w-full max-w-full h-auto rounded-xl mx-auto scale-90 sm:scale-100 md:scale-100"            loading="lazy"
+            className="w-full max-w-full h-auto rounded-xl mx-auto scale-90 sm:scale-100 md:scale-100"
+            loading="lazy"
           />
         </div>
 
