@@ -94,7 +94,6 @@ export default function ChatBot() {
 
         <div>
           <h2 className="font-semibold text-white">Kayode AI</h2>
-          <p className="text-sm text-zinc-500">Powered by Groq</p>
         </div>
       </div>
 
