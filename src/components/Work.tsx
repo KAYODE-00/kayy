@@ -2,7 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowDown, ArrowUp, ArrowUpRight, Code2, Pause, Play } from "lucide-react";
+import {
+  ArrowDown,
+  ArrowUp,
+  ArrowUpRight,
+  Code2,
+  Pause,
+  Play,
+} from "lucide-react";
 import { FolderKanban, Users, Blocks } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 import { projects } from "@/data/data";
@@ -21,7 +28,9 @@ const fadeUp = {
 export default function Work() {
   const [current, setCurrent] = useState(0);
   const [playing, setPlaying] = useState(true);
-  const [category, setCategory] = useState<"personal" | "nocode" | "collab">("personal");
+  const [category, setCategory] = useState<"personal" | "nocode" | "collab">(
+    "personal",
+  );
 
   const filteredProjects = projects.filter(
     (project) => project.type === category,
@@ -50,7 +59,9 @@ export default function Work() {
 
   const prev = () => {
     if (filteredProjects.length === 0) return;
-    setCurrent((prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length);
+    setCurrent(
+      (prev) => (prev - 1 + filteredProjects.length) % filteredProjects.length,
+    );
   };
 
   useEffect(() => {
@@ -134,7 +145,7 @@ export default function Work() {
         </div>
       </div>
 
-      <div className="relative overflow-hidden rounded-3xl">
+      <div className="relative overflow-hidden ">
         <AnimatePresence mode="wait">
           {project ? (
             <motion.div
@@ -147,7 +158,9 @@ export default function Work() {
             >
               {/* Header */}
               <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                <h2 className="text-lg font-bold sm:text-3xl">{project.title}</h2>
+                <h2 className="text-lg font-bold sm:text-3xl">
+                  {project.title}
+                </h2>
 
                 {/* Stack Icons */}
                 <div className="flex flex-wrap gap-3">
