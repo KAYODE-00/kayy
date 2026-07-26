@@ -169,6 +169,7 @@ function Thumbnails({
 
 export function Skiper52() {
   const [index, setIndex] = useState(0);
+  const [active, setActive] = useState("");
   const [showAll, setShowAll] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -263,34 +264,29 @@ export function Skiper52() {
             >
               ›
             </button>
-          
+
           </div>
-          <Thumbnails index={index} setIndex={setIndex} onViewAll={() => setShowAll(true)} />
         </div>
-      </div>
-      {showAll && (
-        <div className="fixed inset-0 z-[100] overflow-y-auto bg-black/95 p-5 text-white sm:p-10">
-          <div className="mx-auto max-w-6xl">
-            <div className="mb-8 flex items-center justify-between">
-              <div>
-                <p className="text-xs uppercase tracking-[.2em] text-white/50">
-                </p>
-                <h2 className="mt-2 text-4xl font-semibold">All projects</h2>
-              </div>
-              <button
-                aria-label="Close all projects"
-                onClick={() => setShowAll(false)}
-                className="rounded-full border border-white/20 p-3 hover:bg-white hover:text-black"
-              >
-                <X size={18} />
-              </button>
-            </div>
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                    <Card
+              id="work"
+              active={active === "work"}
+              onClick={() => setActive("work")}
+              onClose={() => setActive("")}
+              header={
+                <div
+                  className={`${active === "work" && " hidden "} relative h-20`}
+                >
+                  <Thumbnails
+                    index={index}
+                    setIndex={setIndex}
+                    onViewAll={() => setShowAll(true)}
+                  />
+                </div>
+              }
+            >
               <Work />
-            </div>
-          </div>
-        </div>
-      )}
+            </Card>
+      </div>
     </>
   );
 }
