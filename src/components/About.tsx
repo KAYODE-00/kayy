@@ -26,7 +26,7 @@ const About = () => {
         whileInView="show"
         viewport={{ once: true }}
       >
-        <h2 className="mb-12 text-5xl font-bold tracking-tight">
+        <h2 className="mb-5 text-2xl font-bold tracking-tight sm:mb-12 sm:text-5xl">
           {about.pageTitle}
         </h2>
       </motion.div>
@@ -37,26 +37,26 @@ const About = () => {
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          className="flex flex-col gap-8 rounded-3xl bg-zinc-900 p-8 md:col-span-2 md:p-10"
+          className="flex flex-col gap-5 rounded-2xl bg-zinc-900 p-4 md:col-span-2 md:gap-8 md:rounded-3xl md:p-10"
         >
           <div className="flex-1">
             <p className="text-sm uppercase tracking-[0.125em] text-zinc-500">
               {about.subHeading}
             </p>
-            <h1 className="mt-2 text-4xl font-bold">{about.name}</h1>
-            <p className="mt-6 text-lg leading-relaxed text-zinc-400">
+            <h1 className="mt-2 text-xl font-bold sm:text-4xl">{about.name}</h1>
+            <p className="mt-3 text-xs leading-relaxed text-zinc-400 sm:mt-6 sm:text-lg">
               {about.description}
             </p>
 
             {/* Stats */}
-            <div className="mt-10 grid grid-cols-2 gap-4">
+            <div className="mt-6 grid grid-cols-2 gap-2 sm:mt-10 sm:gap-4">
               {stats.map((stat, i) => (
                 <motion.div
                   key={i}
                   whileHover={{ scale: 1.02 }}
-                  className="rounded-2xl border border-zinc-800 bg-black/20 p-6 transition-colors hover:border-zinc-700"
+                  className="rounded-xl border border-zinc-800 bg-black/20 p-3 transition-colors hover:border-zinc-700 sm:rounded-2xl sm:p-6"
                 >
-                  <h2 className="text-4xl font-bold text-white">
+                  <h2 className="text-xl font-bold text-white sm:text-4xl">
                     {stat.number}
                   </h2>
                   <p className="mt-1 text-sm text-zinc-500">{stat.label}</p>
@@ -162,7 +162,7 @@ const About = () => {
           whileInView="show"
           className="rounded-3xl bg-zinc-900 p-8 md:col-span-3 md:p-10"
         >
-          <h2 className="mb-8 text-3xl font-bold">{about.toolsTitle}</h2>
+          <h2 className="mb-5 text-2xl font-bold sm:mb-8 sm:text-3xl">{about.toolsTitle}</h2>
           <div className="grid grid-cols-3 gap-6 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
             {tools.map((tool) => {
               const Icon = tool.icon;

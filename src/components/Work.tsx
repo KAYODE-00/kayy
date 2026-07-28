@@ -66,7 +66,7 @@ export default function Work() {
           variants={fadeUp}
           initial="hidden"
           animate="show"
-          className="text-5xl font-bold"
+          className="text-2xl font-bold sm:text-5xl"
         >
           Work
         </motion.h1>
@@ -147,7 +147,7 @@ export default function Work() {
             >
               {/* Header */}
               <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                <h2 className="text-3xl font-bold">{project.title}</h2>
+                <h2 className="text-lg font-bold sm:text-3xl">{project.title}</h2>
 
                 {/* Stack Icons */}
                 <div className="flex flex-wrap gap-3">

@@ -96,20 +96,20 @@ export default function PortfolioAdmin() {
     setData({ ...data, [section]: data[section].filter((_: unknown, itemIndex: number) => itemIndex !== index) });
   };
 
-  if (checkingAuth) return <div className="min-h-screen flex items-center justify-center text-lg">Checking admin access...</div>;
+  if (checkingAuth) return <div className="min-h-screen flex items-center justify-center text-sm">Checking admin access...</div>;
   if (!authenticated) return (
     <main className="min-h-screen bg-gray-950 px-4 text-white flex items-center justify-center">
-      <form onSubmit={login} className="w-full max-w-sm rounded-2xl bg-gray-900 p-6 sm:p-8">
-        <h1 className="text-2xl font-semibold">Admin login</h1>
-        <p className="mt-2 text-sm text-gray-400">Enter your password to manage the portfolio.</p>
-        <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoFocus required placeholder="Password" className="mt-6 w-full rounded-xl bg-gray-800 px-4 py-3 outline-none focus:ring-1 focus:ring-emerald-500" />
-        {loginError && <p className="mt-3 text-sm text-red-400">{loginError}</p>}
-        <button type="submit" className="mt-5 w-full rounded-xl bg-emerald-600 px-4 py-3 text-sm font-semibold hover:bg-emerald-700">Sign in</button>
+      <form onSubmit={login} className="w-full max-w-xs rounded-xl bg-gray-900 p-5 sm:p-6">
+        <h1 className="text-xl font-semibold">Admin login</h1>
+        <p className="mt-1.5 text-xs text-gray-400">Enter your password to manage the portfolio.</p>
+        <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} autoFocus required placeholder="Password" className="mt-4 w-full rounded-lg bg-gray-800 px-3 py-2.5 text-sm outline-none focus:ring-1 focus:ring-emerald-500" />
+        {loginError && <p className="mt-2 text-xs text-red-400">{loginError}</p>}
+        <button type="submit" className="mt-4 w-full rounded-lg bg-emerald-600 px-3 py-2.5 text-xs font-semibold hover:bg-emerald-700">Sign in</button>
       </form>
     </main>
   );
-  if (error) return <div className="min-h-screen flex items-center justify-center px-4 text-center text-lg text-red-400">{error}</div>;
-  if (!data?.about) return <div className="min-h-screen flex items-center justify-center text-lg">Loading Admin CMS...</div>;
+  if (error) return <div className="min-h-screen flex items-center justify-center px-4 text-center text-sm text-red-400">{error}</div>;
+  if (!data?.about) return <div className="min-h-screen flex items-center justify-center text-sm">Loading Admin CMS...</div>;
 
   return (
     <div className="min-h-screen bg-gray-950 text-white pb-20">
@@ -119,12 +119,12 @@ export default function PortfolioAdmin() {
             <Link href="/" className="flex items-center gap-1.5 text-sm text-gray-400 hover:text-white">
               <ArrowLeft size={16} /> Back to Site
             </Link>
-            <h1 className="text-xl sm:text-3xl font-bold tracking-tight">Portfolio CMS</h1>
+            <h1 className="text-lg sm:text-2xl font-bold tracking-tight">Portfolio CMS</h1>
           </div>
           <button
             onClick={saveChanges}
             disabled={saving}
-            className="flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-700 px-3 sm:px-6 py-2.5 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold disabled:opacity-70 transition"
+            className="flex items-center justify-center gap-1.5 bg-emerald-600 hover:bg-emerald-700 px-2.5 sm:px-5 py-2 sm:py-2.5 rounded-lg text-[11px] sm:text-xs font-semibold disabled:opacity-70 transition"
           >
             <Save size={20} />
             {saving ? 'Saving...' : 'Save All Changes'}
@@ -149,7 +149,7 @@ export default function PortfolioAdmin() {
         {/* ABOUT */}
         {activeTab === 'about' && (
           <div className="bg-gray-900 rounded-xl sm:rounded-2xl p-3 sm:p-6 space-y-4 sm:space-y-6">
-            <h2 className="text-xl sm:text-2xl font-semibold">About Section</h2>
+            <h2 className="text-lg sm:text-xl font-semibold">About Section</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="text-sm text-gray-400 block mb-2">Name</label>
@@ -179,7 +179,7 @@ export default function PortfolioAdmin() {
         {activeTab === 'stats' && (
           <div className="bg-gray-900 rounded-2xl sm:rounded-3xl p-4 sm:p-8">
             <div className="flex flex-wrap justify-between gap-3 mb-5 sm:mb-6">
-              <h2 className="text-2xl sm:text-3xl font-semibold">Stats</h2>
+              <h2 className="text-lg sm:text-xl font-semibold">Stats</h2>
               <button onClick={() => setData({ ...data, stats: [...data.stats, { number: "0", label: "New Stat" }] })} className="flex items-center gap-2 bg-gray-800 px-3 py-2 text-sm rounded-xl hover:bg-gray-700">
                 <Plus size={18} /> Add Stat
               </button>
@@ -213,7 +213,7 @@ export default function PortfolioAdmin() {
         {collectionFields[activeTab] && (
           <section className="bg-gray-900 rounded-2xl sm:rounded-3xl p-4 sm:p-8">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-5 sm:mb-6">
-              <h2 className="text-2xl sm:text-3xl font-semibold capitalize">{activeTab}</h2>
+              <h2 className="text-lg sm:text-xl font-semibold capitalize">{activeTab}</h2>
               <button onClick={() => addItem(activeTab)} className="flex items-center gap-2 rounded-xl bg-gray-800 px-3 py-2 text-sm hover:bg-gray-700">
                 <Plus size={16} /> Add
               </button>

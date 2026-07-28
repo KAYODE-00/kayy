@@ -97,7 +97,7 @@ export default function ContactForm() {
     <div className="flex h-full flex-col">
       {/* Heading */}
       <div className="mb-10">
-        <h2 className="text-3xl font-bold text-white">Let's Work Together</h2>
+        <h2 className="text-xl font-bold text-white sm:text-3xl">Let's Work Together</h2>
 
         <p className="mt-3 text-zinc-400">
           Have an idea or project? Send me a message and I'll get back to you.
