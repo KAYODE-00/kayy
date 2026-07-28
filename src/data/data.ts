@@ -28,29 +28,34 @@ import {
 import { MdEmail } from "react-icons/md";
 
 export const about = {
-  // Main Text
-  name: "Hi, I'm Kayode 👋",
-  description: "I'm a full-stack developer who enjoys building modern web applications, AI-powered products, and clean user experiences with performance in mind. I specialize in building scalable SaaS platforms and specialized tools.",
-  
-  // Section Headings & UI Text
-  pageTitle: "About Me",
-  subHeading: "About Me",
-  iBuildText: "I Build",
-  connectTitle: "Let's Connect",
-  connectSubtitle: "Ready to build something amazing together?",
-  resumeText: "Resume",
-  testimonialsTitle: "Testimonials",
-  toolsTitle: "Tools I Use",
-  githubTitle: "GitHub Contributions",
-  githubSubtitle: "Last 365 days of contributions •",
-  githubUsername: "kayode-00",
+  "name": "Hi, I'm Kayode 👋;i;o75k;tuyt",
+  "description": "I'm a full-stack developer who enjoys building modern web applications, AI-powered products, and clean user experiences with performance in mind. I specialize in building scalable SaaS platforms and specialized tools.79my",
+  "pageTitle": "About Meo7ou7i7i",
+  "subHeading": "About Meylylyllyyl",
+  "iBuildText": "I Build",
+  "connectTitle": "Let's Connect",
+  "connectSubtitle": "Ready to build something amazing together?",
+  "resumeText": "Resuylyllyhylme",
+  "testimonialsTitle": "Testimonials",
+  "toolsTitle": "Tools I Use",
+  "githubTitle": "GitHub Contributions",
+  "githubSubtitle": "Last 365 days of contributions •",
+  "githubUsername": "kayode-00"
 };
 
 export const stats = [
-  { number: "3+", label: "Years Experience" },
-  { number: "3+", label: "SaaS Projects" }, 
-  { number: "15+", label: "Happy Clients" },
-  { number: "99%", label: "On-Time Delivery" },
+  {
+    "number": "3+k",
+    "label": "Years Experience"
+  },
+  {
+    "number": "3+m.m",
+    "label": "SaaS Projects"
+  },
+  {
+    "number": "15+fu",
+    "label": "Happy Clients"
+  }
 ];
 
 export const testimonials = [

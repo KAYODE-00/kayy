@@ -2,23 +2,15 @@
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+import { about, stats, testimonials, socials, tools, builds, projects } from '@/data/data';
 
-const dataFilePath = path.join(process.cwd(), 'data.ts');
+const dataFilePath = path.join(process.cwd(), 'src', 'data', 'data.ts');
+const isAuthenticated = (request: NextRequest) => request.cookies.get('portfolio_admin')?.value === 'authenticated';
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  if (!isAuthenticated(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
-    const fileContent = fs.readFileSync(dataFilePath, 'utf8');
-    
-    // Simple extraction (you can improve this with regex or ts-morph)
-    const aboutMatch = fileContent.match(/export const about = (\{[\s\S]*?\});/);
-    const statsMatch = fileContent.match(/export const stats = (\[[\s\S]*?\]);/);
-    // ... add more
-
-    const data = {
-      about: aboutMatch ? JSON.parse(aboutMatch[1].replace(/'/g, '"')) : {},
-      stats: [],
-      // Parse other sections
-    };
+    const data = JSON.parse(JSON.stringify({ about, stats, testimonials, socials, tools, builds, projects }));
 
     return NextResponse.json(data);
   } catch (error) {
@@ -27,6 +19,7 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
+  if (!isAuthenticated(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
     const newData = await request.json();
     
@@ -36,6 +29,11 @@ export async function POST(request: NextRequest) {
     fileContent = fileContent.replace(
       /export const about = \{[\s\S]*?\};/,
       `export const about = ${JSON.stringify(newData.about, null, 2)};`
+    );
+
+    fileContent = fileContent.replace(
+      /export const stats = \[[\s\S]*?\];/,
+      `export const stats = ${JSON.stringify(newData.stats ?? [], null, 2)};`
     );
 
     // Add similar replaces for stats, testimonials, etc.
