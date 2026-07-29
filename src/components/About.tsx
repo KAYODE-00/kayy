@@ -1,4 +1,11 @@
-import { socials, tools, builds, about, stats, testimonials } from "@/data/data";
+import {
+  socials,
+  tools,
+  builds,
+  about,
+  stats,
+  testimonials,
+} from "@/data/data";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -117,7 +124,7 @@ const About = () => {
               );
             })}
             <a
-              href="/resume.pdf"
+              href="/resume.docx"
               download
               className="group relative flex items-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-900 px-6 py-4 transition-all hover:border-white hover:bg-white hover:text-black"
             >
@@ -162,12 +169,17 @@ const About = () => {
           whileInView="show"
           className="rounded-3xl bg-zinc-900 p-8 md:col-span-3 md:p-10"
         >
-          <h2 className="mb-5 text-2xl font-bold sm:mb-8 sm:text-3xl">{about.toolsTitle}</h2>
+          <h2 className="mb-5 text-2xl font-bold sm:mb-8 sm:text-3xl">
+            {about.toolsTitle}
+          </h2>
           <div className="grid grid-cols-3 gap-6 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
             {tools.map((tool) => {
               const Icon = tool.icon;
               return (
-                <div key={tool.name} className="group flex flex-col items-center">
+                <div
+                  key={tool.name}
+                  className="group flex flex-col items-center"
+                >
                   <div className="rounded-2xl bg-zinc-800 p-5 transition-all group-hover:scale-110 group-hover:bg-zinc-700">
                     <Icon className="text-4xl text-white" />
                   </div>
@@ -199,7 +211,8 @@ const About = () => {
           />
         </div>
         <p className="mt-4 text-center text-xs text-zinc-500">
-          {about.githubSubtitle} <span className="font-mono">{about.githubUsername}</span>
+          {about.githubSubtitle}{" "}
+          <span className="font-mono">{about.githubUsername}</span>
         </p>
       </motion.div>
     </section>

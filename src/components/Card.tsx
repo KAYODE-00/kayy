@@ -63,7 +63,7 @@ export default function Card({
                 top-1/2
                 z-50
                 h-[90vh]
-                w-[95vw]
+                w-[75vw]
                 max-w-[1200px]
                 -translate-x-1/2
                 -translate-y-1/2
@@ -71,7 +71,7 @@ export default function Card({
               : `
                 relative
                 ${id === "contact" ? "h-20" : "h-full"}
-                w-[45vw]
+                w-[35vw]
                 md:w-[30vw]
               `
           }
