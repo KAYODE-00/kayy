@@ -49,12 +49,7 @@ export default function Card({
         }}
         onClick={() => !active && onClick()}
         className={`
-          overflow-hidden
-          rounded-[32px]
-          border
-          border-zinc-800
-          bg-[#09090B]
-          shadow-2xl
+
           ${
             active
               ? `
@@ -70,17 +65,17 @@ export default function Card({
               `
               : `
                 relative
-                ${id === "contact" ? "h-20" : "h-full"}
-                w-[35vw]
-                md:w-[30vw]
+                ${id === "about" && "h-35"}
+                     ${id === "work" && " "}
+                          ${id === "contact" && "h-2"}
+                               ${id === "contact" && "h-2"}
+            w-full
               `
           }
         `}
       >
         <div
-          className={`relative flex h-full flex-col ${
-            !active ? "p-3" : "p-7"
-          }`}
+          className={`relative flex h-full flex-col ${!active ? "p-3" : "p-7"}`}
         >
           {/* Header */}
           <div className="relative">
