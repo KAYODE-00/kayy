@@ -1,5 +1,5 @@
 "use client";
-import { ArrowUpRight, Download } from "lucide-react";
+import { ArrowUpRight, Download, Moon, Sun } from "lucide-react";
 import { Globe2 } from "lucide-react";
 import MosaicPortrait from "@/components/MosaicPortrait";
 import Card from "@/components/Card";
@@ -12,6 +12,12 @@ import { useEffect, useState } from "react";
 import { about, socials, tools, workExperience } from "@/data/data";
 import TestimonialSlider from "@/components/TestimonialSlider";
 
+const contributionData = Array.from({ length: 365 }, (_, index) => ({
+  date: String(index),
+  count: (index * 17) % 18,
+  level: (index * 7) % 5,
+}));
+
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
@@ -19,6 +25,7 @@ const fadeUp = {
 
 export default function Home() {
   const [active, setActive] = useState("");
+  const [lightMode, setLightMode] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const words = [
     "codes",
@@ -55,8 +62,27 @@ export default function Home() {
 
     return () => clearInterval(interval);
   }, []);
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem("portfolio-theme");
+    if (savedTheme === "light") setLightMode(true);
+  }, []);
+  useEffect(() => {
+    document.body.classList.toggle("light-mode", lightMode);
+    window.localStorage.setItem(
+      "portfolio-theme",
+      lightMode ? "light" : "dark",
+    );
+  }, [lightMode]);
   return (
-    <main className="flex flex-col min-h-screen  gap-10 bg-black p-8 ">
+    <main className="relative flex min-h-screen flex-col gap-10 bg-black pt-16   p-8 md:p-8">
+      <button
+        type="button"
+        aria-label={lightMode ? "Switch to dark mode" : "Switch to light mode"}
+        onClick={() => setLightMode((current) => !current)}
+        className="fixed left-5 top-5 z-[80] grid size-11 place-items-center rounded-full border border-zinc-700 bg-zinc-900 text-white shadow-xl transition hover:scale-110 hover:bg-white hover:text-black"
+      >
+        {lightMode ? <Moon size={18} /> : <Sun size={18} />}
+      </button>
       <div className="flex items-center justify-center">
         <div className="flex items-center  gap-4">
           <div className="flex flex-col gap-3">
@@ -182,6 +208,29 @@ export default function Home() {
           </div>
         </div>
       </div>
+      {/* GITHUB CONTRIBUTION GRAPH */}
+      <motion.div
+        variants={fadeUp}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true }}
+        className="flex flex-col gap-5 "
+      >
+        <p className="float-left text-3xl">Github contribution graph</p>
+
+        <div className="flex items-center justify-center w-full overflow-hidden rounded-xl border border-zinc-800  p-5 md:p-30">
+          <img
+            src={`https://ghchart.rshah.org/18181b/${about.githubUsername}`}
+            alt="GitHub Contribution Graph"
+            className="mx-auto block h-auto w-full scale-100 rounded-xl sm:scale-100 md:scale-100"
+            loading="lazy"
+          />
+        </div>
+        <p className="mt-4 text-center text-xs text-zinc-500">
+          {about.githubSubtitle}{" "}
+          <span className="font-mono">{about.githubUsername}</span>
+        </p>
+      </motion.div>
       <div></div>
     </main>
   );

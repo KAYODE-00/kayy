@@ -5,8 +5,18 @@
 
 body { @apply bg-black text-white;
   font-family: var(--font-exo);
-  
+  transition: background-color .3s ease, color .3s ease;
 }
+body.light-mode { background: #f4f4f4; color: #151515; }
+body.light-mode .bg-black { background-color: #f4f4f4; }
+body.light-mode .bg-zinc-950 { background-color: #e8e8e8; }
+body.light-mode .bg-zinc-900 { background-color: #e5e5e5; }
+body.light-mode .bg-zinc-800 { background-color: #d5d5d5; }
+body.light-mode .text-white { color: #151515; }
+body.light-mode .text-zinc-300 { color: #3f3f3f; }
+body.light-mode .text-zinc-400, body.light-mode .text-zinc-500 { color: #666; }
+body.light-mode .border-zinc-700, body.light-mode .border-zinc-800 { border-color: #c7c7c7; }
+body.light-mode .bg-black\/20 { background-color: rgb(0 0 0 / .05); }
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }
