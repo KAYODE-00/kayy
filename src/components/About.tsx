@@ -1,3 +1,6 @@
+
+import Marquee from "react-fast-marquee";
+
 import {
   socials,
   tools,
@@ -26,14 +29,14 @@ const About = () => {
   }, []);
 
   return (
-    <section className="mx-auto max-w-7xl px-4 md:px-6">
+    <section className="mx-auto max-w-7xl md:px-6">
       <motion.div
         variants={fadeUp}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
       >
-        <h2 className="mb-5 text-2xl font-bold tracking-tight sm:mb-12 sm:text-5xl">
+        <h2 className="mb-6 text-3xl font-bold tracking-tight sm:mb-10 sm:text-5xl">
           {about.pageTitle}
         </h2>
       </motion.div>
@@ -51,29 +54,29 @@ const About = () => {
               {about.subHeading}
             </p>
             <h1 className="mt-2 text-xl font-bold sm:text-4xl">{about.name}</h1>
-            <p className="mt-3 text-xs leading-relaxed text-zinc-400 sm:mt-6 sm:text-lg">
+            <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:mt-6 sm:text-lg">
               {about.description}
             </p>
 
             {/* Stats */}
-            <div className="mt-6 grid grid-cols-2 gap-2 sm:mt-10 sm:gap-4">
+            <div className="mt-6 flex gap-2 sm:mt-10 sm:gap-4">
               {stats.map((stat, i) => (
                 <motion.div
                   key={i}
                   whileHover={{ scale: 1.02 }}
-                  className="rounded-xl border border-zinc-800 bg-black/20 p-3 transition-colors hover:border-zinc-700 sm:rounded-2xl sm:p-6"
+                  className="rounded-xl  bg-black/20 p-3 transition-colors hover:border-zinc-700 sm:rounded-2xl sm:p-6"
                 >
                   <h2 className="text-xl font-bold text-white sm:text-4xl">
                     {stat.number}
                   </h2>
-                  <p className="mt-1 text-sm text-zinc-500">{stat.label}</p>
+                  <p className="mt-1 text-xs text-zinc-500 sm:text-sm">{stat.label}</p>
                 </motion.div>
               ))}
             </div>
 
             {/* I Build */}
             <div className="mt-8 rounded-2xl border border-zinc-800 bg-black/20 p-6">
-              <h3 className="font-semibold text-white">{about.iBuildText}</h3>
+              <h3 className="text-base font-semibold text-white">{about.iBuildText}</h3>
               <div className="mt-4 h-10 overflow-hidden">
                 <AnimatePresence mode="wait">
                   <motion.p
@@ -82,7 +85,7 @@ const About = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -25 }}
                     transition={{ duration: 0.4 }}
-                    className="text-2xl font-medium text-zinc-200"
+                    className="text-xl font-medium text-zinc-200 sm:text-2xl"
                   >
                     {builds[buildIndex]}
                   </motion.p>
@@ -138,27 +141,23 @@ const About = () => {
             <h3 className="mb-6 text-xl font-semibold">
               {about.testimonialsTitle}
             </h3>
-            <div className="space-y-6">
-              {testimonials.map((t, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="rounded-2xl border border-zinc-800 bg-black/20 p-6"
-                >
-                  <div className="flex gap-4">
-                    <div>
-                      <p className="italic text-zinc-300">"{t.text}"</p>
-                      <div className="mt-4">
-                        <p className="font-medium text-white">{t.name}</p>
-                        <p className="text-sm text-zinc-500">{t.role}</p>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+<Marquee speed={30} gradient={false} pauseOnHover>
+  {testimonials.map((t, i) => (
+    <div
+      key={i}
+      className="mx-2 w-[300px] rounded-2xl border border-zinc-800 bg-black/20 p-10"
+    >
+      <p className="italic whitespace-normal break-words text-zinc-300">
+        "{t.text}"
+      </p>
+
+      <div className="mt-4">
+        <p className="font-medium text-white">{t.name}</p>
+        <p className="text-sm text-zinc-500">{t.role}</p>
+      </div>
+    </div>
+  ))}
+</Marquee>
           </div>
         </motion.div>
 

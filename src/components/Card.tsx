@@ -63,7 +63,7 @@ export default function Card({
                 top-1/2
                 z-50
                 h-[90vh]
-                w-[75vw]
+                w-[95vw]
                 max-w-[1200px]
                 -translate-x-1/2
                 -translate-y-1/2

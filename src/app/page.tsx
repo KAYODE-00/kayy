@@ -26,15 +26,15 @@ export default function Home() {
   const projects = [
     {
       title: "AI SaaS Dashboard",
-      image: "/developer.png",
+      image: "/developer.PNG",
     },
     {
       title: "E-Commerce Platform",
-      image: "/developer.png",
+      image: "/developer.PNG",
     },
     {
       title: "Portfolio Website",
-      image: "/developer.png",
+      image: "/developer.PNG",
     },
   ];
   const [index, setIndex] = useState(0);
@@ -65,11 +65,9 @@ export default function Home() {
                 Hi, I'm <span className="text-zinc-300">Kayode</span>
               </h1>
               <div>
-                <h1 className="text-[1rem] font-bold leading-tight text-white">
-                  I'm a <span className="text-zinc-300">Software Engineer</span>{" "}
-                  whohv dh hdkk byscgiwiygsbuskyv kysv yks
-                  ygwkycwvcykwkygckywykgwvyisyivjwyvgjwvjgqvcy
-                </h1>
+                <p className="text-lg font-medium leading-relaxed text-white sm:text-xl">
+                  I&apos;m a <span className="text-zinc-300">Software Engineer</span> who builds thoughtful digital products.
+                </p>
               </div>
               <div className="mt-3 float-right flex items-center gap-2 text-sm text-zinc-400">
                 <span>He who</span>
@@ -100,10 +98,12 @@ export default function Home() {
               onClick={() => setActive("about")}
               onClose={() => setActive("")}
               header={
-                <div>
+                <div  className={`${
+            active === "about" ? "hidden" : ""
+          } relative overflow-hidden rounded-[28px] `} >
                   <div className=" flex justify-center -mt-8 md:mt-5">
                     <img
-                      src="/developer.png"
+                      src="/developer.PNG"
                       alt="Kayode"
                       className=" object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,.45)]"
                     />
