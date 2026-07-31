@@ -1,6 +1,4 @@
 
-import Marquee from "react-fast-marquee";
-
 import {
   socials,
   tools,
@@ -12,6 +10,7 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import { Download } from "lucide-react";
 import { useEffect, useState } from "react";
+import TestimonialSlider from "@/components/TestimonialSlider";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -141,23 +140,7 @@ const About = () => {
             <h3 className="mb-6 text-xl font-semibold">
               {about.testimonialsTitle}
             </h3>
-<Marquee speed={30} gradient={false} pauseOnHover>
-  {testimonials.map((t, i) => (
-    <div
-      key={i}
-      className="mx-2 w-[300px] rounded-2xl border border-zinc-800 bg-black/20 p-10"
-    >
-      <p className="italic whitespace-normal break-words text-zinc-300">
-        "{t.text}"
-      </p>
-
-      <div className="mt-4">
-        <p className="font-medium text-white">{t.name}</p>
-        <p className="text-sm text-zinc-500">{t.role}</p>
-      </div>
-    </div>
-  ))}
-</Marquee>
+            <TestimonialSlider />
           </div>
         </motion.div>
 

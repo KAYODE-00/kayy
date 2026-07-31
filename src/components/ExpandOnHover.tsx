@@ -262,9 +262,7 @@ export function Skiper52() {
             >
               ›
             </button>
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 rounded-full bg-black/50 px-3 py-1 text-sm text-white">
-              {index + 1} / {items.length}
-            </div>
+          
           </div>
           <Thumbnails index={index} setIndex={setIndex} onViewAll={() => setShowAll(true)} />
         </div>
@@ -275,7 +273,6 @@ export function Skiper52() {
             <div className="mb-8 flex items-center justify-between">
               <div>
                 <p className="text-xs uppercase tracking-[.2em] text-white/50">
-                  Portfolio / 06 projects
                 </p>
                 <h2 className="mt-2 text-4xl font-semibold">All projects</h2>
               </div>

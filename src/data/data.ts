@@ -169,3 +169,24 @@ export const projects = [
     live: "#",
   },
 ];
+
+export const workExperience = [
+  {
+    name: "Independent Product Engineer",
+    role: "Freelance · Present",
+    text: "Designing and shipping SaaS products, AI tools, dashboards, and focused digital experiences for teams and founders.",
+    avatar: "01",
+  },
+  {
+    name: "Full-stack Developer",
+    role: "Contract Projects · 2023 — 2025",
+    text: "Built responsive products from the first idea through production, working across interfaces, APIs, databases, and deployment.",
+    avatar: "02",
+  },
+  {
+    name: "Web Developer",
+    role: "Independent · 2022 — 2023",
+    text: "Created landing pages, business tools, and custom web experiences with a strong focus on clarity, performance, and maintainability.",
+    avatar: "03",
+  },
+];
