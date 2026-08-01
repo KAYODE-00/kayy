@@ -58,14 +58,14 @@ export default function Card({
                 top-1/2
                 z-50
                 h-[90vh]
-                w-[95vw]
+                w-[100vw]
                 max-w-[1200px]
                 -translate-x-1/2
                 -translate-y-1/2
               `
               : `
                 relative
-                ${id === "about" && "h-35"}
+                ${id === "about" && "h-full"}
                      ${id === "work" && " "}
                           ${id === "contact" && "h-2"}
                                ${id === "contact" && "h-2"}

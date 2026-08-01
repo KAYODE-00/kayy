@@ -27,21 +27,11 @@ const About = () => {
   }, []);
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-12 md:px-6 md:py-20">
-      {/* HEADER */}
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-      >
-        <h2 className="mb-6 text-3xl font-bold tracking-tight sm:mb-10 sm:text-5xl">
-          {about.pageTitle}
-        </h2>
-      </motion.div>
+    <section className="flex items-center justify-center  mx-auto w-full px-4 py-12 md:px-6 md:py-20">
+
 
       {/* MAIN GRID */}
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="">
         
         {/* LEFT COLUMN (About & Stats) */}
         <motion.div
