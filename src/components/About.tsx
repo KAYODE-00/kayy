@@ -63,7 +63,7 @@ const About = () => {
             </p>
 
             {/* Stats */}
-            <div className="mt-6 flex flex-wrap gap-3 sm:mt-10 sm:gap-4">
+            {/* <div className="mt-6 flex flex-wrap gap-3 sm:mt-10 sm:gap-4">
               {stats.map((stat, i) => (
                 <motion.div
                   key={i}
@@ -78,7 +78,7 @@ const About = () => {
                   </p>
                 </motion.div>
               ))}
-            </div>
+            </div> */}
 
             {/* I Build (Animated Text) */}
             <div className="mt-8 rounded-2xl border border-zinc-800 bg-black/20 p-5 sm:p-6">
@@ -103,52 +103,8 @@ const About = () => {
           </div>
         </motion.div>
 
-        {/* RIGHT COLUMN (Resume, Socials, Tools) */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="flex flex-col gap-6 md:col-span-1"
-        >
-          {/* Download & Socials */}
-          <div className="flex flex-col gap-5 rounded-2xl bg-zinc-900 p-6 md:rounded-3xl md:p-8">
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              rel="noreferrer"
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-bold text-zinc-900 transition-colors hover:bg-zinc-200 sm:text-base"
-            >
-              <Download size={18} />
-              Download Resume
-            </a>
-            
-            {/* Social Grid */}
-  
-          </div>
-
-          {/* Tech Stack / Tools */}
-      
-        </motion.div>
       </div>
-
-      {/* TESTIMONIALS ROW (Below Grid) */}
-      <motion.div
-        variants={fadeUp}
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true }}
-        className="mt-6 md:mt-8"
-      >
-        <div className="rounded-2xl bg-zinc-900 p-6 md:rounded-3xl md:p-10">
-          <h3 className="mb-6 text-xl font-bold text-white sm:text-2xl">
-            What People Say
-          </h3>
-          <TestimonialSlider testimonials={testimonials} />
-        </div>
-      </motion.div>
-      
-    </section>
+         </section>
   );
 };
 
