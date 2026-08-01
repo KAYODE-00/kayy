@@ -93,10 +93,21 @@ export default function Home() {
               platforms and focused digital tools.
             </h1>{" "}
             <div className="flex  flex-col md:flex-row  md:items-center  justify-between">
-              <div className="flex md:flex-col gap-3 items-center justify-between">
-                <div className="flex items-center-safe gap-2 cursor-pointer ">
-                  <ArrowUpRight className="" size={30} /> About Me{" "}
-                </div>{" "}
+              <div className="flex md:flex-col gap-10 items-center justify-between">
+                <Card
+                  id="contact"
+                  active={active === "contact"}
+                  onClick={() => setActive("contact")}
+                  onClose={() => setActive("")}
+                  header={
+                    <div className="flex items-center-safe gap-2 cursor-pointer ">
+                      <ArrowUpRight className="" size={30} /> About Me{" "}
+                    </div>
+                  }
+                >
+                  <About />
+                </Card>
+
                 <div className=" float-right flex items-center gap-2 text-sm text-zinc-400">
                   <span>He who</span>
 
@@ -392,29 +403,29 @@ export default function Home() {
 //             {/* CONTACT */}
 //             <div className="relative h-20">
 //               {" "}
-//               <Card
-//                 id="contact"
-//                 active={active === "contact"}
-//                 onClick={() => setActive("contact")}
-//                 onClose={() => setActive("")}
-//                 header={
-//                   <div
-//                     className={`${
-//                       active === "contact" ? "hidden" : ""
-//                     } flex items-center px-5 py-4`}
-//                   >
-//                     <h1 className="text-2xl font-semibold text-white">
-//                       Contact
-//                     </h1>
+// <Card
+//   id="contact"
+//   active={active === "contact"}
+//   onClick={() => setActive("contact")}
+//   onClose={() => setActive("")}
+//   header={
+//     <div
+//       className={`${
+//         active === "contact" ? "hidden" : ""
+//       } flex items-center px-5 py-4`}
+//     >
+//       <h1 className="text-2xl font-semibold text-white">
+//         Contact
+//       </h1>
 
-//                     <div className="mx-4 h-px flex-1 bg-zinc-800" />
+//       <div className="mx-4 h-px flex-1 bg-zinc-800" />
 
-//                     <Globe2 className="h-5 w-5 text-zinc-500" />
-//                   </div>
-//                 }
-//               >
-//                 <Contact />
-//               </Card>
+//       <Globe2 className="h-5 w-5 text-zinc-500" />
+//     </div>
+//   }
+// >
+//   <Contact />
+// </Card>
 //             </div>
 //           </div>
 //         </div>

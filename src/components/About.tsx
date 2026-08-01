@@ -1,4 +1,3 @@
-
 import {
   socials,
   tools,
@@ -28,7 +27,8 @@ const About = () => {
   }, []);
 
   return (
-    <section className="mx-auto max-w-7xl md:px-6">
+    <section className="mx-auto max-w-7xl px-4 py-12 md:px-6 md:py-20">
+      {/* HEADER */}
       <motion.div
         variants={fadeUp}
         initial="hidden"
@@ -40,43 +40,52 @@ const About = () => {
         </h2>
       </motion.div>
 
+      {/* MAIN GRID */}
       <div className="grid gap-6 md:grid-cols-3">
-        {/* LEFT COLUMN */}
+        
+        {/* LEFT COLUMN (About & Stats) */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          className="flex flex-col gap-5 rounded-2xl bg-zinc-900 p-4 md:col-span-2 md:gap-8 md:rounded-3xl md:p-10"
+          viewport={{ once: true }}
+          className="flex flex-col gap-5 rounded-2xl bg-zinc-900 p-6 md:col-span-2 md:gap-8 md:rounded-3xl md:p-10"
         >
           <div className="flex-1">
             <p className="text-sm uppercase tracking-[0.125em] text-zinc-500">
               {about.subHeading}
             </p>
-            <h1 className="mt-2 text-xl font-bold sm:text-4xl">{about.name}</h1>
+            <h1 className="mt-2 text-2xl font-bold text-white sm:text-4xl">
+              {about.name}
+            </h1>
             <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:mt-6 sm:text-lg">
               {about.description}
             </p>
 
             {/* Stats */}
-            <div className="mt-6 flex gap-2 sm:mt-10 sm:gap-4">
+            <div className="mt-6 flex flex-wrap gap-3 sm:mt-10 sm:gap-4">
               {stats.map((stat, i) => (
                 <motion.div
                   key={i}
                   whileHover={{ scale: 1.02 }}
-                  className="rounded-xl  bg-black/20 p-3 transition-colors hover:border-zinc-700 sm:rounded-2xl sm:p-6"
+                  className="min-w-[110px] flex-1 rounded-xl border border-transparent bg-black/20 p-4 transition-colors hover:border-zinc-700 sm:rounded-2xl sm:p-6"
                 >
-                  <h2 className="text-xl font-bold text-white sm:text-4xl">
+                  <h2 className="text-2xl font-bold text-white sm:text-4xl">
                     {stat.number}
                   </h2>
-                  <p className="mt-1 text-xs text-zinc-500 sm:text-sm">{stat.label}</p>
+                  <p className="mt-1 text-xs text-zinc-500 sm:text-sm">
+                    {stat.label}
+                  </p>
                 </motion.div>
               ))}
             </div>
 
-            {/* I Build */}
-            <div className="mt-8 rounded-2xl border border-zinc-800 bg-black/20 p-6">
-              <h3 className="text-base font-semibold text-white">{about.iBuildText}</h3>
-              <div className="mt-4 h-10 overflow-hidden">
+            {/* I Build (Animated Text) */}
+            <div className="mt-8 rounded-2xl border border-zinc-800 bg-black/20 p-5 sm:p-6">
+              <h3 className="text-sm font-semibold text-zinc-400 sm:text-base">
+                {about.iBuildText}
+              </h3>
+              <div className="mt-3 h-8 overflow-hidden sm:h-10 sm:mt-4">
                 <AnimatePresence mode="wait">
                   <motion.p
                     key={builds[buildIndex]}
@@ -84,7 +93,7 @@ const About = () => {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -25 }}
                     transition={{ duration: 0.4 }}
-                    className="text-xl font-medium text-zinc-200 sm:text-2xl"
+                    className="text-lg font-medium text-zinc-200 sm:text-2xl"
                   >
                     {builds[buildIndex]}
                   </motion.p>
@@ -94,109 +103,51 @@ const About = () => {
           </div>
         </motion.div>
 
-        {/* RIGHT COLUMN - Connect + Testimonials */}
+        {/* RIGHT COLUMN (Resume, Socials, Tools) */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
           whileInView="show"
-          className="flex flex-col rounded-3xl bg-zinc-900 p-8 md:p-10"
+          viewport={{ once: true }}
+          className="flex flex-col gap-6 md:col-span-1"
         >
-          <div>
-            <h2 className="text-2xl font-semibold">{about.connectTitle}</h2>
-            <p className="mt-2 text-zinc-400">{about.connectSubtitle}</p>
-          </div>
-
-          <div className="mt-8 flex flex-wrap gap-4">
-            {socials.map((social) => {
-              const Icon = social.icon;
-              return (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={`Visit ${social.name}`}
-                  className="group relative rounded-2xl bg-zinc-800 p-4 transition-all hover:scale-110 hover:bg-white hover:text-black"
-                >
-                  <Icon size={24} />
-                  <span className="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-white opacity-0 shadow-xl transition-all group-hover:-translate-y-2 group-hover:opacity-100">
-                    {social.name}
-                  </span>
-                </a>
-              );
-            })}
+          {/* Download & Socials */}
+          <div className="flex flex-col gap-5 rounded-2xl bg-zinc-900 p-6 md:rounded-3xl md:p-8">
             <a
-              href="/resume.docx"
-              download
-              className="group relative flex items-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-900 px-6 py-4 transition-all hover:border-white hover:bg-white hover:text-black"
+              href="/resume.pdf"
+              target="_blank"
+              rel="noreferrer"
+              className="flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-bold text-zinc-900 transition-colors hover:bg-zinc-200 sm:text-base"
             >
-              <Download size={20} />
-              <span className="text-sm font-medium">{about.resumeText}</span>
+              <Download size={18} />
+              Download Resume
             </a>
+            
+            {/* Social Grid */}
+  
           </div>
 
-          {/* Testimonials */}
-          <div className="mt-12 flex-1">
-            <h3 className="mb-6 text-xl font-semibold">
-              {about.testimonialsTitle}
-            </h3>
-            <TestimonialSlider />
-          </div>
-        </motion.div>
-
-        {/* TOOLS */}
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          className="rounded-3xl bg-zinc-900 p-8 md:col-span-3 md:p-10"
-        >
-          <h2 className="mb-5 text-2xl font-bold sm:mb-8 sm:text-3xl">
-            {about.toolsTitle}
-          </h2>
-          <div className="grid grid-cols-3 gap-6 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
-            {tools.map((tool) => {
-              const Icon = tool.icon;
-              return (
-                <div
-                  key={tool.name}
-                  className="group flex flex-col items-center"
-                >
-                  <div className="rounded-2xl bg-zinc-800 p-5 transition-all group-hover:scale-110 group-hover:bg-zinc-700">
-                    <Icon className="text-4xl text-white" />
-                  </div>
-                  <span className="mt-3 text-xs text-zinc-400">
-                    {tool.name}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+          {/* Tech Stack / Tools */}
+      
         </motion.div>
       </div>
 
-      {/* GITHUB CONTRIBUTION GRAPH */}
+      {/* TESTIMONIALS ROW (Below Grid) */}
       <motion.div
         variants={fadeUp}
         initial="hidden"
         whileInView="show"
         viewport={{ once: true }}
-        className="mt-12 rounded-3xl bg-zinc-900 p-6 md:p-10"
+        className="mt-6 md:mt-8"
       >
-        <h3 className="mb-6 text-2xl font-semibold">{about.githubTitle}</h3>
-        <div className="overflow-x-auto rounded-2xl border border-zinc-800 bg-zinc-950 p-4 md:p-6">
-          <img
-            src={`https://ghchart.rshah.org/18181b/${about.githubUsername}`}
-            alt="GitHub Contribution Graph"
-            className="mx-auto h-auto w-full max-w-full scale-90 rounded-xl sm:scale-100 md:scale-100"
-            loading="lazy"
-          />
+        <div className="rounded-2xl bg-zinc-900 p-6 md:rounded-3xl md:p-10">
+          <h3 className="mb-6 text-xl font-bold text-white sm:text-2xl">
+            What People Say
+          </h3>
+          <TestimonialSlider testimonials={testimonials} />
         </div>
-        <p className="mt-4 text-center text-xs text-zinc-500">
-          {about.githubSubtitle}{" "}
-          <span className="font-mono">{about.githubUsername}</span>
-        </p>
       </motion.div>
+      
     </section>
   );
 };
