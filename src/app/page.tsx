@@ -84,7 +84,10 @@ export default function Home() {
         {lightMode ? <Moon size={18} /> : <Sun size={18} />}
       </button>
       <div className="flex items-center justify-center">
-        <div className="flex items-center  gap-4">
+        <div className="flex flex-col gap-4">
+                <div className="  h-70 w-70 overflow-hidden rounded-full border border-zinc-700 ">
+            <MosaicPortrait />
+          </div>
           <div className="flex flex-col gap-3">
             <h1 className="text-xl ">
               I'm a full-stack developer who enjoys building modern web
@@ -155,9 +158,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="hidden h-70 w-70 overflow-hidden rounded-full border border-zinc-700 md:block">
-            <MosaicPortrait />
-          </div>
+    
         </div>
       </div>{" "}
       {/* work */}
@@ -175,7 +176,7 @@ export default function Home() {
             variants={fadeUp}
             initial="hidden"
             whileInView="show"
-            className="rounded-3xl  p-8 md:col-span-3 md:p-10"
+            className="rounded-3xl  p-4 md:col-span-3 md:p-10"
           >
             <div className="grid grid-cols-4 gap-4 sm:grid-cols-4 md:grid-cols-7 lg:grid-cols-8">
               {tools.map((tool) => {
