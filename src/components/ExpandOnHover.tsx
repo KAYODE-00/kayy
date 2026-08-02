@@ -17,6 +17,7 @@ import {
 import { LayoutGrid, X } from "lucide-react";
 import type { IconType } from "react-icons";
 import Work from "./Work";
+import Card from "@/components/Card";
 
 type Project = {
   id: number;
@@ -285,7 +286,7 @@ export function Skiper52() {
               </button>
             </div>
             <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-            <Work />
+              <Work />
             </div>
           </div>
         </div>
