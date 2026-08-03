@@ -28,14 +28,14 @@ import {
 import { MdEmail } from "react-icons/md";
 
 export const about = {
-  "name": "Hi, I'm Kayode 👋",
+  "name": "Hi, I'm Kayode ",
   "description": "I'm a full-stack developer who enjoys building modern web applications, AI-powered products, and clean user experiences with performance in mind. I specialize in building scalable SaaS platforms and focused digital tools.",
   "pageTitle": "About Me",
   "subHeading": "A little about me",
   "iBuildText": "I Build",
   "connectTitle": "Let's Connect",
   "connectSubtitle": "Ready to build something amazing together?",
-  "resumeText": "Resuylyllyhylme",
+  "resumeText": "Resume",
   "testimonialsTitle": "Testimonials",
   "toolsTitle": "Tools I Use",
   "githubTitle": "GitHub Contributions",

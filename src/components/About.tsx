@@ -28,12 +28,8 @@ const About = () => {
 
   return (
     <section className="flex items-center justify-center  mx-auto w-full px-4 py-12 md:px-6 md:py-20">
-
-
       {/* MAIN GRID */}
       <div className="">
-        
-        {/* LEFT COLUMN (About & Stats) */}
         <motion.div
           variants={fadeUp}
           initial="hidden"
@@ -92,9 +88,8 @@ const About = () => {
             </div>
           </div>
         </motion.div>
-
       </div>
-         </section>
+    </section>
   );
 };
 

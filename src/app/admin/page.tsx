@@ -78,6 +78,7 @@ export default function PortfolioAdmin() {
     tools: ['name'],
     builds: ['value'],
     projects: ['title', 'type', 'image', 'description', 'github', 'live'],
+    workExperience: ['name', 'role', 'text', 'avatar'],
   };
 
   const addItem = (section: string) => {
@@ -133,7 +134,7 @@ export default function PortfolioAdmin() {
 
         {/* Tabs */}
         <div className="flex flex-wrap gap-1 mb-4 sm:mb-7 border-b border-gray-800 pb-2 sm:pb-3">
-          {['about', 'stats', 'testimonials', 'socials', 'tools', 'builds', 'projects'].map((tab) => (
+          {['about', 'stats', 'testimonials', 'socials', 'tools', 'builds', 'projects', 'workExperience'].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -229,7 +230,8 @@ export default function PortfolioAdmin() {
                         onChange={(event) => activeTab === 'builds'
                           ? updateItem('builds', index, 'value', event.target.value)
                           : updateItem(activeTab, index, field, event.target.value)}
-                        placeholder={field}
+                        placeholder={field === 'avatar' ? 'Emoji or image/CDN URL' : field}
+                        type={field === 'image' || field === 'avatar' ? 'url' : 'text'}
                         className="w-full rounded-lg bg-gray-900 px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-emerald-500"
                       />
                     ))}
