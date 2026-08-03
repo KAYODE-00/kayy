@@ -1,6 +1,6 @@
 "use client";
 import { ArrowUpRight, Code2, Download, Moon, Sun } from "lucide-react";
-import { Globe2 } from "lucide-react";
+import { Globe2, Bot } from "lucide-react";
 import MosaicPortrait from "@/components/MosaicPortrait";
 import Card from "@/components/Card";
 import About from "@/components/About";
@@ -9,8 +9,9 @@ import Contact from "@/components/Contact";
 import { Skiper52 } from "@/components/ExpandOnHover";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { about, socials, tools, workExperience } from "@/data/data";
+import { usePortfolio } from "@/components/PortfolioProvider";
 import TestimonialSlider from "@/components/TestimonialSlider";
+import ChatBot from "@/components/Chatbot";
 
 const contributionData = Array.from({ length: 365 }, (_, index) => ({
   date: String(index),
@@ -24,44 +25,18 @@ const fadeUp = {
 };
 
 export default function Home() {
+  const { about, socials, tools, workExperience } = usePortfolio();
   const [active, setActive] = useState("");
-  const [siteAbout, setSiteAbout] = useState(about);
+  const [launcherOpen, setLauncherOpen] = useState(false);
+  const siteAbout = about;
   const [lightMode, setLightMode] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-  const words = [
-    "codes",
-    "builds",
-    "architects",
-    "designs",
-    "creates",
-    "learns",
-    "ships",
-    "innovates",
-    "plans",
-    "engineers",
-  ];
-  const projects = [
-    {
-      title: "AI SaaS Dashboard",
-      image: "/developer.PNG",
-    },
-    {
-      title: "E-Commerce Platform",
-      image: "/developer.PNG",
-    },
-    {
-      title: "Portfolio Website",
-      image: "/developer.PNG",
-    },
-  ];
+  const words = siteAbout.rotatingWords?.length
+    ? siteAbout.rotatingWords
+    : ["codes"];
+
   const [index, setIndex] = useState(0);
 
-  useEffect(() => {
-    fetch("/api/portfolio-data")
-      .then((response) => response.ok ? response.json() : null)
-      .then((data) => data?.about && setSiteAbout((current) => ({ ...current, ...data.about })))
-      .catch(() => undefined);
-  }, []);
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
@@ -82,14 +57,35 @@ export default function Home() {
   }, [lightMode]);
   return (
     <main className="relative flex min-h-screen flex-col gap-10 bg-black pt-16   p-8 md:p-8">
-      <button
-        type="button"
-        aria-label={lightMode ? "Switch to dark mode" : "Switch to light mode"}
-        onClick={() => setLightMode((current) => !current)}
-        className="fixed left-5 top-5 z-[80] grid size-11 place-items-center rounded-full border border-zinc-700 bg-zinc-900 text-white shadow-xl transition hover:scale-110 hover:bg-white hover:text-black"
+      <div
+        className="group fixed left-5 top-5 z-[70] flex flex-col items-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-950/95 p-2 text-white shadow-2xl backdrop-blur"
+        onClick={() => setLauncherOpen((open) => !open)}
       >
-        {lightMode ? <Moon size={18} /> : <Sun size={18} />}
-      </button>
+        <button type="button" aria-label="Open portfolio options" className="grid size-11 place-items-center rounded-xl bg-zinc-900 hover:bg-zinc-800">
+          <Bot size={20} />
+        </button>
+        <div className={`flex flex-col gap-3 overflow-hidden transition-all duration-300 ${launcherOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0 md:group-hover:max-h-40 md:group-hover:opacity-100"}`}>
+        <button
+          type="button"
+          aria-label={
+            lightMode ? "Switch to dark mode" : "Switch to light mode"
+          }
+          onClick={() => setLightMode((current) => !current)}
+          className="grid size-11 place-items-center rounded-xl border border-zinc-700 bg-zinc-900 text-white shadow-xl transition hover:scale-110 hover:bg-white hover:text-black"
+        >
+          {lightMode ? <Moon size={18} /> : <Sun size={18} />}
+        </button>
+        <Card
+          id="contact"
+          active={active === "contact"}
+          onClick={() => setActive("contact")}
+          onClose={() => setActive("")}
+          header={<Bot size={45} />}
+        >
+          <ChatBot />
+        </Card>
+        </div>
+      </div>
       <div className="flex items-center justify-center">
         <div className="flex flex-col gap-4">
           <div className="  h-70 w-70 overflow-hidden rounded-full border border-zinc-700 ">
@@ -103,13 +99,14 @@ export default function Home() {
             <div className="flex  flex-col md:flex-row  md:items-center  justify-between">
               <div className="flex md:flex-col gap-10 items-center justify-between">
                 <Card
-                  id="contact"
-                  active={active === "contact"}
-                  onClick={() => setActive("contact")}
+                  id="about"
+                  active={active === "about"}
+                  onClick={() => setActive("about")}
                   onClose={() => setActive("")}
                   header={
                     <div className="flex items-center-safe gap-2 cursor-pointer ">
-                      <ArrowUpRight className="" size={30} /> {siteAbout.aboutCardLabel}{" "}
+                      <ArrowUpRight className="" size={30} />{" "}
+                      {siteAbout.aboutCardLabel}{" "}
                     </div>
                   }
                 >
@@ -117,7 +114,7 @@ export default function Home() {
                 </Card>
 
                 <div className=" float-right flex items-center gap-2 text-sm text-zinc-400">
-                  <span>He who</span>
+                  <span>{siteAbout.rotatingPrefix}</span>
 
                   <AnimatePresence mode="wait">
                     <motion.span
@@ -133,33 +130,30 @@ export default function Home() {
                   </AnimatePresence>
                 </div>
               </div>
-              <div className="mt-8 flex flex-wrap gap-4">
-                {socials.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <a
-                      key={social.name}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Visit ${social.name}`}
-                      className="group relative rounded-2xl bg-zinc-800 p-3 transition-all hover:scale-110 hover:bg-white hover:text-black"
-                    >
-                      <Icon className="text-3xl" />
-                      <span className="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-white opacity-0 shadow-xl transition-all group-hover:-translate-y-2 group-hover:opacity-100">
-                        {social.name}
-                      </span>
-                    </a>
-                  );
-                })}
-                <a
-                  href="/resume.docx"
-                  download
-                  className="group relative flex items-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-900 px-6 py-4 transition-all hover:border-white hover:bg-white hover:text-black"
+              <div className="group relative mt-8 w-fit">
+                <button
+                  type="button"
+                  aria-label="Open social links and resume"
+                  onClick={() => setActive(active === "socials" ? "" : "socials")}
+                  className="rounded-2xl border border-zinc-700 bg-zinc-900 px-5 py-3 text-sm text-white transition hover:bg-zinc-800"
                 >
-                  <Download size={20} />
-                  <span className="text-sm font-medium">{siteAbout.resumeLabel}</span>
-                </a>
+                  Connect
+                </button>
+                <div
+                  className={`absolute left-0 top-full z-20 mt-3 flex w-max flex-wrap gap-3 rounded-2xl border border-zinc-800 bg-black/95 p-3 shadow-2xl transition md:pointer-events-none md:-translate-y-2 md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:translate-y-0 md:group-hover:opacity-100 ${active === "socials" ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"}`}
+                >
+                  {socials.map((social) => {
+                    const Icon = social.icon ?? Code2;
+                    return (
+                      <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${social.name}`} className="rounded-2xl bg-zinc-800 p-3 text-white transition hover:scale-110 hover:bg-white hover:text-black">
+                        <Icon className="text-3xl" />
+                      </a>
+                    );
+                  })}
+                  <a href="/resume.docx" download className="flex items-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-900 px-5 py-3 text-sm text-white transition hover:border-white hover:bg-white hover:text-black">
+                    <Download size={20} /> {siteAbout.resumeLabel}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
@@ -177,7 +171,8 @@ export default function Home() {
             onClose={() => setActive("")}
             header={
               <div className="flex items-center-safe gap-2 cursor-pointer ">
-                <ArrowUpRight className="" size={30} /> {siteAbout.workCardLabel}{" "}
+                <ArrowUpRight className="" size={30} />{" "}
+                {siteAbout.workCardLabel}{" "}
               </div>
             }
           >
@@ -230,7 +225,9 @@ export default function Home() {
       </div>
       {/* Experience */}
       <div className="flex flex-col gap-5">
-        <p className="float-left text-3xl">{siteAbout.experienceSectionTitle}</p>
+        <p className="float-left text-3xl">
+          {siteAbout.experienceSectionTitle}
+        </p>
         <div className="min-w-0 flex-1">
           <div className="mt-12 flex-1">
             <TestimonialSlider items={workExperience} reverse />
@@ -421,29 +418,7 @@ export default function Home() {
 //             {/* CONTACT */}
 //             <div className="relative h-20">
 //               {" "}
-// <Card
-//   id="contact"
-//   active={active === "contact"}
-//   onClick={() => setActive("contact")}
-//   onClose={() => setActive("")}
-//   header={
-//     <div
-//       className={`${
-//         active === "contact" ? "hidden" : ""
-//       } flex items-center px-5 py-4`}
-//     >
-//       <h1 className="text-2xl font-semibold text-white">
-//         Contact
-//       </h1>
 
-//       <div className="mx-4 h-px flex-1 bg-zinc-800" />
-
-//       <Globe2 className="h-5 w-5 text-zinc-500" />
-//     </div>
-//   }
-// >
-//   <Contact />
-// </Card>
 //             </div>
 //           </div>
 //         </div>

@@ -2,6 +2,7 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import {
+  Code2,
   Loader2,
   Mail,
   Send,
@@ -290,7 +291,7 @@ export default function ContactForm() {
       {/* Socials */}
       <div className="mt-8 flex items-center justify-center gap-4">
         {socials.map((social) => {
-          const Icon = social.icon;
+          const Icon = social.icon ?? Code2;
 
           return (
             <a

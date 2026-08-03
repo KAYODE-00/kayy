@@ -7,17 +7,12 @@ import {
   Slider,
   SliderContainer,
 } from "@/components/ui/autoscroll-slider-utils/carousel";
+import { usePortfolio } from "@/components/PortfolioProvider";
 
-const projects = [
-  { title: "AI SaaS Dashboard", image: "/developer.PNG" },
-  { title: "Metric SaaS", image: "/metric.png" },
-  { title: "AI Portfolio", image: "/developer.PNG" },
-  { title: "Data Room", image: "/metric.png" },
-  { title: "Webcrate", image: "/developer.PNG" },
-  { title: "Business Tools", image: "/metric.png" },
-];
+
 
 export function Skiper52() {
+  const { projects } = usePortfolio();
   const options: EmblaOptionsType = { loop: true, align: "center" };
 
   return (

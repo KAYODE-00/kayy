@@ -187,6 +187,15 @@ export default function PortfolioAdmin() {
                   <input value={data.about[field] ?? ''} onChange={(e) => updateField('about', field, e.target.value)} className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
                 </div>
               ))}
+              <div>
+                <label className="text-sm text-gray-400 block mb-2">Rotating Text Prefix</label>
+                <input value={data.about.rotatingPrefix ?? 'He who'} onChange={(e) => updateField('about', 'rotatingPrefix', e.target.value)} placeholder="Example: He who" className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
+              </div>
+              <div className="md:col-span-2">
+                <label className="text-sm text-gray-400 block mb-2">Rotating Words</label>
+                <input value={(data.about.rotatingWords ?? []).join(', ')} onChange={(e) => updateField('about', 'rotatingWords', e.target.value.split(',').map((word: string) => word.trim()).filter(Boolean))} placeholder="Example: codes, builds, designs" className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
+                <p className="mt-1 text-xs text-gray-500">Separate each word with a comma.</p>
+              </div>
             </div>
           </div>
         )}

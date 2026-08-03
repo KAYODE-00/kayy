@@ -39,6 +39,8 @@ export const about = {
   "experienceSectionTitle": "Experience",
   "githubSectionTitle": "Github contribution graph",
   "resumeLabel": "Resume",
+  "rotatingPrefix": "He who",
+  "rotatingWords": ["codes", "builds", "architects", "designs", "creates", "learns", "ships", "innovates", "plans", "engineers"],
   "pageTitle": "About Me",
   "subHeading": "A little about me",
   "iBuildText": "I Build",

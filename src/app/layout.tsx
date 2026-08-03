@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter, Exo } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { PortfolioProvider } from "@/components/PortfolioProvider";
 
 const exo = Exo({
   subsets: ["latin"],
@@ -57,7 +58,7 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col font-exo">
-        {children}
+        <PortfolioProvider>{children}</PortfolioProvider>
       </body>
     </html>
   );

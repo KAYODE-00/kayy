@@ -67,8 +67,7 @@ export default function Card({
                 relative
                 ${id === "about" && "h-full"}
                      ${id === "work" && " "}
-                          ${id === "contact" && "h-2"}
-                               ${id === "contact" && "h-2"}
+                          ${id === "contact" && "w-20"}
             w-full
               `
           }

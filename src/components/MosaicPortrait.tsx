@@ -11,6 +11,12 @@ export default function MosaicPortrait({ imageUrl = "/developer.PNG" }: { imageU
     const context = canvas.getContext("2d", { willReadFrequently: true });
     if (!context) return;
     const image = new Image();
+    image.crossOrigin = "anonymous";
+    image.onerror = () => {
+      image.onerror = null;
+      image.crossOrigin = "";
+      image.src = imageUrl;
+    };
     image.src = imageUrl;
     image.decoding = "async";
 
@@ -20,6 +26,7 @@ export default function MosaicPortrait({ imageUrl = "/developer.PNG" }: { imageU
     let sourceCanvas: HTMLCanvasElement;
     let sourceContext: CanvasRenderingContext2D;
     let sourceData: ImageData;
+    let canProcessPixels = true;
 
     const resize = () => {
       const bounds = canvas.getBoundingClientRect();
@@ -36,11 +43,25 @@ export default function MosaicPortrait({ imageUrl = "/developer.PNG" }: { imageU
       const drawWidth = image.width * scale;
       const drawHeight = image.height * scale;
       sourceContext.drawImage(image, (width - drawWidth) / 2, (height - drawHeight) / 2, drawWidth, drawHeight);
-      sourceData = sourceContext.getImageData(0, 0, width, height);
+      try {
+        sourceData = sourceContext.getImageData(0, 0, width, height);
+        canProcessPixels = true;
+      } catch {
+        canProcessPixels = false;
+      }
     };
 
     const render = (time: number) => {
       if (!sourceData) {
+        if (!canProcessPixels) {
+          context.clearRect(0, 0, width, height);
+          const scale = Math.max(width / image.width, height / image.height);
+          const drawWidth = image.width * scale;
+          const drawHeight = image.height * scale;
+          context.drawImage(image, (width - drawWidth) / 2, (height - drawHeight) / 2, drawWidth, drawHeight);
+          animationFrame = requestAnimationFrame(render);
+          return;
+        }
         animationFrame = requestAnimationFrame(render);
         return;
       }
