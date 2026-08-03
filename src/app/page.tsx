@@ -65,14 +65,14 @@ export default function Home() {
   }, [lightMode]);
   return (
     <main className="relative flex min-h-screen flex-col gap-10 bg-black pt-16   p-8 md:p-8">
-      <button
+      {/* <button
         type="button"
         aria-label={lightMode ? "Switch to dark mode" : "Switch to light mode"}
         onClick={() => setLightMode((current) => !current)}
         className="fixed left-5 top-5 z-[80] grid size-11 place-items-center rounded-full border border-zinc-700 bg-zinc-900 text-white shadow-xl transition hover:scale-110 hover:bg-white hover:text-black"
       >
         {lightMode ? <Moon size={18} /> : <Sun size={18} />}
-      </button>
+      </button> */}
       <div className="flex items-center justify-center">
         <div className="flex flex-col gap-4">
           <div className="  h-70 w-70 overflow-hidden rounded-full border border-zinc-700 ">
