@@ -75,7 +75,7 @@ export default function PortfolioAdmin() {
   const collectionFields: Record<string, string[]> = {
     testimonials: ['name', 'role', 'text', 'avatar'],
     socials: ['name', 'url'],
-    tools: ['name'],
+    tools: ['name', 'iconLibrary', 'iconImport'],
     builds: ['value'],
     projects: ['title', 'type', 'image', 'description', 'github', 'live'],
     workExperience: ['name', 'role', 'text', 'avatar'],

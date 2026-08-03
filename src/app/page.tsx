@@ -1,5 +1,5 @@
 "use client";
-import { ArrowUpRight, Download, Moon, Sun } from "lucide-react";
+import { ArrowUpRight, Code2, Download, Moon, Sun } from "lucide-react";
 import { Globe2 } from "lucide-react";
 import MosaicPortrait from "@/components/MosaicPortrait";
 import Card from "@/components/Card";
@@ -192,7 +192,7 @@ export default function Home() {
           >
             <div className="grid grid-cols-4 gap-4 sm:grid-cols-4 md:grid-cols-7 lg:grid-cols-8">
               {tools.map((tool) => {
-                const Icon = tool.icon;
+                const Icon = tool.icon ?? Code2;
                 return (
                   <div
                     key={tool.name}

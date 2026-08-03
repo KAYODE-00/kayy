@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowDown, ArrowUp, ArrowUpRight, Pause, Play } from "lucide-react";
+import { ArrowDown, ArrowUp, ArrowUpRight, Code2, Pause, Play } from "lucide-react";
 import { FolderKanban, Users, Blocks } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 import { projects } from "@/data/data";
@@ -152,7 +152,7 @@ export default function Work() {
                 {/* Stack Icons */}
                 <div className="flex flex-wrap gap-3">
                   {project.stack.map((tool) => {
-                    const Icon = tool.icon;
+                    const Icon = tool.icon ?? Code2;
 
                     return (
                       <div key={tool.name} className="group relative">

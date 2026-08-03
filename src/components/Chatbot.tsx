@@ -12,6 +12,7 @@ type Message = {
 export default function ChatBot() {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const conversationId = useRef<string>(crypto.randomUUID());
 
   const [messages, setMessages] = useState<Message[]>([
     {
@@ -53,6 +54,7 @@ export default function ChatBot() {
             role: msg.role,
             content: msg.text,
           })),
+          conversationId: conversationId.current,
         }),
       });
 
