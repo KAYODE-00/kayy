@@ -27,7 +27,6 @@ const fadeUp = {
 export default function Home() {
   const { about, socials, tools, workExperience } = usePortfolio();
   const [active, setActive] = useState("");
-  const [launcherOpen, setLauncherOpen] = useState(false);
   const siteAbout = about;
   const [lightMode, setLightMode] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
@@ -57,24 +56,17 @@ export default function Home() {
   }, [lightMode]);
   return (
     <main className="relative flex min-h-screen flex-col gap-10 bg-black pt-16   p-8 md:p-8">
-      <div
-        className="group fixed left-5 top-5 z-[70] flex flex-col items-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-950/95 p-2 text-white shadow-2xl backdrop-blur"
-        onClick={() => setLauncherOpen((open) => !open)}
-      >
-        <button type="button" aria-label="Open portfolio options" className="grid size-11 place-items-center rounded-xl bg-zinc-900 hover:bg-zinc-800">
-          <Bot size={20} />
-        </button>
-        <div className={`flex flex-col gap-3 overflow-hidden transition-all duration-300 ${launcherOpen ? "max-h-40 opacity-100" : "max-h-0 opacity-0 md:group-hover:max-h-40 md:group-hover:opacity-100"}`}>
         <button
           type="button"
           aria-label={
             lightMode ? "Switch to dark mode" : "Switch to light mode"
           }
           onClick={() => setLightMode((current) => !current)}
-          className="grid size-11 place-items-center rounded-xl border border-zinc-700 bg-zinc-900 text-white shadow-xl transition hover:scale-110 hover:bg-white hover:text-black"
+          className="fixed left-5 top-5 z-[80] grid size-11 place-items-center rounded-full border border-zinc-700 bg-zinc-900 text-white shadow-xl transition hover:scale-110 hover:bg-white hover:text-black"
         >
           {lightMode ? <Moon size={18} /> : <Sun size={18} />}
         </button>
+      <div className="fixed left-20 top-5 z-[70]">
         <Card
           id="contact"
           active={active === "contact"}
@@ -84,7 +76,6 @@ export default function Home() {
         >
           <ChatBot />
         </Card>
-        </div>
       </div>
       <div className="flex items-center justify-center">
         <div className="flex flex-col gap-4">
