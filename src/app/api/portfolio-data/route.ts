@@ -24,7 +24,6 @@ const ensureTable = async () => {
 };
 
 export async function GET(request: NextRequest) {
-  if (!isAuthenticated(request)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
     const sql = await ensureTable();
     const rows = await sql`SELECT data FROM portfolio_content WHERE id = 'default'`;

@@ -74,7 +74,7 @@ export default function PortfolioAdmin() {
 
   const collectionFields: Record<string, string[]> = {
     testimonials: ['name', 'role', 'text', 'avatar'],
-    socials: ['name', 'url'],
+    socials: ['name', 'url', 'iconLibrary', 'iconImport'],
     tools: ['name', 'iconLibrary', 'iconImport'],
     builds: ['value'],
     projects: ['title', 'type', 'image', 'description', 'github', 'live'],
@@ -164,6 +164,15 @@ export default function PortfolioAdmin() {
                 <label className="text-sm text-gray-400 block mb-2">Description</label>
                 <textarea value={data.about.description} onChange={(e) => updateField('about', 'description', e.target.value)} className="w-full bg-gray-800 p-3 rounded-xl text-sm h-32" />
               </div>
+              <div className="md:col-span-2">
+                <label className="text-sm text-gray-400 block mb-2">Mosaic Portrait Image</label>
+                <input value={data.about.portraitImage ?? '/developer.PNG'} onChange={(e) => updateField('about', 'portraitImage', e.target.value)} placeholder="https://cdn.example.com/kayode-portrait.jpg or /developer.PNG" type="url" className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
+                <p className="mt-1 text-xs text-gray-500">Paste a CDN URL or a local public path such as /developer.PNG.</p>
+              </div>
+              <div className="md:col-span-2">
+                <label className="text-sm text-gray-400 block mb-2">Hero Text</label>
+                <textarea value={data.about.heroText ?? data.about.description} onChange={(e) => updateField('about', 'heroText', e.target.value)} className="w-full bg-gray-800 p-3 rounded-xl text-sm h-32" />
+              </div>
               <div>
                 <label className="text-sm text-gray-400 block mb-2">Sub Heading</label>
                 <input value={data.about.subHeading} onChange={(e) => updateField('about', 'subHeading', e.target.value)} className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
@@ -172,6 +181,12 @@ export default function PortfolioAdmin() {
                 <label className="text-sm text-gray-400 block mb-2">Resume Text</label>
                 <input value={data.about.resumeText} onChange={(e) => updateField('about', 'resumeText', e.target.value)} className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
               </div>
+              {['aboutCardLabel', 'workSectionTitle', 'workCardLabel', 'stacksSectionTitle', 'testimonialsTitle', 'experienceSectionTitle', 'githubSectionTitle', 'resumeLabel'].map((field) => (
+                <div key={field}>
+                  <label className="text-sm text-gray-400 block mb-2">{field}</label>
+                  <input value={data.about[field] ?? ''} onChange={(e) => updateField('about', field, e.target.value)} className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
+                </div>
+              ))}
             </div>
           </div>
         )}
@@ -230,7 +245,7 @@ export default function PortfolioAdmin() {
                         onChange={(event) => activeTab === 'builds'
                           ? updateItem('builds', index, 'value', event.target.value)
                           : updateItem(activeTab, index, field, event.target.value)}
-                        placeholder={field === 'avatar' ? 'Emoji or image/CDN URL' : field}
+                        placeholder={field === 'avatar' ? 'Emoji or https://cdn.example.com/avatar.jpg' : field === 'image' ? 'https://cdn.example.com/project.jpg or /project.png' : field === 'iconLibrary' ? 'react-icons/si or lucide-react' : field === 'iconImport' ? 'SiReact or Code2' : `Example ${field}`}
                         type={field === 'image' || field === 'avatar' ? 'url' : 'text'}
                         className="w-full rounded-lg bg-gray-900 px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-emerald-500"
                       />
@@ -246,7 +261,7 @@ export default function PortfolioAdmin() {
         )}
 
         <div className="mt-16 text-center text-gray-500">
-          All edits are persisted directly to <code>data.ts</code>
+          All edits are persisted to Neon. Image fields accept CDN URLs or local public paths.
         </div>
       </div>
     </div>

@@ -25,6 +25,7 @@ const fadeUp = {
 
 export default function Home() {
   const [active, setActive] = useState("");
+  const [siteAbout, setSiteAbout] = useState(about);
   const [lightMode, setLightMode] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const words = [
@@ -56,6 +57,12 @@ export default function Home() {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
+    fetch("/api/portfolio-data")
+      .then((response) => response.ok ? response.json() : null)
+      .then((data) => data?.about && setSiteAbout((current) => ({ ...current, ...data.about })))
+      .catch(() => undefined);
+  }, []);
+  useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
     }, 2500);
@@ -86,14 +93,12 @@ export default function Home() {
       <div className="flex items-center justify-center">
         <div className="flex flex-col gap-4">
           <div className="  h-70 w-70 overflow-hidden rounded-full border border-zinc-700 ">
-            <MosaicPortrait />
+            <MosaicPortrait imageUrl={siteAbout.portraitImage} />
           </div>
           <div className="flex flex-col gap-3">
             <h1 className="text-xl ">
               I'm a full-stack developer who enjoys building modern web
-              applications, AI-powered products, and clean user experiences with
-              performance in mind. I specialize in building scalable SaaS
-              platforms and focused digital tools.
+              {siteAbout.heroText ?? siteAbout.description}
             </h1>{" "}
             <div className="flex  flex-col md:flex-row  md:items-center  justify-between">
               <div className="flex md:flex-col gap-10 items-center justify-between">
@@ -104,7 +109,7 @@ export default function Home() {
                   onClose={() => setActive("")}
                   header={
                     <div className="flex items-center-safe gap-2 cursor-pointer ">
-                      <ArrowUpRight className="" size={30} /> About Me{" "}
+                      <ArrowUpRight className="" size={30} /> {siteAbout.aboutCardLabel}{" "}
                     </div>
                   }
                 >
@@ -153,7 +158,7 @@ export default function Home() {
                   className="group relative flex items-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-900 px-6 py-4 transition-all hover:border-white hover:bg-white hover:text-black"
                 >
                   <Download size={20} />
-                  <span className="text-sm font-medium">Resume</span>
+                  <span className="text-sm font-medium">{siteAbout.resumeLabel}</span>
                 </a>
               </div>
             </div>
@@ -162,7 +167,7 @@ export default function Home() {
       </div>{" "}
       {/* work */}
       <div className="flex flex-col gap-5">
-        <p className="float-left text-3xl">Works</p>
+        <p className="float-left text-3xl">{siteAbout.workSectionTitle}</p>
         <div className="min-w-0 flex-1">
           <Skiper52 />
           <Card
@@ -172,7 +177,7 @@ export default function Home() {
             onClose={() => setActive("")}
             header={
               <div className="flex items-center-safe gap-2 cursor-pointer ">
-                <ArrowUpRight className="" size={30} /> Work{" "}
+                <ArrowUpRight className="" size={30} /> {siteAbout.workCardLabel}{" "}
               </div>
             }
           >
@@ -182,7 +187,7 @@ export default function Home() {
       </div>
       {/* stacks */}
       <div className="flex flex-col gap-5">
-        <p className="float-left text-3xl">Stacks & Tools</p>
+        <p className="float-left text-3xl">{siteAbout.stacksSectionTitle}</p>
         <div className="min-w-0 flex-1">
           <motion.div
             variants={fadeUp}
@@ -216,7 +221,7 @@ export default function Home() {
       </div>
       {/* Testimonials */}
       <div className="flex flex-col gap-5">
-        <p className="float-left text-3xl">Testimonials</p>
+        <p className="float-left text-3xl">{siteAbout.testimonialsTitle}</p>
         <div className="min-w-0 flex-1">
           <div className="mt-12 flex-1">
             <TestimonialSlider />
@@ -225,7 +230,7 @@ export default function Home() {
       </div>
       {/* Experience */}
       <div className="flex flex-col gap-5">
-        <p className="float-left text-3xl">Experience</p>
+        <p className="float-left text-3xl">{siteAbout.experienceSectionTitle}</p>
         <div className="min-w-0 flex-1">
           <div className="mt-12 flex-1">
             <TestimonialSlider items={workExperience} reverse />
@@ -240,19 +245,19 @@ export default function Home() {
         viewport={{ once: true }}
         className="flex flex-col gap-5 "
       >
-        <p className="float-left text-3xl">Github contribution graph</p>
+        <p className="float-left text-3xl">{siteAbout.githubSectionTitle}</p>
 
         <div className="flex items-center justify-center w-full overflow-hidden rounded-xl border border-zinc-800  p-5 md:p-30">
           <img
-            src={`https://ghchart.rshah.org/18181b/${about.githubUsername}`}
+            src={`https://ghchart.rshah.org/18181b/${siteAbout.githubUsername}`}
             alt="GitHub Contribution Graph"
             className="mx-auto block h-auto w-full scale-100 rounded-xl sm:scale-100 md:scale-100"
             loading="lazy"
           />
         </div>
         <p className="mt-4 text-center text-xs text-zinc-500">
-          {about.githubSubtitle}{" "}
-          <span className="font-mono">{about.githubUsername}</span>
+          {siteAbout.githubSubtitle}{" "}
+          <span className="font-mono">{siteAbout.githubUsername}</span>
         </p>
       </motion.div>
       <div></div>

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 
-export default function MosaicPortrait() {
+export default function MosaicPortrait({ imageUrl = "/developer.PNG" }: { imageUrl?: string }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -11,7 +11,7 @@ export default function MosaicPortrait() {
     const context = canvas.getContext("2d", { willReadFrequently: true });
     if (!context) return;
     const image = new Image();
-    image.src = "/developer.PNG";
+    image.src = imageUrl;
     image.decoding = "async";
 
     let animationFrame = 0;
@@ -101,7 +101,7 @@ export default function MosaicPortrait() {
       cancelAnimationFrame(animationFrame);
       observer.disconnect();
     };
-  }, []);
+  }, [imageUrl]);
 
   return <canvas ref={canvasRef} aria-label="Animated mosaic portrait of Kayode" className="h-full w-full" />;
 }
