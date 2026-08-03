@@ -137,16 +137,37 @@ export default function Home() {
                     </a>
                   );
                 })}
-                <a
-                  href="/resume.docx"
-                  download
-                  className="group relative flex items-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-900 px-6 py-4 transition-all hover:border-white hover:bg-white hover:text-black"
-                >
-                  <Download size={20} />
-                  <span className="text-sm font-medium">
-                    {siteAbout.resumeLabel}
-                  </span>
-                </a>
+                <Card
+  id="resume"
+  active={active === "resume"}
+  onClick={() => setActive("resume")}
+  onClose={() => setActive("")}
+  header={
+    <div className="flex items-center gap-2 cursor-pointer">
+      <ArrowUpRight size={30} />
+      Resume
+    </div>
+  }
+>
+  <div className="flex justify-end mb-4">
+    <a
+      href="/resume.pdf"
+      download="Abdulwahab_Kayode_Resume.pdf"
+      className="flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm transition hover:bg-white hover:text-black"
+    >
+      <Download size={18} />
+      Download Resume
+    </a>
+  </div>
+
+  <div className="overflow-hidden rounded-xl border border-zinc-800">
+    <iframe
+      src="/resume.pdf"
+      title="Resume"
+      className="w-full h-[900px]"
+    />
+  </div>
+</Card>
               </div>
             </div>
           </div>
