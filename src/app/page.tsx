@@ -9,7 +9,7 @@ import Contact from "@/components/Contact";
 import { Skiper52 } from "@/components/ExpandOnHover";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { usePortfolio } from "@/components/PortfolioProvider";
+import { about, socials, tools, workExperience } from "@/data/data";
 import TestimonialSlider from "@/components/TestimonialSlider";
 import ChatBot from "@/components/Chatbot";
 
@@ -25,9 +25,8 @@ const fadeUp = {
 };
 
 export default function Home() {
-  const { about, socials, tools, workExperience } = usePortfolio();
   const [active, setActive] = useState("");
-  const siteAbout = about;
+  const [siteAbout, setSiteAbout] = useState(about);
   const [lightMode, setLightMode] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const words = siteAbout.rotatingWords?.length
@@ -36,6 +35,16 @@ export default function Home() {
 
   const [index, setIndex] = useState(0);
 
+  useEffect(() => {
+    fetch("/api/portfolio-data")
+      .then((response) => (response.ok ? response.json() : null))
+      .then(
+        (data) =>
+          data?.about &&
+          setSiteAbout((current) => ({ ...current, ...data.about })),
+      )
+      .catch(() => undefined);
+  }, []);
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
@@ -56,27 +65,14 @@ export default function Home() {
   }, [lightMode]);
   return (
     <main className="relative flex min-h-screen flex-col gap-10 bg-black pt-16   p-8 md:p-8">
-        <button
-          type="button"
-          aria-label={
-            lightMode ? "Switch to dark mode" : "Switch to light mode"
-          }
-          onClick={() => setLightMode((current) => !current)}
-          className="fixed left-5 top-5 z-[80] grid size-11 place-items-center rounded-full border border-zinc-700 bg-zinc-900 text-white shadow-xl transition hover:scale-110 hover:bg-white hover:text-black"
-        >
-          {lightMode ? <Moon size={18} /> : <Sun size={18} />}
-        </button>
-      <div className="fixed left-20 top-5 z-[70]">
-        <Card
-          id="contact"
-          active={active === "contact"}
-          onClick={() => setActive("contact")}
-          onClose={() => setActive("")}
-          header={<Bot size={45} />}
-        >
-          <ChatBot />
-        </Card>
-      </div>
+      <button
+        type="button"
+        aria-label={lightMode ? "Switch to dark mode" : "Switch to light mode"}
+        onClick={() => setLightMode((current) => !current)}
+        className="fixed left-5 top-5 z-[80] grid size-11 place-items-center rounded-full border border-zinc-700 bg-zinc-900 text-white shadow-xl transition hover:scale-110 hover:bg-white hover:text-black"
+      >
+        {lightMode ? <Moon size={18} /> : <Sun size={18} />}
+      </button>
       <div className="flex items-center justify-center">
         <div className="flex flex-col gap-4">
           <div className="  h-70 w-70 overflow-hidden rounded-full border border-zinc-700 ">
@@ -121,30 +117,36 @@ export default function Home() {
                   </AnimatePresence>
                 </div>
               </div>
-              <div className="group relative mt-8 w-fit">
-                <button
-                  type="button"
-                  aria-label="Open social links and resume"
-                  onClick={() => setActive(active === "socials" ? "" : "socials")}
-                  className="rounded-2xl border border-zinc-700 bg-zinc-900 px-5 py-3 text-sm text-white transition hover:bg-zinc-800"
+              <div className="mt-8 flex flex-wrap gap-4">
+              
+                {socials.map((social) => {
+                  const Icon = social.icon;
+                  return (
+                    <a
+                      key={social.name}
+                      href={social.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visit ${social.name}`}
+                      className="group relative rounded-2xl bg-zinc-800 p-3 transition-all hover:scale-110 hover:bg-white hover:text-black"
+                    >
+                      <Icon className="text-3xl" />
+                      <span className="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-white opacity-0 shadow-xl transition-all group-hover:-translate-y-2 group-hover:opacity-100">
+                        {social.name}
+                      </span>
+                    </a>
+                  );
+                })}
+                <a
+                  href="/resume.docx"
+                  download
+                  className="group relative flex items-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-900 px-6 py-4 transition-all hover:border-white hover:bg-white hover:text-black"
                 >
-                  Connect
-                </button>
-                <div
-                  className={`absolute left-0 top-full z-20 mt-3 flex w-max flex-wrap gap-3 rounded-2xl border border-zinc-800 bg-black/95 p-3 shadow-2xl transition md:pointer-events-none md:-translate-y-2 md:opacity-0 md:group-hover:pointer-events-auto md:group-hover:translate-y-0 md:group-hover:opacity-100 ${active === "socials" ? "pointer-events-auto translate-y-0 opacity-100" : "pointer-events-none -translate-y-2 opacity-0"}`}
-                >
-                  {socials.map((social) => {
-                    const Icon = social.icon ?? Code2;
-                    return (
-                      <a key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={`Visit ${social.name}`} className="rounded-2xl bg-zinc-800 p-3 text-white transition hover:scale-110 hover:bg-white hover:text-black">
-                        <Icon className="text-3xl" />
-                      </a>
-                    );
-                  })}
-                  <a href="/resume.docx" download className="flex items-center gap-3 rounded-2xl border border-zinc-700 bg-zinc-900 px-5 py-3 text-sm text-white transition hover:border-white hover:bg-white hover:text-black">
-                    <Download size={20} /> {siteAbout.resumeLabel}
-                  </a>
-                </div>
+                  <Download size={20} />
+                  <span className="text-sm font-medium">
+                    {siteAbout.resumeLabel}
+                  </span>
+                </a>
               </div>
             </div>
           </div>
@@ -252,165 +254,3 @@ export default function Home() {
     </main>
   );
 }
-
-//  <div className=" flex h-full w-full  flex-col items-center justify-center  md:gap-10">
-//         <div
-//           className={`${
-//             active === "about" ? "hidden" : ""
-//           } relative overflow-hidden rounded-[28px] `}
-//         >
-//           <div className="relative flex h-full flex-col w-full justify-between p-6 -px-5">
-//             {/* Status */}
-
-//             {/* Image */}
-
-//             {/* Text */}
-//             <div className="-mt-7 md:mt-5">
-//               <h1 className="text-4xl font-bold leading-tight text-white">
-//                 Hi, I'm <span className="text-zinc-300">Kayode</span>
-//               </h1>
-//               <div>
-//                 <p className="text-lg font-medium leading-relaxed text-white sm:text-xl">
-//                   I&apos;m a <span className="text-zinc-300">Software Engineer</span> who builds thoughtful digital products.
-//                 </p>
-//               </div>
-// <div className="mt-3 float-right flex items-center gap-2 text-sm text-zinc-400">
-//   <span>He who</span>
-
-//   <AnimatePresence mode="wait">
-//     <motion.span
-//       key={words[index]}
-//       initial={{ opacity: 0, y: 10 }}
-//       animate={{ opacity: 1, y: 0 }}
-//       exit={{ opacity: 0, y: -10 }}
-//       transition={{ duration: 0.35 }}
-//       className="font-semibold text-white"
-//     >
-//       {words[index]}
-//     </motion.span>
-//   </AnimatePresence>
-// </div>
-//             </div>
-//           </div>
-//         </div>
-
-//         <div className="flex items-center justify-center h-100  w-full max-w-7xl grid-cols-3 grid-rows-2 gap-4">
-//           {/* ABOUT */}
-//           <div className={`relative col-span-2 row-span-2 h-70 md:h-full `}>
-//             <Card
-//               id="about"
-//               active={active === "about"}
-//               onClick={() => setActive("about")}
-//               onClose={() => setActive("")}
-//               header={
-//                 <div  className={`${
-//             active === "about" ? "hidden" : ""
-//           } relative overflow-hidden rounded-[28px] `} >
-//                   <div className=" flex justify-center -mt-8 md:mt-5">
-// <img
-//   src="/developer.PNG"
-//   alt="Kayode"
-//   className=" object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,.45)]"
-// />
-//                   </div>
-//                 </div>
-//               }
-//             >
-//               <div>
-//                 <About />
-//               </div>
-//             </Card>
-//           </div>
-
-//           <div className="col-span-1 row-span-1 h-70 md:h-full flex flex-col justify-between gap-4">
-//             {/* WORK */}
-//             <div className="relative  h-70 md:h-100">
-//   <Card
-//     id="work"
-//     active={active === "work"}
-//     onClick={() => setActive("work")}
-//     onClose={() => setActive("")}
-//     header={
-//       <div
-//         className={`${active === "work" && " hidden "} relative h-20`}
-//       >
-//         <div className="relative space-y-3">
-//           {projects.map((project, index) => (
-//             <div
-//               key={project.title}
-//               onMouseEnter={() => setHoveredProject(index)}
-//               onMouseLeave={() => setHoveredProject(null)}
-//               className="group relative overflow-visible rounded-2xl border border-zinc-800 bg-zinc-900 transition hover:border-zinc-700"
-//             >
-//               <div className="flex items-center justify-between px-6 py-5">
-//                 <h2 className="text-sm font-semibold text-white">
-//                   {project.title}
-//                 </h2>
-
-//                 <ArrowUpRight className="text-zinc-500 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
-//               </div>
-
-//               <AnimatePresence>
-//                 {hoveredProject === index && (
-//                   <motion.div
-//                     initial={{
-//                       opacity: 0,
-//                       scale: 0.9,
-//                       x: 30,
-//                     }}
-//                     animate={{
-//                       opacity: 1,
-//                       scale: 1,
-//                       x: 0,
-//                     }}
-//                     exit={{
-//                       opacity: 0,
-//                       scale: 0.9,
-//                       x: 30,
-//                     }}
-//                     transition={{
-//                       duration: 0.25,
-//                     }}
-//                     className="
-//   absolute
-//   right-5
-//   top-1/2
-//   z-50
-//   h-32
-//   w-50
-//   -translate-y-1/2
-//   overflow-hidden
-//   rounded-2xl
-//   border
-//   border-zinc-700
-//   shadow-2xl
-// "
-//                   >
-//                     <img
-//                       src={project.image}
-//                       alt={project.title}
-//                       className="h-full w-full object-cover"
-//                     />
-
-//                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-//                   </motion.div>
-//                 )}
-//               </AnimatePresence>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     }
-//   >
-//     <Work />
-//   </Card>
-//             </div>
-
-//             {/* CONTACT */}
-//             <div className="relative h-20">
-//               {" "}
-
-//             </div>
-//           </div>
-//         </div>
-//       </div>
