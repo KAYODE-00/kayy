@@ -85,7 +85,7 @@ export default function Home() {
       </button>
       <div className="flex items-center justify-center">
         <div className="flex flex-col gap-4">
-                <div className="  h-70 w-70 overflow-hidden rounded-full border border-zinc-700 ">
+          <div className="  h-70 w-70 overflow-hidden rounded-full border border-zinc-700 ">
             <MosaicPortrait />
           </div>
           <div className="flex flex-col gap-3">
@@ -158,7 +158,6 @@ export default function Home() {
               </div>
             </div>
           </div>
-    
         </div>
       </div>{" "}
       {/* work */}
@@ -166,6 +165,19 @@ export default function Home() {
         <p className="float-left text-3xl">Works</p>
         <div className="min-w-0 flex-1">
           <Skiper52 />
+          <Card
+            id="work"
+            active={active === "work"}
+            onClick={() => setActive("work")}
+            onClose={() => setActive("")}
+            header={
+              <div className="flex items-center-safe gap-2 cursor-pointer ">
+                <ArrowUpRight className="" size={30} /> Work{" "}
+              </div>
+            }
+          >
+            <Work />
+          </Card>
         </div>
       </div>
       {/* stacks */}
@@ -320,85 +332,85 @@ export default function Home() {
 //           <div className="col-span-1 row-span-1 h-70 md:h-full flex flex-col justify-between gap-4">
 //             {/* WORK */}
 //             <div className="relative  h-70 md:h-100">
-//               <Card
-//                 id="work"
-//                 active={active === "work"}
-//                 onClick={() => setActive("work")}
-//                 onClose={() => setActive("")}
-//                 header={
-//                   <div
-//                     className={`${active === "work" && " hidden "} relative h-20`}
+//   <Card
+//     id="work"
+//     active={active === "work"}
+//     onClick={() => setActive("work")}
+//     onClose={() => setActive("")}
+//     header={
+//       <div
+//         className={`${active === "work" && " hidden "} relative h-20`}
+//       >
+//         <div className="relative space-y-3">
+//           {projects.map((project, index) => (
+//             <div
+//               key={project.title}
+//               onMouseEnter={() => setHoveredProject(index)}
+//               onMouseLeave={() => setHoveredProject(null)}
+//               className="group relative overflow-visible rounded-2xl border border-zinc-800 bg-zinc-900 transition hover:border-zinc-700"
+//             >
+//               <div className="flex items-center justify-between px-6 py-5">
+//                 <h2 className="text-sm font-semibold text-white">
+//                   {project.title}
+//                 </h2>
+
+//                 <ArrowUpRight className="text-zinc-500 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
+//               </div>
+
+//               <AnimatePresence>
+//                 {hoveredProject === index && (
+//                   <motion.div
+//                     initial={{
+//                       opacity: 0,
+//                       scale: 0.9,
+//                       x: 30,
+//                     }}
+//                     animate={{
+//                       opacity: 1,
+//                       scale: 1,
+//                       x: 0,
+//                     }}
+//                     exit={{
+//                       opacity: 0,
+//                       scale: 0.9,
+//                       x: 30,
+//                     }}
+//                     transition={{
+//                       duration: 0.25,
+//                     }}
+//                     className="
+//   absolute
+//   right-5
+//   top-1/2
+//   z-50
+//   h-32
+//   w-50
+//   -translate-y-1/2
+//   overflow-hidden
+//   rounded-2xl
+//   border
+//   border-zinc-700
+//   shadow-2xl
+// "
 //                   >
-//                     <div className="relative space-y-3">
-//                       {projects.map((project, index) => (
-//                         <div
-//                           key={project.title}
-//                           onMouseEnter={() => setHoveredProject(index)}
-//                           onMouseLeave={() => setHoveredProject(null)}
-//                           className="group relative overflow-visible rounded-2xl border border-zinc-800 bg-zinc-900 transition hover:border-zinc-700"
-//                         >
-//                           <div className="flex items-center justify-between px-6 py-5">
-//                             <h2 className="text-sm font-semibold text-white">
-//                               {project.title}
-//                             </h2>
+//                     <img
+//                       src={project.image}
+//                       alt={project.title}
+//                       className="h-full w-full object-cover"
+//                     />
 
-//                             <ArrowUpRight className="text-zinc-500 transition group-hover:translate-x-1 group-hover:-translate-y-1" />
-//                           </div>
-
-//                           <AnimatePresence>
-//                             {hoveredProject === index && (
-//                               <motion.div
-//                                 initial={{
-//                                   opacity: 0,
-//                                   scale: 0.9,
-//                                   x: 30,
-//                                 }}
-//                                 animate={{
-//                                   opacity: 1,
-//                                   scale: 1,
-//                                   x: 0,
-//                                 }}
-//                                 exit={{
-//                                   opacity: 0,
-//                                   scale: 0.9,
-//                                   x: 30,
-//                                 }}
-//                                 transition={{
-//                                   duration: 0.25,
-//                                 }}
-//                                 className="
-//               absolute
-//               right-5
-//               top-1/2
-//               z-50
-//               h-32
-//               w-50
-//               -translate-y-1/2
-//               overflow-hidden
-//               rounded-2xl
-//               border
-//               border-zinc-700
-//               shadow-2xl
-//             "
-//                               >
-//                                 <img
-//                                   src={project.image}
-//                                   alt={project.title}
-//                                   className="h-full w-full object-cover"
-//                                 />
-
-//                                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-//                               </motion.div>
-//                             )}
-//                           </AnimatePresence>
-//                         </div>
-//                       ))}
-//                     </div>
-//                   </div>
-//                 }
-//               >
-//                 <Work />
-//               </Card>
+//                     <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+//                   </motion.div>
+//                 )}
+//               </AnimatePresence>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     }
+//   >
+//     <Work />
+//   </Card>
 //             </div>
 
 //             {/* CONTACT */}
