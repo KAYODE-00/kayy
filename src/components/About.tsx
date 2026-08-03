@@ -27,7 +27,7 @@ const About = () => {
   }, []);
 
   return (
-    <section className="flex items-center justify-center  mx-auto w-full px-4 py-12 md:px-6 md:py-20">
+    <section className="flex items-center justify-center  mx-auto w-full  py-12 md:px-6 md:py-20">
       {/* MAIN GRID */}
       <div className="">
         <motion.div

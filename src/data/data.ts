@@ -34,7 +34,7 @@ export const about = {
   "portraitImage": "/developer.PNG",
   "aboutCardLabel": "About Me",
   "workSectionTitle": "Works",
-  "workCardLabel": "Work",
+  "workCardLabel": "Projects",
   "stacksSectionTitle": "Stacks & Tools",
   "experienceSectionTitle": "Experience",
   "githubSectionTitle": "Github contribution graph",

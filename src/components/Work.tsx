@@ -12,7 +12,7 @@ import {
 } from "lucide-react";
 import { FolderKanban, Users, Blocks } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
-import { projects } from "@/data/data";
+import { usePortfolio } from "@/components/PortfolioProvider";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -26,6 +26,7 @@ const fadeUp = {
 };
 
 export default function Work() {
+  const { projects } = usePortfolio();
   const [current, setCurrent] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [category, setCategory] = useState<"personal" | "nocode" | "collab">(
@@ -79,7 +80,7 @@ export default function Work() {
           animate="show"
           className="text-2xl font-bold sm:text-5xl"
         >
-          Work
+          Projects
         </motion.h1>
 
         <div className="flex items-center gap-3">
