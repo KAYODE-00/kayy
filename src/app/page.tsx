@@ -144,8 +144,10 @@ export default function Home() {
   onClose={() => setActive("")}
   header={
     <div className="flex items-center gap-2 cursor-pointer">
-      <ArrowUpRight size={30} />
-      Resume
+        <Download size={20} />
+                  <span className="text-sm font-medium">
+                    {siteAbout.resumeLabel}
+                  </span>
     </div>
   }
 >
@@ -164,7 +166,7 @@ export default function Home() {
     <iframe
       src="/resume.pdf"
       title="Resume"
-      className="w-full h-[900px]"
+      className="w-95 h-[900px]"
     />
   </div>
 </Card>
