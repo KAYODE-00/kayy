@@ -29,8 +29,8 @@ import { MdEmail } from "react-icons/md";
 
 export const about = {
   "name": "Hi, I'm Kayode ",
-  "description": "I'm a full-stack developer who enjoys building modern web applications, AI-powered products, and clean user experiences with performance in mind. I specialize in building scalable SaaS platforms and focused digital tools.",
-  "heroText": "I'm a full-stack developer who enjoys building modern web applications, AI-powered products, and clean user experiences with performance in mind. I specialize in building scalable SaaS platforms and focused digital tools.",
+  "description": " who enjoys building modern web applications, AI-powered products, and clean user experiences with performance in mind. I specialize in building scalable SaaS platforms and focused digital tools.",
+  "heroText": " who enjoys building modern web applications, AI-powered products, and clean user experiences with performance in mind. I specialize in building scalable SaaS platforms and focused digital tools.",
   "portraitImage": "/developer.PNG",
   "aboutCardLabel": "About Me",
   "workSectionTitle": "Works",
@@ -39,8 +39,9 @@ export const about = {
   "experienceSectionTitle": "Experience",
   "githubSectionTitle": "Github contribution graph",
   "resumeLabel": "Resume",
+  "resumeUrl": "/resume.pdf",
   "rotatingPrefix": "He who",
-  "rotatingWords": ["codes", "builds", "architects", "designs", "creates", "learns", "ships", "innovates", "plans", "engineers"],
+  "rotatingWords": ["software engineer", "backend engineer", "AI engineer", "full-stack developer"],
   "pageTitle": "About Me",
   "subHeading": "A little about me",
   "iBuildText": "I Build",

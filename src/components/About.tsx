@@ -17,6 +17,14 @@ const fadeUp = {
 };
 
 const About = () => {
+  const [siteAbout, setSiteAbout] = useState(about);
+
+  const words = siteAbout.rotatingWords?.length
+    ? siteAbout.rotatingWords
+    : ["codes"];
+
+  const [index, setIndex] = useState(0);
+
   const [buildIndex, setBuildIndex] = useState(0);
 
   useEffect(() => {
@@ -45,6 +53,19 @@ const About = () => {
               {about.name}
             </h1>
             <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:mt-6 sm:text-lg">
+              I'm a{" "}
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={words[index]}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.35 }}
+                  className="font-semibold text-white"
+                >
+                  {words[index]}
+                </motion.span>
+              </AnimatePresence>{" "}
               {about.description}
             </p>
 

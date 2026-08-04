@@ -97,6 +97,15 @@ export default function PortfolioAdmin() {
     setData({ ...data, [section]: data[section].filter((_: unknown, itemIndex: number) => itemIndex !== index) });
   };
 
+  const uploadFile = async (file: File, onUploaded: (url: string) => void) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const response = await fetch('/api/admin-upload', { method: 'POST', body: formData });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error ?? 'Upload failed.');
+    onUploaded(result.url);
+  };
+
   if (checkingAuth) return <div className="min-h-screen flex items-center justify-center text-sm">Checking admin access...</div>;
   if (!authenticated) return (
     <main className="min-h-screen bg-gray-950 px-4 text-white flex items-center justify-center">
@@ -167,6 +176,7 @@ export default function PortfolioAdmin() {
               <div className="md:col-span-2">
                 <label className="text-sm text-gray-400 block mb-2">Mosaic Portrait Image</label>
                 <input value={data.about.portraitImage ?? '/developer.PNG'} onChange={(e) => updateField('about', 'portraitImage', e.target.value)} placeholder="https://cdn.example.com/kayode-portrait.jpg or /developer.PNG" type="url" className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
+                <input type="file" accept="image/*" onChange={(e) => e.target.files?.[0] && uploadFile(e.target.files[0], (url) => updateField('about', 'portraitImage', url))} className="mt-2 w-full text-xs text-gray-400" />
                 <p className="mt-1 text-xs text-gray-500">Paste a CDN URL or a local public path such as /developer.PNG.</p>
               </div>
               <div className="md:col-span-2">
@@ -181,6 +191,12 @@ export default function PortfolioAdmin() {
                 <label className="text-sm text-gray-400 block mb-2">Resume Text</label>
                 <input value={data.about.resumeText} onChange={(e) => updateField('about', 'resumeText', e.target.value)} className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
               </div>
+              <div className="md:col-span-2">
+                <label className="text-sm text-gray-400 block mb-2">Resume File</label>
+                <input value={data.about.resumeUrl ?? '/resume.pdf'} onChange={(e) => updateField('about', 'resumeUrl', e.target.value)} placeholder="https://cdn.example.com/resume.pdf" type="url" className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
+                <input type="file" accept=".pdf,.doc,.docx" onChange={(e) => e.target.files?.[0] && uploadFile(e.target.files[0], (url) => updateField('about', 'resumeUrl', url))} className="mt-2 w-full text-xs text-gray-400" />
+                <p className="mt-1 text-xs text-gray-500">Upload a new resume from your device or paste a CDN URL.</p>
+              </div>
               {['aboutCardLabel', 'workSectionTitle', 'workCardLabel', 'stacksSectionTitle', 'testimonialsTitle', 'experienceSectionTitle', 'githubSectionTitle', 'resumeLabel'].map((field) => (
                 <div key={field}>
                   <label className="text-sm text-gray-400 block mb-2">{field}</label>
@@ -193,7 +209,7 @@ export default function PortfolioAdmin() {
               </div>
               <div className="md:col-span-2">
                 <label className="text-sm text-gray-400 block mb-2">Rotating Words</label>
-                <input value={(data.about.rotatingWords ?? []).join(', ')} onChange={(e) => updateField('about', 'rotatingWords', e.target.value.split(',').map((word: string) => word.trim()).filter(Boolean))} placeholder="Example: codes, builds, designs" className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
+                <input value={(data.about.rotatingWords ?? []).join(', ')} onChange={(e) => updateField('about', 'rotatingWords', e.target.value.split(',').map((word: string) => word.trim()).filter(Boolean))} placeholder="Example: software engineer, backend engineer, AI engineer" className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
                 <p className="mt-1 text-xs text-gray-500">Separate each word with a comma.</p>
               </div>
             </div>
@@ -259,6 +275,14 @@ export default function PortfolioAdmin() {
                         className="w-full rounded-lg bg-gray-900 px-3 py-2 text-sm outline-none focus:ring-1 focus:ring-emerald-500"
                       />
                     ))}
+                    {(activeTab === 'projects' || activeTab === 'testimonials' || activeTab === 'workExperience') && (
+                      <input type="file" accept={activeTab === 'projects' ? 'image/*' : 'image/*'} onChange={(e) => {
+                        const file = e.target.files?.[0];
+                        if (!file) return;
+                        const field = activeTab === 'projects' ? 'image' : 'avatar';
+                        uploadFile(file, (url) => updateItem(activeTab, index, field, url)).catch((uploadError: Error) => setError(uploadError.message));
+                      }} className="w-full text-xs text-gray-400" />
+                    )}
                   </div>
                   <button onClick={() => removeItem(activeTab, index)} className="mt-3 flex items-center gap-1 text-xs text-red-400 hover:text-red-300">
                     <Trash2 size={14} /> Remove

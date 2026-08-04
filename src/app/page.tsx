@@ -48,10 +48,10 @@ export default function Home() {
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % words.length);
-    }, 2500);
+    }, 3000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [words.length]);
   useEffect(() => {
     const savedTheme = window.localStorage.getItem("portfolio-theme");
     if (savedTheme === "light") setLightMode(true);
@@ -76,13 +76,31 @@ export default function Home() {
       <div className="flex items-center justify-center">
         <div className="flex flex-col gap-4">
           <div className="  h-70 w-70 overflow-hidden rounded-full border border-zinc-700 ">
-            <MosaicPortrait imageUrl={siteAbout.portraitImage} />
+            {/* <MosaicPortrait imageUrl={siteAbout.portraitImage} /> */}
+            <img
+              src={siteAbout.portraitImage}
+              alt="developer's Portrait"
+              className="h-full w-full object-cover opacity-50"
+            />
           </div>
           <div className="flex flex-col gap-3">
-            <h1 className="text-xl ">
-              I'm a full-stack developer who enjoys building modern web
+            <h1 className="text-sm">
+              I'm a{" "}
+              <AnimatePresence mode="wait">
+                <motion.span
+                  key={words[index]}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.35 }}
+                  className="font-semibold text-white"
+                >
+                  {words[index]}
+                </motion.span>
+              </AnimatePresence>{" "}
               {siteAbout.heroText ?? siteAbout.description}
-            </h1>{" "}
+            </h1>
+
             <div className="flex  flex-col md:flex-row  md:items-center  justify-between">
               <div className="flex md:flex-col gap-10 items-center justify-between">
                 <Card
@@ -118,7 +136,6 @@ export default function Home() {
                 </div>
               </div>
               <div className="mt-8 flex flex-wrap gap-4">
-              
                 {socials.map((social) => {
                   const Icon = social.icon;
                   return (
@@ -138,38 +155,38 @@ export default function Home() {
                   );
                 })}
                 <Card
-  id="resume"
-  active={active === "resume"}
-  onClick={() => setActive("resume")}
-  onClose={() => setActive("")}
-  header={
-    <div className="flex items-center gap-2 cursor-pointer">
-        <Download size={20} />
-                  <span className="text-sm font-medium">
-                    {siteAbout.resumeLabel}
-                  </span>
-    </div>
-  }
->
-  <div className="flex justify-end mb-4">
-    <a
-      href="/resume.pdf"
-      download="Abdulwahab_Kayode_Resume.pdf"
-      className="flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm transition hover:bg-white hover:text-black"
-    >
-      <Download size={18} />
-      Download Resume
-    </a>
-  </div>
+                  id="resume"
+                  active={active === "resume"}
+                  onClick={() => setActive("resume")}
+                  onClose={() => setActive("")}
+                  header={
+                    <div className="flex items-center gap-2 cursor-pointer">
+                      <Download size={20} />
+                      <span className="text-sm font-medium">
+                        {siteAbout.resumeLabel}
+                      </span>
+                    </div>
+                  }
+                >
+                  <div className="flex justify-end mb-4 ">
+                    <a
+                      href={siteAbout.resumeUrl ?? "/resume.pdf"}
+                      download="Abdulwahab_Kayode_Resume.pdf"
+                      className="flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm transition hover:bg-white hover:text-black"
+                    >
+                      <Download size={18} />
+                      Download Resume
+                    </a>
+                  </div>
 
-  <div className="overflow-hidden rounded-xl border border-zinc-800">
-    <iframe
-      src="/resume.pdf"
-      title="Resume"
-      className="w-95 h-[900px]"
-    />
-  </div>
-</Card>
+                  <div className="overflow-hidden rounded-xl border  border-zinc-800">
+                    <iframe
+                      src="/resume.pdf"
+                      title="Resume"
+                      className="w-full h-150 no-scrollbar  "
+                    />
+                  </div>
+                </Card>
               </div>
             </div>
           </div>
