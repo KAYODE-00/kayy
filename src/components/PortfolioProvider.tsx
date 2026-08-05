@@ -4,11 +4,23 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 import * as defaults from "@/data/data";
 
 type PortfolioData = typeof defaults;
+type PortfolioContextValue = PortfolioData & { rotatingWord: string };
 
-const PortfolioContext = createContext<PortfolioData>(defaults);
+const PortfolioContext = createContext<PortfolioContextValue>({ ...defaults, rotatingWord: defaults.about.rotatingWords[0] });
 
 export function PortfolioProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<PortfolioData>(defaults);
+  const [roleIndex, setRoleIndex] = useState(0);
+
+  const roleWords = data.about.rotatingWords?.length ? data.about.rotatingWords : ["software engineer"];
+
+  useEffect(() => {
+    setRoleIndex((current) => current % roleWords.length);
+    const interval = setInterval(() => {
+      setRoleIndex((current) => (current + 1) % roleWords.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, [roleWords.length]);
 
   useEffect(() => {
     fetch("/api/portfolio-data")
@@ -42,7 +54,7 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
       .catch(() => undefined);
   }, []);
 
-  return <PortfolioContext.Provider value={data}>{children}</PortfolioContext.Provider>;
+  return <PortfolioContext.Provider value={{ ...data, rotatingWord: roleWords[roleIndex] }}>{children}</PortfolioContext.Provider>;
 }
 
 export function usePortfolio() {

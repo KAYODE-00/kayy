@@ -9,7 +9,7 @@ import Contact from "@/components/Contact";
 import { Skiper52 } from "@/components/ExpandOnHover";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { about, socials, tools, workExperience } from "@/data/data";
+import { usePortfolio } from "@/components/PortfolioProvider";
 import TestimonialSlider from "@/components/TestimonialSlider";
 import ChatBot from "@/components/Chatbot";
 
@@ -25,33 +25,10 @@ const fadeUp = {
 };
 
 export default function Home() {
+  const { about, socials, tools, workExperience, rotatingWord } = usePortfolio();
   const [active, setActive] = useState("");
-  const [siteAbout, setSiteAbout] = useState(about);
   const [lightMode, setLightMode] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-  const words = siteAbout.rotatingWords?.length
-    ? siteAbout.rotatingWords
-    : ["codes"];
-
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    fetch("/api/portfolio-data")
-      .then((response) => (response.ok ? response.json() : null))
-      .then(
-        (data) =>
-          data?.about &&
-          setSiteAbout((current) => ({ ...current, ...data.about })),
-      )
-      .catch(() => undefined);
-  }, []);
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % words.length);
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [words.length]);
   useEffect(() => {
     const savedTheme = window.localStorage.getItem("portfolio-theme");
     if (savedTheme === "light") setLightMode(true);
@@ -76,29 +53,29 @@ export default function Home() {
       <div className="flex items-center justify-center">
         <div className="flex flex-col gap-4">
           <div className="  h-70 w-70 overflow-hidden rounded-full border border-zinc-700 ">
-            {/* <MosaicPortrait imageUrl={siteAbout.portraitImage} /> */}
+            {/* <MosaicPortrait imageUrl={about.portraitImage} /> */}
             <img
-              src={siteAbout.portraitImage}
+              src={about.portraitImage}
               alt="developer's Portrait"
               className="h-full w-full object-cover opacity-50"
             />
           </div>
           <div className="flex flex-col gap-3">
             <h1 className="text-sm">
-              I'm a{" "}
+              <span> I'm a{"/"}an </span>
               <AnimatePresence mode="wait">
                 <motion.span
-                  key={words[index]}
+                  key={rotatingWord}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.35 }}
                   className="font-semibold text-white"
                 >
-                  {words[index]}
+                  {rotatingWord}
                 </motion.span>
               </AnimatePresence>{" "}
-              {siteAbout.heroText ?? siteAbout.description}
+              {about.heroText ?? about.description}
             </h1>
 
             <div className="flex  flex-col md:flex-row  md:items-center  justify-between">
@@ -111,7 +88,7 @@ export default function Home() {
                   header={
                     <div className="flex items-center-safe gap-2 cursor-pointer ">
                       <ArrowUpRight className="" size={30} />{" "}
-                      {siteAbout.aboutCardLabel}{" "}
+                      {about.aboutCardLabel}{" "}
                     </div>
                   }
                 >
@@ -119,18 +96,18 @@ export default function Home() {
                 </Card>
 
                 <div className=" float-right flex items-center gap-2 text-sm text-zinc-400">
-                  <span>{siteAbout.rotatingPrefix}</span>
+                  <span>{about.rotatingPrefix}</span>
 
                   <AnimatePresence mode="wait">
                     <motion.span
-                      key={words[index]}
+                      key={rotatingWord}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.35 }}
                       className="font-semibold text-white"
                     >
-                      {words[index]}
+                      {rotatingWord}
                     </motion.span>
                   </AnimatePresence>
                 </div>
@@ -163,14 +140,14 @@ export default function Home() {
                     <div className="flex items-center gap-2 cursor-pointer">
                       <Download size={20} />
                       <span className="text-sm font-medium">
-                        {siteAbout.resumeLabel}
+                        {about.resumeLabel}
                       </span>
                     </div>
                   }
                 >
                   <div className="flex justify-end mb-4 ">
                     <a
-                      href={siteAbout.resumeUrl ?? "/resume.pdf"}
+                  href={about.resumeUrl ?? "/resume.pdf"}
                       download="Abdulwahab_Kayode_Resume.pdf"
                       className="flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm transition hover:bg-white hover:text-black"
                     >
@@ -194,7 +171,7 @@ export default function Home() {
       </div>{" "}
       {/* work */}
       <div className="flex flex-col gap-5">
-        <p className="float-left text-3xl">{siteAbout.workSectionTitle}</p>
+        <p className="float-left text-3xl">{about.workSectionTitle}</p>
         <div className="min-w-0 flex-1">
           <Skiper52 />
           <Card
@@ -205,7 +182,7 @@ export default function Home() {
             header={
               <div className="flex items-center-safe gap-2 cursor-pointer ">
                 <ArrowUpRight className="" size={30} />{" "}
-                {siteAbout.workCardLabel}{" "}
+                {about.workCardLabel}{" "}
               </div>
             }
           >
@@ -215,7 +192,7 @@ export default function Home() {
       </div>
       {/* stacks */}
       <div className="flex flex-col gap-5">
-        <p className="float-left text-3xl">{siteAbout.stacksSectionTitle}</p>
+        <p className="float-left text-3xl">{about.stacksSectionTitle}</p>
         <div className="min-w-0 flex-1">
           <motion.div
             variants={fadeUp}
@@ -249,7 +226,7 @@ export default function Home() {
       </div>
       {/* Testimonials */}
       <div className="flex flex-col gap-5">
-        <p className="float-left text-3xl">{siteAbout.testimonialsTitle}</p>
+        <p className="float-left text-3xl">{about.testimonialsTitle}</p>
         <div className="min-w-0 flex-1">
           <div className="mt-12 flex-1">
             <TestimonialSlider />
@@ -259,7 +236,7 @@ export default function Home() {
       {/* Experience */}
       <div className="flex flex-col gap-5">
         <p className="float-left text-3xl">
-          {siteAbout.experienceSectionTitle}
+          {about.experienceSectionTitle}
         </p>
         <div className="min-w-0 flex-1">
           <div className="mt-12 flex-1">
@@ -275,19 +252,19 @@ export default function Home() {
         viewport={{ once: true }}
         className="flex flex-col gap-5 "
       >
-        <p className="float-left text-3xl">{siteAbout.githubSectionTitle}</p>
+        <p className="float-left text-3xl">{about.githubSectionTitle}</p>
 
         <div className="flex items-center justify-center w-full overflow-hidden rounded-xl border border-zinc-800  p-5 md:p-30">
           <img
-            src={`https://ghchart.rshah.org/18181b/${siteAbout.githubUsername}`}
+            src={`https://ghchart.rshah.org/18181b/${about.githubUsername}`}
             alt="GitHub Contribution Graph"
             className="mx-auto block h-auto w-full scale-100 rounded-xl sm:scale-100 md:scale-100"
             loading="lazy"
           />
         </div>
         <p className="mt-4 text-center text-xs text-zinc-500">
-          {siteAbout.githubSubtitle}{" "}
-          <span className="font-mono">{siteAbout.githubUsername}</span>
+          {about.githubSubtitle}{" "}
+          <span className="font-mono">{about.githubUsername}</span>
         </p>
       </motion.div>
       <div></div>

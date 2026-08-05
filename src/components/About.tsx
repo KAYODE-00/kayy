@@ -1,11 +1,4 @@
-import {
-  socials,
-  tools,
-  builds,
-  about,
-  stats,
-  testimonials,
-} from "@/data/data";
+import { usePortfolio } from "@/components/PortfolioProvider";
 import { AnimatePresence, motion } from "framer-motion";
 import { Download } from "lucide-react";
 import { useEffect, useState } from "react";
@@ -17,13 +10,7 @@ const fadeUp = {
 };
 
 const About = () => {
-  const [siteAbout, setSiteAbout] = useState(about);
-
-  const words = siteAbout.rotatingWords?.length
-    ? siteAbout.rotatingWords
-    : ["codes"];
-
-  const [index, setIndex] = useState(0);
+  const { about, builds, rotatingWord } = usePortfolio();
 
   const [buildIndex, setBuildIndex] = useState(0);
 
@@ -51,19 +38,19 @@ const About = () => {
             </p>
             <h1 className="mt-2 text-2xl font-bold text-white sm:text-4xl">
               {about.name}
-            </h1>
+           </h1>
             <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:mt-6 sm:text-lg">
               I'm a{" "}
               <AnimatePresence mode="wait">
                 <motion.span
-                  key={words[index]}
+                  key={rotatingWord}
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.35 }}
                   className="font-semibold text-white"
                 >
-                  {words[index]}
+                  {rotatingWord}
                 </motion.span>
               </AnimatePresence>{" "}
               {about.description}
