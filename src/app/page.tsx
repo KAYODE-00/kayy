@@ -88,8 +88,7 @@ export default function Home() {
                   onClose={() => setActive("")}
                   header={
                     <div className="flex items-center-safe gap-2 cursor-pointer ">
-                      <ArrowUpRight className="" size={30} />{" "}
-                      {about.aboutCardLabel}{" "}
+                      <ArrowUpRight className="" size={30} /> <p>About me</p>
                     </div>
                   }
                 >
@@ -140,9 +139,7 @@ export default function Home() {
                   header={
                     <div className="flex items-center gap-2 cursor-pointer">
                       <Download size={20} />
-                      <span className="text-sm font-medium">
-                        {about.resumeLabel}
-                      </span>
+                      <ArrowUpRight className="" size={30} /> <p>View Resume</p>
                     </div>
                   }
                 >
@@ -182,8 +179,7 @@ export default function Home() {
             onClose={() => setActive("")}
             header={
               <div className="flex items-center-safe gap-2 cursor-pointer ">
-                <ArrowUpRight className="" size={30} />{" "}
-                {about.workCardLabel}{" "}
+                <ArrowUpRight className="" size={30} /> <p>View Projects</p>
               </div>
             }
           >

@@ -44,12 +44,7 @@ export const about = {
     "AI engineer",
     "full-stack developer",
   ],
-  rotatingAlias: [
-    "codes",
-    "plans",
-    "architects",
-    "builds",
-  ],
+  rotatingAlias: ["codes", "plans", "architects", "builds"],
 
   pageTitle: "About Me",
   subHeading: "A little about me",
