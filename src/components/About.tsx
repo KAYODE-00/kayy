@@ -38,9 +38,9 @@ const About = () => {
             </p>
             <h1 className="mt-2 text-2xl font-bold text-white sm:text-4xl">
               {about.name}
-           </h1>
+            </h1>
             <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:mt-6 sm:text-lg">
-              I'm a{" "}
+              <span> I'm a{"/"}an </span>
               <AnimatePresence mode="wait">
                 <motion.span
                   key={rotatingWord}

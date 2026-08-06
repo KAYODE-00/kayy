@@ -4,9 +4,9 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from "
 import * as defaults from "@/data/data";
 
 type PortfolioData = typeof defaults;
-type PortfolioContextValue = PortfolioData & { rotatingWord: string };
+type PortfolioContextValue = PortfolioData & { rotatingWord: string; rotatingAlias: string };
 
-const PortfolioContext = createContext<PortfolioContextValue>({ ...defaults, rotatingWord: defaults.about.rotatingWords[0] });
+const PortfolioContext = createContext<PortfolioContextValue>({ ...defaults, rotatingWord: defaults.about.rotatingWords[0], rotatingAlias: defaults.about.rotatingAlias[0] });
 
 export function PortfolioProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<PortfolioData>(defaults);
@@ -54,7 +54,8 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
       .catch(() => undefined);
   }, []);
 
-  return <PortfolioContext.Provider value={{ ...data, rotatingWord: roleWords[roleIndex] }}>{children}</PortfolioContext.Provider>;
+  const aliasWords = data.about.rotatingAlias?.length ? data.about.rotatingAlias : roleWords;
+  return <PortfolioContext.Provider value={{ ...data, rotatingWord: roleWords[roleIndex], rotatingAlias: aliasWords[roleIndex % aliasWords.length] }}>{children}</PortfolioContext.Provider>;
 }
 
 export function usePortfolio() {

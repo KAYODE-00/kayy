@@ -1,9 +1,4 @@
-import {
-  FaGithub,
-  FaLinkedin,
-  FaXTwitter,
-  FaInstagram,
-} from "react-icons/fa6";
+import { FaGithub, FaLinkedin, FaXTwitter, FaInstagram } from "react-icons/fa6";
 import {
   SiReact,
   SiNextdotjs,
@@ -28,46 +23,60 @@ import {
 import { MdEmail } from "react-icons/md";
 
 export const about = {
-  "name": "Hi, I'm Kayode ",
-  "description": " who enjoys building modern web applications, AI-powered products, and clean user experiences with performance in mind. I specialize in building scalable SaaS platforms and focused digital tools.",
-  "heroText": " who enjoys building modern web applications, AI-powered products, and clean user experiences with performance in mind. I specialize in building scalable SaaS platforms and focused digital tools.",
-  "portraitImage": "/developer.PNG",
-  "aboutCardLabel": "About Me",
-  "workSectionTitle": "Works",
-  "workCardLabel": "Projects",
-  "stacksSectionTitle": "Stacks & Tools",
-  "experienceSectionTitle": "Experience",
-  "githubSectionTitle": "Github contribution graph",
-  "resumeLabel": "Resume",
-  "resumeUrl": "/resume.pdf",
-  "rotatingPrefix": "He who",
-  "rotatingWords": ["software engineer", "backend engineer", "AI engineer", "full-stack developer"],
-  "pageTitle": "About Me",
-  "subHeading": "A little about me",
-  "iBuildText": "I Build",
-  "connectTitle": "Let's Connect",
-  "connectSubtitle": "Ready to build something amazing together?",
-  "resumeText": "Resume",
-  "testimonialsTitle": "Testimonials",
-  "toolsTitle": "Tools I Use",
-  "githubTitle": "GitHub Contributions",
-  "githubSubtitle": "Last 365 days of contributions •",
-  "githubUsername": "kayode-00"
+  name: "Hi, I'm Kayode ",
+  description:
+    " who enjoys building modern web applications, AI-powered products, and clean user experiences with performance in mind. I specialize in building scalable SaaS platforms and focused digital tools.",
+  heroText:
+    " who enjoys building modern web applications, AI-powered products, and clean user experiences with performance in mind. I specialize in building scalable SaaS platforms and focused digital tools.",
+  portraitImage: "/developer.PNG",
+  aboutCardLabel: "About Me",
+  workSectionTitle: "Works",
+  workCardLabel: "Projects",
+  stacksSectionTitle: "Stacks & Tools",
+  experienceSectionTitle: "Experience",
+  githubSectionTitle: "Github contribution graph",
+  resumeLabel: "Resume",
+  resumeUrl: "/resume.pdf",
+  rotatingPrefix: "He who",
+  rotatingWords: [
+    "software engineer",
+    "backend engineer",
+    "AI engineer",
+    "full-stack developer",
+  ],
+  rotatingAlias: [
+    "codes",
+    "plans",
+    "architects",
+    "builds",
+  ],
+
+  pageTitle: "About Me",
+  subHeading: "A little about me",
+  iBuildText: "I Build",
+  connectTitle: "Let's Connect",
+  connectSubtitle: "Ready to build something amazing together?",
+  resumeText: "Resume",
+  testimonialsTitle: "Testimonials",
+  toolsTitle: "Tools I Use",
+  githubTitle: "GitHub Contributions",
+  githubSubtitle: "Last 365 days of contributions •",
+  githubUsername: "kayode-00",
 };
 
 export const stats = [
   {
-    "number": "3+k",
-    "label": "Years Experience"
+    number: "3+k",
+    label: "Years Experience",
   },
   {
-    "number": "3+m.m",
-    "label": "SaaS Projects"
+    number: "3+m.m",
+    label: "SaaS Projects",
   },
   {
-    "number": "15+fu",
-    "label": "Happy Clients"
-  }
+    number: "15+fu",
+    label: "Happy Clients",
+  },
 ];
 
 export const testimonials = [
@@ -145,7 +154,8 @@ export const projects = [
     title: "Webcrate",
     type: "personal",
     image: "/webcrate.png",
-    description: "A specialized web builder application utilizing a unique click-to-edit interaction model rather than traditional drag-and-drop.",
+    description:
+      "A specialized web builder application utilizing a unique click-to-edit interaction model rather than traditional drag-and-drop.",
     stack: [
       { name: "Next.js", icon: SiNextdotjs },
       { name: "TypeScript", icon: SiTypescript },
@@ -158,7 +168,8 @@ export const projects = [
     title: "Metric SaaS",
     type: "personal",
     image: "/metric.png",
-    description: "Analytics dashboard powered by AI with authentication and payments.",
+    description:
+      "Analytics dashboard powered by AI with authentication and payments.",
     stack: [
       { name: "Next.js", icon: SiNextdotjs },
       { name: "TypeScript", icon: SiTypescript },
@@ -171,7 +182,8 @@ export const projects = [
     title: "AI Portfolio",
     type: "nocode",
     image: "/projects/project3.png",
-    description: "A self-aware portfolio built with Framer Motion and AI integrations.",
+    description:
+      "A self-aware portfolio built with Framer Motion and AI integrations.",
     stack: [
       { name: "React", icon: SiReact },
       { name: "Framer Motion", icon: SiFramer },

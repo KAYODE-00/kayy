@@ -25,7 +25,8 @@ const fadeUp = {
 };
 
 export default function Home() {
-  const { about, socials, tools, workExperience, rotatingWord } = usePortfolio();
+  const { about, socials, tools, workExperience, rotatingWord, rotatingAlias } =
+    usePortfolio();
   const [active, setActive] = useState("");
   const [lightMode, setLightMode] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
@@ -61,7 +62,7 @@ export default function Home() {
             />
           </div>
           <div className="flex flex-col gap-3">
-            <h1 className="text-sm">
+            <h1 className="text-xl">
               <span> I'm a{"/"}an </span>
               <AnimatePresence mode="wait">
                 <motion.span
@@ -100,14 +101,14 @@ export default function Home() {
 
                   <AnimatePresence mode="wait">
                     <motion.span
-                      key={rotatingWord}
+                      key={rotatingAlias}
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.35 }}
                       className="font-semibold text-white"
                     >
-                      {rotatingWord}
+                      {rotatingAlias}
                     </motion.span>
                   </AnimatePresence>
                 </div>
@@ -147,7 +148,7 @@ export default function Home() {
                 >
                   <div className="flex justify-end mb-4 ">
                     <a
-                  href={about.resumeUrl ?? "/resume.pdf"}
+                      href={about.resumeUrl ?? "/resume.pdf"}
                       download="Abdulwahab_Kayode_Resume.pdf"
                       className="flex items-center gap-2 rounded-lg border border-zinc-700 bg-zinc-900 px-4 py-2 text-sm transition hover:bg-white hover:text-black"
                     >
@@ -235,9 +236,7 @@ export default function Home() {
       </div>
       {/* Experience */}
       <div className="flex flex-col gap-5">
-        <p className="float-left text-3xl">
-          {about.experienceSectionTitle}
-        </p>
+        <p className="float-left text-3xl">{about.experienceSectionTitle}</p>
         <div className="min-w-0 flex-1">
           <div className="mt-12 flex-1">
             <TestimonialSlider items={workExperience} reverse />
