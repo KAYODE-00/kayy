@@ -67,9 +67,93 @@ export default function Work() {
 
   useEffect(() => {
     setCurrent(0);
-  }, [category]);
+  }, [category, projects.length]);
 
   const project = filteredProjects[current];
+
+  if (!project) {
+    return (
+      <section className="relative flex flex-col gap-5 pt-10 mx-auto max-w-7xl py-10 z-900">
+        <div className="">
+          <div className="flex items-center gap-3 z-99 float-right ">
+            {/* Personal */}
+            <button
+              onClick={() => setCategory("personal")}
+              className={`group relative flex items-center gap-2 rounded-xl border p-3 transition-all duration-300 ease-in-out ${
+                category === "personal"
+                  ? "border-white bg-white text-black"
+                  : "border-zinc-800 bg-zinc-900 hover:border-zinc-700 hover:bg-zinc-800"
+              }`}
+            >
+              {category === "personal" && (
+                <span className="text-sm font-medium z-50 transition-all duration-300 ease-in-out">
+                  Personal
+                </span>
+              )}{" "}
+              <FolderKanban size={18} />
+              <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
+                Personal
+              </span>
+            </button>
+
+            {/* No-Code */}
+            <button
+              onClick={() => setCategory("nocode")}
+              className={`group relative flex items-center gap-2 rounded-xl border p-3 transition-all duration-200 ${
+                category === "nocode"
+                  ? "border-white bg-white text-black"
+                  : "border-zinc-800 bg-zinc-900 hover:border-zinc-700 hover:bg-zinc-800"
+              }`}
+            >
+              {category === "nocode" && (
+                <span className="text-sm font-medium z-50 transition-all duration-300 ease-in-out">
+                  No-Code
+                </span>
+              )}{" "}
+              <Blocks size={18} />
+              <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
+                No-Code
+              </span>
+            </button>
+
+            {/* Collaboration */}
+            <button
+              onClick={() => setCategory("collab")}
+              className={`group relative flex items-center gap-2 rounded-xl border p-3 transition-all duration-200 ${
+                category === "collab"
+                  ? "border-white bg-white text-black"
+                  : "border-zinc-800 bg-zinc-900 hover:border-zinc-700 hover:bg-zinc-800"
+              }`}
+            >
+              {category === "collab" && (
+                <span className="text-sm font-medium z-50 transition-all duration-300 ease-in-out">
+                  Collaboration
+                </span>
+              )}{" "}
+              <Users size={18} />
+              <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
+                Collaboration
+              </span>
+            </button>
+          </div>
+        </div>
+        <motion.div
+          key="empty"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="flex min-h-[300px] flex-col items-center justify-center rounded-3xl bg-zinc-900/50 p-10 text-center"
+        >
+          <h3 className="mb-2 text-xl font-medium text-zinc-300">
+            No projects yet
+          </h3>
+          <p className="text-zinc-500">
+            Check back later for {category} projects.
+          </p>
+        </motion.div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative mx-auto max-w-7xl py-10">
@@ -80,7 +164,7 @@ export default function Work() {
           animate="show"
           className="text-2xl font-bold sm:text-5xl"
         >
-          Projects
+          {project.title}
         </motion.h1>
 
         <div className="flex items-center gap-3">
@@ -94,7 +178,7 @@ export default function Work() {
             }`}
           >
             {category === "personal" && (
-              <span className="text-sm font-medium transition-all duration-300 ease-in-out">
+              <span className="text-sm font-medium z-50 transition-all duration-300 ease-in-out">
                 Personal
               </span>
             )}{" "}
@@ -114,7 +198,7 @@ export default function Work() {
             }`}
           >
             {category === "nocode" && (
-              <span className="text-sm font-medium transition-all duration-300 ease-in-out">
+              <span className="text-sm font-medium z-50 transition-all duration-300 ease-in-out">
                 No-Code
               </span>
             )}{" "}
@@ -134,7 +218,7 @@ export default function Work() {
             }`}
           >
             {category === "collab" && (
-              <span className="text-sm font-medium transition-all duration-300 ease-in-out">
+              <span className="text-sm font-medium z-50 transition-all duration-300 ease-in-out">
                 Collaboration
               </span>
             )}{" "}
@@ -159,10 +243,6 @@ export default function Work() {
             >
               {/* Header */}
               <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-                <h2 className="text-lg font-bold sm:text-3xl">
-                  {project.title}
-                </h2>
-
                 {/* Stack Icons */}
                 <div className="flex flex-wrap gap-3">
                   {project.stack.map((tool) => {

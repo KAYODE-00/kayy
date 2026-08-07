@@ -112,7 +112,7 @@ export default function Home() {
                   </AnimatePresence>
                 </div>
               </div>
-              <div className="mt-8 flex flex-wrap gap-4">
+              <div className="mt-8 flex  gap-4">
                 {socials.map((social) => {
                   const Icon = social.icon;
                   return (
