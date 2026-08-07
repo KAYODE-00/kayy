@@ -112,25 +112,27 @@ export default function Home() {
                   </AnimatePresence>
                 </div>
               </div>
-              <div className="mt-8 flex  gap-4">
-                {socials.map((social) => {
-                  const Icon = social.icon;
-                  return (
-                    <a
-                      key={social.name}
-                      href={social.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`Visit ${social.name}`}
-                      className="group relative rounded-2xl bg-zinc-800 p-3 transition-all hover:scale-110 hover:bg-white hover:text-black"
-                    >
-                      <Icon className="text-3xl" />
-                      <span className="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-white opacity-0 shadow-xl transition-all group-hover:-translate-y-2 group-hover:opacity-100">
-                        {social.name}
-                      </span>
-                    </a>
-                  );
-                })}
+              <div className="mt-8  gap-4">
+                <div className="flex flex-wrap items-center gap-4">
+                  {socials.map((social) => {
+                    const Icon = social.icon;
+                    return (
+                      <a
+                        key={social.name}
+                        href={social.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={`Visit ${social.name}`}
+                        className="group relative rounded-2xl bg-zinc-800 p-3 transition-all hover:scale-110 hover:bg-white hover:text-black"
+                      >
+                        <Icon className="text-3xl" />
+                        <span className="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-white opacity-0 shadow-xl transition-all group-hover:-translate-y-2 group-hover:opacity-100">
+                          {social.name}
+                        </span>
+                      </a>
+                    );
+                  })}
+                </div>
                 <Card
                   id="resume"
                   active={active === "resume"}

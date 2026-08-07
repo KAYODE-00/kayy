@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Inter, Exo } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { PortfolioProvider } from "@/components/PortfolioProvider";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const exo = Exo({
   subsets: ["latin"],
@@ -61,7 +62,9 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col font-exo">
-        <PortfolioProvider>{children}</PortfolioProvider>
+        <SmoothScroll>
+          <PortfolioProvider>{children}</PortfolioProvider>
+        </SmoothScroll>
       </body>
     </html>
   );
