@@ -140,7 +140,10 @@ export default function Home() {
                   onClose={() => setActive("")}
                   header={
                     <div className="flex items-center gap-2 cursor-pointer">
-                      <ArrowUpRight className="" size={30} /> <p>View Resume</p>
+                      <ArrowUpRight className="" size={30} />{" "}
+                      <p className="md:hidden">
+                        {active ? "Resume" : "View Resume"}
+                      </p>
                     </div>
                   }
                 >
@@ -180,7 +183,7 @@ export default function Home() {
             onClose={() => setActive("")}
             header={
               <div className="flex items-center-safe gap-2 cursor-pointer ">
-                <ArrowUpRight className="" size={30} /> <p>View Projects</p>
+                <ArrowUpRight className="" size={30} />   {active ? "Projects" : "View Projects"}
               </div>
             }
           >

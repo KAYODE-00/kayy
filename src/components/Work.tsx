@@ -73,7 +73,10 @@ export default function Work() {
 
   if (!project) {
     return (
-      <section className="relative flex flex-col gap-5 pt-10 mx-auto max-w-7xl py-10 z-900">
+      <section
+        data-lenis-prevent
+        className="relative flex max-h-[75vh] flex-col gap-5 overflow-y-auto overscroll-contain pt-10 mx-auto max-w-7xl py-10 z-900"
+      >
         <div className="">
           <div className="flex items-center gap-3 z-99 float-right ">
             {/* Personal */}
@@ -156,8 +159,11 @@ export default function Work() {
   }
 
   return (
-    <section className="relative mx-auto max-w-7xl py-10">
-      <div className="mb-10 flex items-center justify-between">
+    <section
+      data-lenis-prevent
+      className="relative -mt-10 mx-auto max-h-[75vh] max-w-7xl overflow-y-auto overscroll-contain py-10 no-scrollbar"
+    >
+      <div className="mb-5 flex items-center justify-between">
         <motion.h1
           variants={fadeUp}
           initial="hidden"
@@ -230,7 +236,7 @@ export default function Work() {
         </div>
       </div>
 
-      <div className="relative overflow-hidden ">
+      <div className="relative overflow-hidden mt-5 ">
         <AnimatePresence mode="wait">
           {project ? (
             <motion.div
@@ -284,10 +290,10 @@ export default function Work() {
               </div>
 
               {/* Body */}
-              <div className="grid items-stretch gap-6 md:grid-cols-[360px_1fr]">
+              <div className="grid min-w-0 items-stretch gap-6 md:grid-cols-[360px_minmax(0,1fr)]">
                 {/* Description */}
-                <div className="flex rounded-2xl bg-zinc-900 p-8">
-                  <p className="leading-8 text-zinc-400">
+                <div className="min-w-0 rounded-2xl bg-zinc-900 p-8">
+                  <p className="min-w-0 whitespace-normal break-words [overflow-wrap:anywhere] leading-8 text-zinc-400">
                     {project.description}
                   </p>
                 </div>
