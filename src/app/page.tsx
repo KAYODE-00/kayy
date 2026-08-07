@@ -138,7 +138,6 @@ export default function Home() {
                   onClose={() => setActive("")}
                   header={
                     <div className="flex items-center gap-2 cursor-pointer">
-                      <Download size={20} />
                       <ArrowUpRight className="" size={30} /> <p>View Resume</p>
                     </div>
                   }

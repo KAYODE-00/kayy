@@ -30,6 +30,7 @@ export function PortfolioProvider({ children }: { children: ReactNode }) {
         setData((current) => ({
           ...current,
           ...remote,
+          about: { ...current.about, ...(remote.about ?? {}) },
           socials: (remote.socials ?? current.socials).map((item: any, index: number) => ({
             ...current.socials[index],
             ...item,
