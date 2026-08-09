@@ -30,6 +30,7 @@ export default function Home() {
   const [active, setActive] = useState("");
   const [lightMode, setLightMode] = useState(false);
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
+  const [showLiveChat, setShowLiveChat] = useState(false);
   useEffect(() => {
     const savedTheme = window.localStorage.getItem("portfolio-theme");
     if (savedTheme === "light") setLightMode(true);
@@ -88,7 +89,7 @@ export default function Home() {
                   onClose={() => setActive("")}
                   header={
                     <div className="flex items-center-safe gap-2 cursor-pointer ">
-                      <ArrowUpRight className="" size={30} /> <p>About me</p>
+                      <ArrowUpRight className="" size={30} /> <p>View About me</p>
                     </div>
                   }
                 >
@@ -113,26 +114,43 @@ export default function Home() {
                 </div>
               </div>
               <div className="mt-8  gap-4">
-                <div className="flex flex-wrap items-center gap-4">
-                  {socials.map((social) => {
-                    const Icon = social.icon;
-                    return (
-                      <a
-                        key={social.name}
-                        href={social.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={`Visit ${social.name}`}
-                        className="group relative rounded-2xl bg-zinc-800 p-3 transition-all hover:scale-110 hover:bg-white hover:text-black"
-                      >
-                        <Icon className="text-3xl" />
-                        <span className="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-white opacity-0 shadow-xl transition-all group-hover:-translate-y-2 group-hover:opacity-100">
-                          {social.name}
-                        </span>
-                      </a>
-                    );
-                  })}
+                <div className="flex gap">
+                  {" "}
+                  <div className="flex flex-wrap items-center gap-4">
+                    {socials.map((social) => {
+                      const Icon = typeof social.icon === "function" ? social.icon : Code2;
+                      return (
+                        <a
+                          key={social.name}
+                          href={social.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          aria-label={`Visit ${social.name}`}
+                          className="group relative rounded-2xl bg-zinc-800 p-3 transition-all hover:scale-110 hover:bg-white hover:text-black"
+                        >
+                          <Icon className="text-3xl" />
+                          <span className="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-white opacity-0 shadow-xl transition-all group-hover:-translate-y-2 group-hover:opacity-100">
+                            {social.name}
+                          </span>
+                        </a>
+                      );
+                    })}
+
+                    <button
+                      type="button"
+                      aria-label="Open live AI chat"
+                      onClick={() => setShowLiveChat(true)}
+                      className="group relative rounded-2xl bg-zinc-800 p-4 text-white transition-all hover:scale-110 hover:bg-white hover:text-black"
+                    >
+                      <Bot size={25} />
+                      <span className="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-white opacity-0 shadow-xl transition-all group-hover:-translate-y-2 group-hover:opacity-100">
+                        Live chat
+                      </span>
+                    </button>
+                  </div>
+                
                 </div>
+
                 <Card
                   id="resume"
                   active={active === "resume"}
@@ -141,9 +159,7 @@ export default function Home() {
                   header={
                     <div className="flex items-center gap-2 cursor-pointer">
                       <ArrowUpRight className="" size={30} />{" "}
-                      <p className="">
-                        {active ? "Resume" : "View Resume"}
-                      </p>
+                      <p className="">{active ? "Resume" : "View Resume"}</p>
                     </div>
                   }
                 >
@@ -171,6 +187,36 @@ export default function Home() {
           </div>
         </div>
       </div>{" "}
+
+      <AnimatePresence>
+        {showLiveChat && (
+          <motion.div
+            initial={{ opacity: 0, y: 20, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 20, scale: 0.96 }}
+            transition={{ duration: 0.2 }}
+            className="fixed bottom-6 right-6 z-50 w-[min(420px,calc(100vw-2rem))] overflow-hidden rounded-3xl border border-zinc-700 bg-[#09090B]/95 shadow-2xl backdrop-blur-xl"
+          >
+            <div className="flex items-center justify-between border-b border-zinc-800 px-4 py-3">
+              <div className="flex items-center gap-2 text-white">
+                <Bot size={18} />
+                <span className="text-sm font-medium">Live chat</span>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowLiveChat(false)}
+                className="rounded-full border border-zinc-700 bg-zinc-900 px-2 py-1 text-xs text-zinc-300 transition hover:bg-zinc-800"
+              >
+                Close
+              </button>
+            </div>
+            <div className="h-[500px]">
+              <ChatBot />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* work */}
       <div className="flex flex-col gap-5">
         <p className="float-left text-3xl">{about.workSectionTitle}</p>

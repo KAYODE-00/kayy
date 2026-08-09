@@ -40,9 +40,8 @@ export const about = {
   rotatingPrefix: "He who",
   rotatingWords: [
     "software engineer",
-    "backend engineer",
     "AI engineer",
-    "full-stack developer",
+  
   ],
   rotatingAlias: ["codes", "plans", "architects", "builds"],
 
