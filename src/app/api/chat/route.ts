@@ -6,12 +6,14 @@ const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY!,
 });
 
+const DEFAULT_GROQ_MODEL = process.env.GROQ_MODEL || "llama-3.1-8b-instant";
+
 export async function POST(req: Request) {
     try {
         const { messages, conversationId = crypto.randomUUID() } = await req.json();
 
         const completion = await groq.chat.completions.create({
-            model: "llama-3.3-70b-versatile",
+            model: DEFAULT_GROQ_MODEL,
 
             messages: [
                 {

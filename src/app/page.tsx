@@ -89,7 +89,8 @@ export default function Home() {
                   onClose={() => setActive("")}
                   header={
                     <div className="flex items-center-safe gap-2 cursor-pointer ">
-                      <ArrowUpRight className="" size={30} /> <p>View About me</p>
+                      <ArrowUpRight className="" size={30} />{" "}
+                      <p>View About me</p>
                     </div>
                   }
                 >
@@ -118,7 +119,47 @@ export default function Home() {
                   {" "}
                   <div className="flex flex-wrap items-center gap-4">
                     {socials.map((social) => {
-                      const Icon = typeof social.icon === "function" ? social.icon : Code2;
+                      const Icon =
+                        typeof social.icon === "function" ? social.icon : Code2;
+
+                      if (social.name === "Email") {
+                        return (
+                          <div
+                            key={social.name}
+                            className="flex items-center gap-3"
+                          >
+                            <a
+                              href={
+                                social.url.startsWith("mailto:")
+                                  ? social.url
+                                  : `mailto:${social.url}`
+                              }
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              aria-label={`Email ${social.name}`}
+                              className="group relative rounded-2xl bg-zinc-800 p-3 transition-all hover:scale-110 hover:bg-white hover:text-black"
+                            >
+                              <Icon className="text-3xl" />
+                              <span className="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-white opacity-0 shadow-xl transition-all group-hover:-translate-y-2 group-hover:opacity-100">
+                                {social.name}
+                              </span>
+                            </a>
+
+                            <button
+                              type="button"
+                              aria-label="Open live AI chat"
+                              onClick={() => setShowLiveChat(true)}
+                              className="group relative rounded-2xl bg-zinc-800 p-4 text-white transition-all hover:scale-110 hover:bg-white hover:text-black"
+                            >
+                              <Bot size={25} />
+                              <span className="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-white opacity-0 shadow-xl transition-all group-hover:-translate-y-2 group-hover:opacity-100">
+                                Live chat
+                              </span>
+                            </button>
+                          </div>
+                        );
+                      }
+
                       return (
                         <a
                           key={social.name}
@@ -135,20 +176,7 @@ export default function Home() {
                         </a>
                       );
                     })}
-
-                    <button
-                      type="button"
-                      aria-label="Open live AI chat"
-                      onClick={() => setShowLiveChat(true)}
-                      className="group relative rounded-2xl bg-zinc-800 p-4 text-white transition-all hover:scale-110 hover:bg-white hover:text-black"
-                    >
-                      <Bot size={25} />
-                      <span className="pointer-events-none absolute -top-11 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1.5 text-xs text-white opacity-0 shadow-xl transition-all group-hover:-translate-y-2 group-hover:opacity-100">
-                        Live chat
-                      </span>
-                    </button>
                   </div>
-                
                 </div>
 
                 <Card
@@ -187,7 +215,6 @@ export default function Home() {
           </div>
         </div>
       </div>{" "}
-
       <AnimatePresence>
         {showLiveChat && (
           <motion.div
@@ -210,13 +237,12 @@ export default function Home() {
                 Close
               </button>
             </div>
-            <div className="h-[500px]">
+            <div className="h-[500px] ">
               <ChatBot />
             </div>
           </motion.div>
         )}
       </AnimatePresence>
-
       {/* work */}
       <div className="flex flex-col gap-5">
         <p className="float-left text-3xl">{about.workSectionTitle}</p>
