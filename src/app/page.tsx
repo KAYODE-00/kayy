@@ -237,7 +237,7 @@ export default function Home() {
                 Close
               </button>
             </div>
-            <div className="h-[500px] ">
+            <div className="h-[500px] p-5">
               <ChatBot />
             </div>
           </motion.div>
@@ -245,7 +245,6 @@ export default function Home() {
       </AnimatePresence>
       {/* work */}
       <div className="flex flex-col gap-5">
-        <p className="float-left text-3xl">{about.workSectionTitle}</p>
         <div className="min-w-0 flex-1">
           <Skiper52 />
           <Card
