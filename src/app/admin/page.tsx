@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Save, Plus, Trash2, ArrowLeft } from 'lucide-react';
+import { Save, Plus, Trash2, ArrowLeft, MessageSquare, Bot } from 'lucide-react';
 import Link from 'next/link';
 
 export default function PortfolioAdmin() {
@@ -13,6 +13,9 @@ export default function PortfolioAdmin() {
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState<string | null>(null);
   const [checkingAuth, setCheckingAuth] = useState(true);
+  const [aiContext, setAiContext] = useState('');
+  const [conversations, setConversations] = useState<any[]>([]);
+  const [savingAi, setSavingAi] = useState(false);
 
   useEffect(() => {
     fetch('/api/admin-auth')
@@ -21,6 +24,13 @@ export default function PortfolioAdmin() {
         setAuthenticated(auth.authenticated);
         setCheckingAuth(false);
         if (!auth.authenticated) return null;
+        fetch('/api/admin-ai')
+          .then((response) => response.ok ? response.json() : Promise.reject(new Error('Unable to load AI data.')))
+          .then((aiData) => {
+            setAiContext(aiData.context ?? '');
+            setConversations(aiData.conversations ?? []);
+          })
+          .catch((aiError: Error) => setError(aiError.message));
         return fetch('/api/portfolio-data');
       })
       .then(res => {
@@ -70,6 +80,25 @@ export default function PortfolioAdmin() {
       ...prev,
       [section]: { ...prev[section], [field]: value }
     }));
+  };
+
+  const saveAiContext = async () => {
+    setSavingAi(true);
+    const response = await fetch('/api/admin-ai', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ context: aiContext }),
+    });
+    setSavingAi(false);
+    if (!response.ok) return setError('Unable to save AI context.');
+    alert('AI context saved. New visitor messages will use it.');
+  };
+
+  const deleteConversation = async (id: string) => {
+    if (!window.confirm('Delete this visitor conversation permanently?')) return;
+    const response = await fetch(`/api/admin-ai?id=${encodeURIComponent(id)}`, { method: 'DELETE' });
+    if (!response.ok) return setError('Unable to delete conversation.');
+    setConversations((current) => current.filter((conversation) => conversation.id !== id));
   };
 
   const collectionFields: Record<string, string[]> = {
@@ -143,7 +172,7 @@ export default function PortfolioAdmin() {
 
         {/* Tabs */}
         <div className="flex flex-wrap gap-1 mb-4 sm:mb-7 border-b border-gray-800 pb-2 sm:pb-3">
-          {['about', 'stats', 'testimonials', 'socials', 'tools', 'builds', 'projects', 'workExperience'].map((tab) => (
+          {['about', 'stats', 'testimonials', 'socials', 'tools', 'builds', 'projects', 'workExperience', 'ai'].map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
@@ -289,6 +318,48 @@ export default function PortfolioAdmin() {
                   </button>
                 </div>
               ))}
+            </div>
+          </section>
+        )}
+
+        {activeTab === 'ai' && (
+          <section className="space-y-5">
+            <div className="rounded-2xl bg-gray-900 p-4 sm:p-8">
+              <div className="mb-5 flex items-center gap-3">
+                <Bot className="text-emerald-400" size={22} />
+                <div>
+                  <h2 className="text-lg font-semibold">AI context</h2>
+                  <p className="mt-1 text-sm text-gray-400">Give the portfolio AI accurate details about you, your work, preferences, and how it should answer.</p>
+                </div>
+              </div>
+              <textarea value={aiContext} onChange={(event) => setAiContext(event.target.value)} placeholder="Example: I am Kayode, a full-stack developer based in... My availability is... When asked about pricing..." className="min-h-56 w-full rounded-xl bg-gray-800 p-4 text-sm leading-6 outline-none focus:ring-1 focus:ring-emerald-500" />
+              <button onClick={saveAiContext} disabled={savingAi} className="mt-4 flex items-center gap-2 rounded-xl bg-emerald-600 px-4 py-2.5 text-sm font-semibold hover:bg-emerald-700 disabled:opacity-70">
+                <Save size={17} /> {savingAi ? 'Saving...' : 'Save AI Context'}
+              </button>
+            </div>
+
+            <div className="rounded-2xl bg-gray-900 p-4 sm:p-8">
+              <div className="mb-5 flex items-center gap-3">
+                <MessageSquare className="text-emerald-400" size={22} />
+                <div>
+                  <h2 className="text-lg font-semibold">Visitor chats</h2>
+                  <p className="mt-1 text-sm text-gray-400">{conversations.length} saved conversation{conversations.length === 1 ? '' : 's'}.</p>
+                </div>
+              </div>
+              <div className="space-y-3">
+                {conversations.length === 0 && <p className="rounded-xl bg-gray-800 p-4 text-sm text-gray-400">No visitor conversations have been saved yet.</p>}
+                {conversations.map((conversation) => (
+                  <article key={conversation.id} className="rounded-xl bg-gray-800 p-4">
+                    <div className="mb-3 flex items-start justify-between gap-3">
+                      <p className="text-xs text-gray-400">{new Date(conversation.updated_at).toLocaleString()}</p>
+                      <button onClick={() => deleteConversation(conversation.id)} className="flex shrink-0 items-center gap-1 rounded-lg px-2 py-1 text-xs text-red-400 hover:bg-red-950 hover:text-red-300"><Trash2 size={14} /> Delete</button>
+                    </div>
+                    <div className="space-y-2">
+                      {(conversation.messages ?? []).map((message: any, index: number) => <p key={index} className="text-sm leading-6 text-gray-200"><span className="mr-2 font-semibold text-emerald-400">{message.role === 'user' ? 'Visitor' : 'AI'}:</span>{message.content}</p>)}
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </section>
         )}
