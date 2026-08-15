@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import Groq from "groq-sdk";
-import { getNeon } from "@/lib/neon";
+import { ensureChatTables, getAiContext } from "@/lib/chat-store";
 
 const groqApiKey = process.env.GROQ_API_KEY;
 
@@ -34,6 +34,7 @@ export async function POST(req: Request) {
       );
     }
 
+    const aiContext = await getAiContext();
     let completion;
     let lastError: Error | null = null;
 
@@ -60,6 +61,7 @@ Topics:
 If asked unrelated questions politely refuse.
 
 Respond naturally.
+${aiContext ? `\nAdditional context supplied by Kayode:\n${aiContext}` : ""}
               `,
             },
             ...messages,
@@ -84,14 +86,7 @@ Respond naturally.
     const message = completion.choices[0].message.content ?? "Sorry, I couldn't answer.";
 
     try {
-      const sql = getNeon();
-      await sql`
-        CREATE TABLE IF NOT EXISTS chat_conversations (
-          id TEXT PRIMARY KEY,
-          messages JSONB NOT NULL,
-          updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
-        )
-      `;
+      const sql = await ensureChatTables();
       await sql`
         INSERT INTO chat_conversations (id, messages, updated_at)
         VALUES (${conversationId}, ${JSON.stringify([...messages, { role: "assistant", content: message }])}::jsonb, NOW())
