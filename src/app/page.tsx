@@ -12,6 +12,39 @@ import { useEffect, useState } from "react";
 import { usePortfolio } from "@/components/PortfolioProvider";
 import TestimonialSlider from "@/components/TestimonialSlider";
 import ChatBot from "@/components/Chatbot";
+import {
+  SiDocker,
+  SiFastapi,
+  SiGithub,
+  SiHuggingface,
+  SiLangchain,
+  SiNextdotjs,
+  SiPostgresql,
+  SiPython,
+  SiReact,
+  SiRedis,
+  SiSupabase,
+  SiTailwindcss,
+  SiTypescript,
+  SiVercel,
+} from "react-icons/si";
+
+const ENGINEERING_TOOLS = [
+  { name: "Next.js", icon: SiNextdotjs },
+  { name: "React", icon: SiReact },
+  { name: "TypeScript", icon: SiTypescript },
+  { name: "Tailwind CSS", icon: SiTailwindcss },
+  { name: "Python", icon: SiPython },
+  { name: "FastAPI", icon: SiFastapi },
+  { name: "LangChain", icon: SiLangchain },
+  { name: "Hugging Face", icon: SiHuggingface },
+  { name: "PostgreSQL", icon: SiPostgresql },
+  { name: "Redis", icon: SiRedis },
+  { name: "Supabase", icon: SiSupabase },
+  { name: "Docker", icon: SiDocker },
+  { name: "GitHub", icon: SiGithub },
+  { name: "Vercel", icon: SiVercel },
+];
 
 const contributionData = Array.from({ length: 365 }, (_, index) => ({
   date: String(index),
@@ -25,7 +58,7 @@ const fadeUp = {
 };
 
 export default function Home() {
-  const { about, socials, tools, workExperience, rotatingWord, rotatingAlias } =
+  const { about, socials, workExperience, rotatingWord, rotatingAlias } =
     usePortfolio();
   const [active, setActive] = useState("");
   const [lightMode, setLightMode] = useState(false);
@@ -42,8 +75,21 @@ export default function Home() {
       lightMode ? "light" : "dark",
     );
   }, [lightMode]);
+  useEffect(() => {
+    if (!active) return;
+    const previousBodyOverflow = document.body.style.overflow;
+    const previousHtmlOverflow = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = previousBodyOverflow;
+      document.documentElement.style.overflow = previousHtmlOverflow;
+    };
+  }, [active]);
   return (
-    <main className="relative flex min-h-screen flex-col gap-10 bg-black pt-16   p-5 md:p-8">
+    <main
+      className={`relative flex min-h-screen flex-col gap-10 bg-black pt-16 p-5 md:p-8 ${active ? "h-screen overflow-hidden" : ""}`}
+    >
       {/* <button
         type="button"
         aria-label={lightMode ? "Switch to dark mode" : "Switch to light mode"}
@@ -54,7 +100,7 @@ export default function Home() {
       </button> */}
       <div className="flex items-center justify-center">
         <div className="flex flex-col gap-4">
-          <div className="  h-70 w-70 overflow-hidden rounded-full border border-zinc-700 ">
+          <div className="  h-50 w-50 overflow-hidden rounded-full border border-zinc-700 ">
             {/* <MosaicPortrait imageUrl={about.portraitImage} /> */}
             <img
               src={about.portraitImage}
@@ -63,20 +109,12 @@ export default function Home() {
             />
           </div>
           <div className="flex flex-col gap-3">
-            <h1 className="text-xl">
-              <span> I'm a{"/"}an </span>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={rotatingWord}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.35 }}
-                  className="font-semibold text-white"
-                >
-                  {rotatingWord}
-                </motion.span>
-              </AnimatePresence>{" "}
+            <h1 className="text-[0.9rem] md:text-xl">
+              <span> I'm a </span>
+              <span className="font-semibold text-white">
+                Software and Ai engineer
+              </span>
+
               {about.heroText ?? about.description}
             </h1>
 
@@ -89,8 +127,8 @@ export default function Home() {
                   onClose={() => setActive("")}
                   header={
                     <div className="flex items-center-safe gap-2 cursor-pointer ">
-                      <ArrowUpRight className="" size={30} />{" "}
-                      <p>View About me</p>
+                      <ArrowUpRight className="text-[0.9rem]" size={30} />{" "}
+                      <p className="text-[0.9rem]">View About me</p>
                     </div>
                   }
                 >
@@ -187,7 +225,9 @@ export default function Home() {
                   header={
                     <div className="flex items-center gap-2 cursor-pointer">
                       <ArrowUpRight className="" size={30} />{" "}
-                      <p className="">{active ? "Resume" : "View Resume"}</p>
+                      <p className="text-[0.9rem]">
+                        {active ? "Resume" : "View Resume"}
+                      </p>
                     </div>
                   }
                 >
@@ -253,7 +293,9 @@ export default function Home() {
             onClick={() => setActive("work")}
             onClose={() => setActive("")}
             header={
-              <div className="flex items-center-safe gap-2 cursor-pointer ">
+              <div
+                className="flex cursor-pointer items-center gap-2 text-[0.9rem]"
+              >
                 <ArrowUpRight className="" size={30} />{" "}
                 {active ? "Projects" : "View Projects"}
               </div>
@@ -265,7 +307,9 @@ export default function Home() {
       </div>
       {/* stacks */}
       <div className="flex flex-col gap-5">
-        <p className="float-left text-3xl">{about.stacksSectionTitle}</p>
+        <p className="float-left text-2xl md:text-3xl">
+          Stacks &amp; Tools
+        </p>
         <div className="min-w-0 flex-1">
           <motion.div
             variants={fadeUp}
@@ -274,7 +318,7 @@ export default function Home() {
             className="rounded-3xl  p-4 md:col-span-3 md:p-10"
           >
             <div className="grid grid-cols-4 gap-4 sm:grid-cols-4 md:grid-cols-7 lg:grid-cols-8">
-              {tools.map((tool) => {
+              {ENGINEERING_TOOLS.map((tool) => {
                 const Icon = tool.icon ?? Code2;
                 return (
                   <div
@@ -299,7 +343,9 @@ export default function Home() {
       </div>
       {/* Testimonials */}
       <div className="flex flex-col gap-5">
-        <p className="float-left text-3xl">{about.testimonialsTitle}</p>
+        <p className="float-left text-2xl md:text-3xl">
+          {about.testimonialsTitle}
+        </p>
         <div className="min-w-0 flex-1">
           <div className="mt-12 flex-1">
             <TestimonialSlider />
@@ -308,7 +354,9 @@ export default function Home() {
       </div>
       {/* Experience */}
       <div className="flex flex-col gap-5">
-        <p className="float-left text-3xl">{about.experienceSectionTitle}</p>
+        <p className="float-left text-2xl md:text-3xl">
+          {about.experienceSectionTitle}
+        </p>
         <div className="min-w-0 flex-1">
           <div className="mt-12 flex-1">
             <TestimonialSlider items={workExperience} reverse />
@@ -323,7 +371,9 @@ export default function Home() {
         viewport={{ once: true }}
         className="flex flex-col gap-5 "
       >
-        <p className="float-left text-3xl">{about.githubSectionTitle}</p>
+        <p className="float-left text-2xl md:text-3xl">
+          {about.githubSectionTitle}
+        </p>
 
         <div className="flex items-center justify-center w-full overflow-hidden rounded-xl border border-zinc-800  p-5 md:p-30">
           <img
