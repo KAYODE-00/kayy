@@ -106,7 +106,7 @@ export default function PortfolioAdmin() {
     socials: ['name', 'url', 'iconLibrary', 'iconImport'],
     tools: ['name', 'iconLibrary', 'iconImport'],
     builds: ['value'],
-    projects: ['title', 'type', 'image', 'description', 'github', 'live'],
+    projects: ['title', 'type', 'image', 'description', 'problem', 'github', 'live'],
     workExperience: ['name', 'role', 'text', 'avatar'],
   };
 
@@ -211,6 +211,26 @@ export default function PortfolioAdmin() {
               <div className="md:col-span-2">
                 <label className="text-sm text-gray-400 block mb-2">Hero Text</label>
                 <textarea value={data.about.heroText ?? data.about.description} onChange={(e) => updateField('about', 'heroText', e.target.value)} className="w-full bg-gray-800 p-3 rounded-xl text-sm h-32" />
+              </div>
+              <div className="md:col-span-2">
+                <label className="text-sm text-gray-400 block mb-2">AI Engineering Description</label>
+                <textarea value={data.about.aiEngineeringText ?? ''} onChange={(e) => updateField('about', 'aiEngineeringText', e.target.value)} className="w-full bg-gray-800 p-3 rounded-xl text-sm h-28" />
+              </div>
+              <div className="md:col-span-2">
+                <label className="text-sm text-gray-400 block mb-2">AI Engineering Stack</label>
+                <input value={(data.about.aiEngineeringStack ?? []).join(', ')} onChange={(e) => updateField('about', 'aiEngineeringStack', e.target.value.split(',').map((item: string) => item.trim()).filter(Boolean))} placeholder="RAG, MCP, LangChain" className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
+              </div>
+              <div className="md:col-span-2">
+                <label className="text-sm text-gray-400 block mb-2">Software Engineering Description</label>
+                <textarea value={data.about.softwareEngineeringText ?? ''} onChange={(e) => updateField('about', 'softwareEngineeringText', e.target.value)} className="w-full bg-gray-800 p-3 rounded-xl text-sm h-28" />
+              </div>
+              <div className="md:col-span-2">
+                <label className="text-sm text-gray-400 block mb-2">Software Engineering Stack</label>
+                <input value={(data.about.softwareEngineeringStack ?? []).join(', ')} onChange={(e) => updateField('about', 'softwareEngineeringStack', e.target.value.split(',').map((item: string) => item.trim()).filter(Boolean))} placeholder="Next.js, TypeScript, PostgreSQL" className="w-full bg-gray-800 p-3 rounded-xl text-sm" />
+              </div>
+              <div className="md:col-span-2">
+                <label className="text-sm text-gray-400 block mb-2">How I Work</label>
+                <textarea value={data.about.workingStyleText ?? ''} onChange={(e) => updateField('about', 'workingStyleText', e.target.value)} className="w-full bg-gray-800 p-3 rounded-xl text-sm h-28" />
               </div>
               <div>
                 <label className="text-sm text-gray-400 block mb-2">Sub Heading</label>
