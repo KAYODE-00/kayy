@@ -1,104 +1,69 @@
-import { usePortfolio } from "@/components/PortfolioProvider";
+"use client";
+
 import { AnimatePresence, motion } from "framer-motion";
-import { Download } from "lucide-react";
 import { useEffect, useState } from "react";
-import TestimonialSlider from "@/components/TestimonialSlider";
+import { usePortfolio } from "@/components/PortfolioProvider";
 
 const fadeUp = {
-  hidden: { opacity: 0, y: 30 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6 } },
+  hidden: { opacity: 0, y: 20 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.45 } },
 };
 
-const About = () => {
-  const { about, builds, rotatingWord } = usePortfolio();
-
+export default function About() {
+  const { about, builds } = usePortfolio();
   const [buildIndex, setBuildIndex] = useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setBuildIndex((prev) => (prev + 1) % builds.length);
-    }, 2800);
-    return () => clearInterval(interval);
-  }, []);
+    if (builds.length === 0) return;
+    const interval = window.setInterval(() => setBuildIndex((current) => (current + 1) % builds.length), 2800);
+    return () => window.clearInterval(interval);
+  }, [builds.length]);
 
   return (
-    <section className="flex items-center justify-center  mx-auto w-full  py-12 md:px-6 md:py-20">
-      {/* MAIN GRID */}
-      <div className="">
-        <motion.div
-          variants={fadeUp}
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true }}
-          className="flex flex-col gap-5 rounded-2xl bg-zinc-900 p-6 md:col-span-2 md:gap-8 md:rounded-3xl md:p-10"
-        >
-          <div className="flex-1">
-            <p className="text-sm uppercase tracking-[0.125em] text-zinc-500">
-              {about.subHeading}
-            </p>
-            <h1 className="mt-2 text-2xl font-bold text-white sm:text-4xl">
-              {about.name}
-            </h1>
-            <p className="mt-4 text-base leading-relaxed text-zinc-400 sm:mt-6 sm:text-lg">
-              <span> I'm a{"/"}an </span>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={rotatingWord}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.35 }}
-                  className="font-semibold text-white"
-                >
-                  {rotatingWord}
-                </motion.span>
-              </AnimatePresence>{" "}
-              {about.description}
-            </p>
+    <section data-lenis-prevent className="mx-auto w-full pb-8">
+      <motion.div variants={fadeUp} initial="hidden" animate="show" className="rounded-2xl bg-zinc-900 p-6 md:rounded-3xl md:p-10">
+        <p className="text-sm uppercase tracking-[0.125em] text-zinc-500">{about.subHeading}</p>
+        <h1 className="mt-2 text-2xl font-bold text-white sm:text-4xl">{about.name}</h1>
 
-            {/* Stats */}
-            {/* <div className="mt-6 flex flex-wrap gap-3 sm:mt-10 sm:gap-4">
-              {stats.map((stat, i) => (
-                <motion.div
-                  key={i}
-                  whileHover={{ scale: 1.02 }}
-                  className="min-w-[110px] flex-1 rounded-xl border border-transparent bg-black/20 p-4 transition-colors hover:border-zinc-700 sm:rounded-2xl sm:p-6"
-                >
-                  <h2 className="text-2xl font-bold text-white sm:text-4xl">
-                    {stat.number}
-                  </h2>
-                  <p className="mt-1 text-xs text-zinc-500 sm:text-sm">
-                    {stat.label}
-                  </p>
-                </motion.div>
-              ))}
-            </div> */}
+        <div className="mt-6 space-y-5 text-[0.95rem] leading-8 text-zinc-400 md:text-lg">
+          <p>I&apos;m a <span className="font-semibold text-white">software and AI engineer</span>{about.description}</p>
+          <p>I build production-ready web applications and AI features that solve useful problems. My AI work focuses on retrieval-augmented generation (RAG), Model Context Protocol (MCP) integrations, practical fine-tuning, and dependable developer workflows—not machine-learning research.</p>
+          <p>I care about the full product: clear user experiences, reliable APIs, well-designed data flows, and software that is maintainable after launch.</p>
+        </div>
 
-            {/* I Build (Animated Text) */}
-            <div className="mt-8 rounded-2xl border border-zinc-800 bg-black/20 p-5 sm:p-6">
-              <h3 className="text-sm font-semibold text-zinc-400 sm:text-base">
-                {about.iBuildText}
-              </h3>
-              <div className="mt-3 h-8 overflow-hidden sm:h-10 sm:mt-4">
-                <AnimatePresence mode="wait">
-                  <motion.p
-                    key={builds[buildIndex]}
-                    initial={{ opacity: 0, y: 25 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -25 }}
-                    transition={{ duration: 0.4 }}
-                    className="text-lg font-medium text-zinc-200 sm:text-2xl"
-                  >
-                    {builds[buildIndex]}
-                  </motion.p>
-                </AnimatePresence>
-              </div>
-            </div>
+        <div className="mt-8 grid gap-5 lg:grid-cols-2">
+          <AboutStack title="AI engineering" description={about.aiEngineeringText} stacks={about.aiEngineeringStack} />
+          <AboutStack title="Software engineering" description={about.softwareEngineeringText} stacks={about.softwareEngineeringStack} />
+        </div>
+
+        <div className="mt-5 rounded-2xl border border-zinc-800 bg-black/20 p-5 sm:p-6">
+          <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">How I work</p>
+          <p className="mt-3 text-[0.95rem] leading-7 text-zinc-300">{about.workingStyleText}</p>
+        </div>
+
+        <div className="mt-5 rounded-2xl border border-zinc-800 bg-black/20 p-5 sm:p-6">
+          <h2 className="text-sm font-semibold text-zinc-400 sm:text-base">{about.iBuildText}</h2>
+          <div className="mt-3 h-8 overflow-hidden sm:mt-4 sm:h-10">
+            <AnimatePresence mode="wait">
+              <motion.p key={builds[buildIndex] ?? "products"} initial={{ opacity: 0, y: 25 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -25 }} transition={{ duration: 0.4 }} className="text-lg font-medium text-zinc-200 sm:text-2xl">
+                {builds[buildIndex] ?? "Useful digital products"}
+              </motion.p>
+            </AnimatePresence>
           </div>
-        </motion.div>
-      </div>
+        </div>
+      </motion.div>
     </section>
   );
-};
+}
 
-export default About;
+function AboutStack({ title, description, stacks }: { title: string; description: string; stacks: string[] }) {
+  return (
+    <article className="rounded-2xl border border-zinc-800 bg-black/20 p-5 sm:p-6">
+      <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">{title}</p>
+      <p className="mt-3 text-[0.95rem] leading-7 text-zinc-300">{description}</p>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {stacks.map((stack) => <span key={stack} className="rounded-lg bg-zinc-800 px-3 py-1.5 text-xs text-zinc-300">{stack}</span>)}
+      </div>
+    </article>
+  );
+}
