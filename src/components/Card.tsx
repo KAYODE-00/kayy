@@ -61,7 +61,7 @@ export default function Card({
                 w-[100vw]
                 max-w-[1200px]
                 -translate-x-1/2
-                -translate-y-1/2
+                -translate-y-1/2                
               `
               : `
                 relative
