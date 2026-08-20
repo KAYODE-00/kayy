@@ -17,7 +17,7 @@ export default function ChatBot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
-      text: "Hi 👋 I'm Kayode's AI assistant. Ask me anything about my projects, skills, experience or how to contact me.",
+      text: "Hi, I'm Kayode's AI assistant. Ask me anything about my projects, skills, experience or how to contact me.",
     },
   ]);
 
@@ -95,7 +95,7 @@ export default function ChatBot() {
         </div>
 
         <div>
-          <h2 className="font-semibold text-white">Kayode AI</h2>
+          <h2 className="font-semibold text-white text-[0.9rem] ">Kayode AI</h2>
         </div>
       </div>
 
@@ -122,7 +122,7 @@ export default function ChatBot() {
                 <Bot size={16} className="mb-2 text-zinc-500" />
               )}
 
-              <p className="whitespace-pre-wrap leading-7">{msg.text}</p>
+              <p className="whitespace-pre-wrap leading-7 text-[0.8rem]">{msg.text}</p>
             </div>
           </motion.div>
         ))}
@@ -133,7 +133,7 @@ export default function ChatBot() {
             animate={{ opacity: 1 }}
             className="flex justify-start"
           >
-            <div className="flex items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 px-5 py-4 text-zinc-400">
+            <div className="flex items-center gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 px-5 py-4 text-zinc-400 text-[0.7rem]">
               <Loader2 size={16} className="animate-spin" />
               Thinking...
             </div>
@@ -156,7 +156,7 @@ export default function ChatBot() {
             }
           }}
           placeholder="Ask me anything..."
-          className="flex-1 rounded-xl border border-zinc-800 bg-zinc-900 px-5 py-4 text-white outline-none transition focus:border-zinc-600 disabled:opacity-60"
+          className="flex-1 rounded-xl border border-zinc-800 bg-zinc-900 px-5 py-4 text-white outline-none transition focus:border-zinc-600 disabled:opacity-60 text-[0.7rem] "
         />
 
         <button
