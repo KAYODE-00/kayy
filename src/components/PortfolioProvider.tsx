@@ -38,6 +38,11 @@ const fallbackToolIcons: Record<string, unknown> = {
   "Node.js": SiIcons.SiNodedotjs,
   Express: SiIcons.SiExpress,
   Stripe: SiIcons.SiStripe,
+  LangChain: SiIcons.SiLangchain,
+  "Hugging Face": SiIcons.SiHuggingface,
+  Python: SiIcons.SiPython,
+  FastAPI: SiIcons.SiFastapi,
+  Redis: SiIcons.SiRedis,
 };
 
 const normalizeIcon = (value: unknown) =>

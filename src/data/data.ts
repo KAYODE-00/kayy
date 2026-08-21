@@ -19,15 +19,28 @@ import {
   SiVercel,
   SiFramer,
   SiStripe,
+  SiLangchain,
+  SiHuggingface,
+  SiPython,
+  SiFastapi,
+  SiRedis,
 } from "react-icons/si";
 import { MdEmail } from "react-icons/md";
 
 export const about = {
   name: "Hi, I'm Kayode ",
   description:
-    " who enjoys building modern web applications, AI-powered products, and clean user experiences with performance in mind. I specialize in building scalable SaaS platforms and focused digital tools.",
+    " who builds production-ready web applications and practical AI products. I specialize in scalable SaaS platforms, RAG systems, MCP integrations, fine-tuning workflows, and clean user experiences.",
   heroText:
-    " who enjoys building modern web applications, AI-powered products, and clean user experiences with performance in mind. I specialize in building scalable SaaS platforms and focused digital tools.",
+    " who builds production-ready web applications and practical AI products. I specialize in scalable SaaS platforms, RAG systems, MCP integrations, fine-tuning workflows, and clean user experiences.",
+  aiEngineeringText:
+    "I design AI features that are useful in real products: grounded retrieval, well-scoped agent workflows, tool integrations, and evaluation-minded delivery. I focus on making models dependable, observable, and genuinely helpful for users and teams.",
+  aiEngineeringStack: ["RAG", "MCP", "LangChain", "Hugging Face", "Python", "FastAPI", "PostgreSQL", "Redis"],
+  softwareEngineeringText:
+    "I build the foundations around the AI: responsive interfaces, secure APIs, clean databases, authentication, payments, dashboards, and deployment workflows. The goal is software that is fast to use, easy to maintain, and ready to grow.",
+  softwareEngineeringStack: ["Next.js", "React", "TypeScript", "Node.js", "PostgreSQL", "Supabase", "Docker", "Vercel"],
+  workingStyleText:
+    "I like working from the real problem outward. I clarify the user flow, choose the simplest reliable architecture, ship in focused iterations, and keep the product understandable for the people who will maintain it.",
   portraitImage: "/developer.PNG",
   aboutCardLabel: "About Me",
   workSectionTitle: "Works",
@@ -128,11 +141,19 @@ export const tools = [
   { name: "Figma", icon: SiFigma },
   { name: "Vercel", icon: SiVercel },
   { name: "Framer Motion", icon: SiFramer },
+  { name: "LangChain", icon: SiLangchain },
+  { name: "Hugging Face", icon: SiHuggingface },
+  { name: "Python", icon: SiPython },
+  { name: "FastAPI", icon: SiFastapi },
+  { name: "Redis", icon: SiRedis },
 ];
 
 export const builds = [
   "SaaS Platforms",
   "AI Applications",
+  "RAG Systems",
+  "MCP Integrations",
+  "Fine-Tuning Workflows",
   "Admin Dashboards",
   "Business Tools",
   "Click-to-Edit Builders",
@@ -150,6 +171,8 @@ export const projects = [
     image: "/webcrate.png",
     description:
       "A specialized web builder application utilizing a unique click-to-edit interaction model rather than traditional drag-and-drop.",
+    problem:
+      "Makes page editing faster and more intuitive by replacing awkward drag-and-drop workflows with direct, click-to-edit interactions.",
     stack: [
       { name: "Next.js", icon: SiNextdotjs },
       { name: "TypeScript", icon: SiTypescript },
@@ -164,6 +187,8 @@ export const projects = [
     image: "/metric.png",
     description:
       "Analytics dashboard powered by AI with authentication and payments.",
+    problem:
+      "Gives teams one clear place to understand product performance instead of working through disconnected metrics and reports.",
     stack: [
       { name: "Next.js", icon: SiNextdotjs },
       { name: "TypeScript", icon: SiTypescript },
@@ -178,6 +203,8 @@ export const projects = [
     image: "/projects/project3.png",
     description:
       "A self-aware portfolio built with Framer Motion and AI integrations.",
+    problem:
+      "Creates a more useful portfolio experience by giving visitors immediate, contextual answers instead of making them search static pages.",
     stack: [
       { name: "React", icon: SiReact },
       { name: "Framer Motion", icon: SiFramer },

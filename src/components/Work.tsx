@@ -10,7 +10,7 @@ import {
   Pause,
   Play,
 } from "lucide-react";
-import { FolderKanban, Users, Blocks } from "lucide-react";
+import { FolderKanban, Blocks } from "lucide-react";
 import { FaGithub } from "react-icons/fa6";
 import { usePortfolio } from "@/components/PortfolioProvider";
 
@@ -28,10 +28,9 @@ const fadeUp = {
 export default function Work() {
   const { projects } = usePortfolio();
   const [current, setCurrent] = useState(0);
-  const [playing, setPlaying] = useState(true);
-  const [category, setCategory] = useState<"personal" | "nocode" | "collab">(
-    "personal",
-  );
+  const [playing, setPlaying] = useState(false);
+  // Existing CMS project types map to the labels visitors see here.
+  const [category, setCategory] = useState<"personal" | "nocode">("personal");
 
   const filteredProjects = projects.filter(
     (project) => project.type === category,
@@ -70,6 +69,7 @@ export default function Work() {
   }, [category, projects.length]);
 
   const project = filteredProjects[current];
+  const categoryLabel = category === "nocode" ? "AI engineering" : "Software engineering";
 
   if (!project) {
     return (
@@ -99,7 +99,7 @@ export default function Work() {
               </span>
             </button>
 
-            {/* No-Code */}
+            {/* AI engineering */}
             <button
               onClick={() => setCategory("nocode")}
               className={`group relative flex items-center gap-2 rounded-xl border p-3 transition-all duration-200 ${
@@ -110,34 +110,15 @@ export default function Work() {
             >
               {category === "nocode" && (
                 <span className="text-sm font-medium z-50 transition-all duration-300 ease-in-out">
-                  No-Code
+                  AI engineering
                 </span>
               )}{" "}
               <Blocks size={18} />
               <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
-                No-Code
+                AI engineering
               </span>
             </button>
 
-            {/* Collaboration */}
-            <button
-              onClick={() => setCategory("collab")}
-              className={`group relative flex items-center gap-2 rounded-xl border p-3 transition-all duration-200 ${
-                category === "collab"
-                  ? "border-white bg-white text-black"
-                  : "border-zinc-800 bg-zinc-900 hover:border-zinc-700 hover:bg-zinc-800"
-              }`}
-            >
-              {category === "collab" && (
-                <span className="text-sm font-medium z-50 transition-all duration-300 ease-in-out">
-                  Collaboration
-                </span>
-              )}{" "}
-              <Users size={18} />
-              <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
-                Collaboration
-              </span>
-            </button>
           </div>
         </div>
         <motion.div
@@ -151,7 +132,7 @@ export default function Work() {
             No projects yet
           </h3>
           <p className="text-zinc-500">
-            Check back later for {category} projects.
+            Check back later for {categoryLabel} projects.
           </p>
         </motion.div>
       </section>
@@ -161,14 +142,14 @@ export default function Work() {
   return (
     <section
       data-lenis-prevent
-      className="relative -mt-10 mx-auto max-h-[75vh] max-w-7xl overflow-y-auto overscroll-contain py-10 no-scrollbar"
+      className="relative mt-2 mx-auto max-h-[75vh]  overflow-x-hidden overflow-y-auto overscroll-contain py-5 no-scrollbar"
     >
-      <div className="mb-5 flex items-center justify-between">
+      <div className="mb-2 flex items-center justify-between  ">
         <motion.h1
           variants={fadeUp}
           initial="hidden"
           animate="show"
-          className="text-2xl font-bold sm:text-5xl"
+          className="text-xl md:text-2xl font-bold "
         >
           {project.title}
         </motion.h1>
@@ -177,66 +158,46 @@ export default function Work() {
           {/* Personal */}
           <button
             onClick={() => setCategory("personal")}
-            className={`group relative flex items-center gap-2 rounded-xl border p-3 transition-all duration-300 ease-in-out ${
+            className={`group relative flex items-center gap-2 rounded-xl md:rounded-2xl border p-2 md:p-3 transition-all duration-300 ease-in-out ${
               category === "personal"
                 ? "border-white bg-white text-black"
                 : "border-zinc-800 bg-zinc-900 hover:border-zinc-700 hover:bg-zinc-800"
             }`}
           >
-            {category === "personal" && (
-              <span className="text-sm font-medium z-50 transition-all duration-300 ease-in-out">
-                Personal
+              {category === "personal" && (
+              <span className="text-[0.74rem] md:text-sm font-medium z-50 transition-all duration-300 ease-in-out">
+                Software engineering
               </span>
             )}{" "}
             <FolderKanban size={18} />
-            <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
-              Personal
-            </span>
+            {/* <span className="pointer-events-none absolute text-white -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
+              Software engineering projects
+            </span> */}
           </button>
 
-          {/* No-Code */}
+          {/* AI engineering */}
           <button
             onClick={() => setCategory("nocode")}
-            className={`group relative flex items-center gap-2 rounded-xl border p-3 transition-all duration-200 ${
+            className={`group relative flex items-center gap-2  rounded-xl md:rounded-2xl border p-2 md:p-3 transition-all duration-200 ${
               category === "nocode"
                 ? "border-white bg-white text-black"
                 : "border-zinc-800 bg-zinc-900 hover:border-zinc-700 hover:bg-zinc-800"
             }`}
           >
             {category === "nocode" && (
-              <span className="text-sm font-medium z-50 transition-all duration-300 ease-in-out">
-                No-Code
+              <span className="text-[0.74rem] md:text-sm  font-medium z-50 transition-all duration-300 ease-in-out">
+                AI engineering
               </span>
             )}{" "}
             <Blocks size={18} />
-            <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
-              No-Code
-            </span>
-          </button>
-
-          {/* Collaboration */}
-          <button
-            onClick={() => setCategory("collab")}
-            className={`group relative flex items-center gap-2 rounded-xl border p-3 transition-all duration-200 ${
-              category === "collab"
-                ? "border-white bg-white text-black"
-                : "border-zinc-800 bg-zinc-900 hover:border-zinc-700 hover:bg-zinc-800"
-            }`}
-          >
-            {category === "collab" && (
-              <span className="text-sm font-medium z-50 transition-all duration-300 ease-in-out">
-                Collaboration
-              </span>
-            )}{" "}
-            <Users size={18} />
-            <span className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
-              Collaboration
-            </span>
+            {/* <span className="pointer-events-none absolute  text-white -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-zinc-800 px-3 py-1 text-xs opacity-0 transition-all group-hover:-translate-y-1 group-hover:opacity-100">
+              Ai engineering projects
+            </span> */}
           </button>
         </div>
       </div>
 
-      <div className="relative overflow-hidden mt-5 ">
+      <div className="relative    pt-5 ">
         <AnimatePresence mode="wait">
           {project ? (
             <motion.div
@@ -248,23 +209,23 @@ export default function Work() {
               transition={{ duration: 0.45 }}
             >
               {/* Header */}
-              <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
+              <div className="mb-10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between  ">
                 {/* Stack Icons */}
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-3  ">
                   {project.stack.map((tool) => {
                     const Icon = tool.icon ?? Code2;
 
                     return (
                       <div key={tool.name} className="group relative">
-                        <div className="rounded-xl bg-zinc-900 p-3 transition duration-300 hover:scale-110 hover:bg-zinc-800">
-                          <Icon className="text-2xl text-white" />
+                        <div className="rounded-2xl bg-zinc-800 p-3 transition-all duration-300 group-hover:scale-110 group-hover:bg-white group-hover:text-black ">
+                          <Icon className="text-2xl " />
                         </div>
 
                         <span
                           className="
                           pointer-events-none
                           absolute
-                          -top-10
+                          -top-8
                           left-1/2
                           -translate-x-1/2
                           whitespace-nowrap
@@ -291,11 +252,30 @@ export default function Work() {
 
               {/* Body */}
               <div className="grid min-w-0 items-stretch gap-6 md:grid-cols-[360px_minmax(0,1fr)]">
-                {/* Description */}
-                <div className="min-w-0 rounded-2xl bg-zinc-900 p-8">
-                  <p className="min-w-0 whitespace-normal break-words [overflow-wrap:anywhere] leading-8 text-zinc-400">
-                    {project.description}
-                  </p>
+                {/* Project details */}
+                <div className="min-w-0 rounded-2xl bg-zinc-900 p-5">
+                  <div className="space-y-5">
+                    <div>
+                      <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">What it does</p>
+                      <p className="mt-2 text-[0.9rem] leading-7 text-zinc-400">{project.description}</p>
+                    </div>
+
+                    <div className="border-t border-zinc-800 pt-5">
+                      <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Problem it solves</p>
+                      <p className="mt-2 text-[0.9rem] leading-7 text-zinc-400">
+                        {project.problem ?? "Turns a scattered workflow into a focused, easy-to-use product experience."}
+                      </p>
+                    </div>
+
+                    <div className="border-t border-zinc-800 pt-5">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-zinc-500">Built with</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {project.stack.map((tool) => (
+                        <span key={tool.name} className="rounded-lg bg-zinc-800 px-3 py-1.5 text-xs text-zinc-300">{tool.name}</span>
+                      ))}
+                    </div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Image */}
@@ -316,7 +296,7 @@ export default function Work() {
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-medium text-black transition hover:scale-105"
                       >
-                        <ArrowUpRight size={18} />
+                        <ArrowUpRight size={18} /> Live site
                       </a>
                     )}
 
@@ -327,7 +307,7 @@ export default function Work() {
                         rel="noopener noreferrer"
                         className="rounded-xl border border-white/20 bg-white/10 px-5 py-3 text-sm font-medium text-white backdrop-blur-md transition hover:bg-white hover:text-black"
                       >
-                        <FaGithub size={18} />
+                        <FaGithub size={18} /> <span className="sr-only">Source code</span>
                       </a>
                     )}
                   </div>

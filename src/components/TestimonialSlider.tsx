@@ -49,7 +49,7 @@ export default function TestimonialSlider({ items, reverse = false }: {
             key={`${testimonial.name}-${index}`}
             className="w-[285px] shrink-0 rounded-2xl border border-zinc-800 bg-black/20 p-6"
           >
-            <p className="min-h-24 text-sm leading-7 text-zinc-300">
+            <p className="min-h-24 text-[0.9rem] md:text-sm leading-7 text-zinc-300">
               “{testimonial.text}”
             </p>
             <div className="mt-5 flex items-center gap-3 border-t border-zinc-800 pt-4">
